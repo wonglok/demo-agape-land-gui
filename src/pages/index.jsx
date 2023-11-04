@@ -16,6 +16,9 @@ export default function Page() {
           <a href={`https://gameofphonesvr.com`} target='_blank'>
             <li className='mb-2 list-item list-inside list-decimal'>T Mobile</li>
           </a>
+          <a href={`https://tool.agape.land`} target='_blank'>
+            <li className='mb-2 list-item list-inside list-decimal'>Artist Tool</li>
+          </a>
         </ul>
       </div>
     </>
