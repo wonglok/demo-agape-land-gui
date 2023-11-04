@@ -166,7 +166,7 @@ export class YoMeta extends Object3D {
         metalness: 0.0,
         emissive: new Color('#000000'),
         transparent: true,
-        transmission: 1,
+        transmission: 1.3,
         thickness: 2.2,
       }),
     )
