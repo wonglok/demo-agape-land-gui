@@ -1,6 +1,5 @@
-import { useAnimations, useGLTF } from '@react-three/drei'
+import { useGLTF } from '@react-three/drei'
 import { useEffect, useMemo, useRef } from 'react'
-import { clone } from 'three/examples/jsm/utils/SkeletonUtils'
 import { AnimationMixer, Color } from 'three'
 import { useFrame } from '@react-three/fiber'
 
@@ -8,11 +7,13 @@ export function Genesis() {
   let gltf = useGLTF(`/garage/texture-proper-512.glb`)
 
   let refGP = useRef()
+
   let mixer = useMemo(() => new AnimationMixer(gltf.scene), [gltf.scene])
 
   useFrame((st, dt) => {
     mixer.update(dt)
   })
+
   useEffect(() => {
     gltf.scene.traverse((it) => {
       it.frustumCulled = false
@@ -25,11 +26,12 @@ export function Genesis() {
         it.material.emissive = new Color('#00ffff')
       }
     })
-  })
+  }, [gltf.scene])
 
   useEffect(() => {
     mixer.clipAction(gltf.animations[0]).play()
   }, [mixer, gltf.animations])
+
   return (
     <>
       {/*  */}

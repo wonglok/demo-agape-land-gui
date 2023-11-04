@@ -5,7 +5,7 @@ import { Box, Environment, OrbitControls, Sphere } from '@react-three/drei'
 import { GLBLoader } from './GLBLoader'
 import { CamConfig } from './CamConfig'
 import { Video } from './Video'
-import { DoubleSide, ACESFilmicToneMapping, CineonToneMapping, LinearToneMapping } from 'three'
+import { DoubleSide } from 'three'
 import { Genesis } from './Genesis'
 import { Suspense } from 'react'
 
