@@ -11,7 +11,7 @@ import {
 import { useMouse } from './useMouse.js'
 import { useFrame, useThree } from '@react-three/fiber'
 import { Suspense, useEffect, useMemo, useRef, useState } from 'react'
-import { DoubleSide, Vector3 } from 'three'
+import { DoubleSide, FrontSide, Vector3 } from 'three'
 import { sceneToCollider } from './Noodle/sceneToCollider.js'
 import { EnvSSRWorks } from './PostProcessing/EnvSSRWorks.jsx'
 import { create } from 'zustand'
@@ -34,18 +34,16 @@ export function MouseGesture() {
           <MathSymbol position={[3, 2, -5]} left={'+ 3'} right='- 3'></MathSymbol>
 
           <group position={[0, -3, -1]} userData={{ dragGroup: true }}>
-            <Sphere scale={[2, 2, 0.5]} userData={{ noGlow: true }}>
+            <Sphere scale={[2, 2, 0.25]} userData={{ noGlow: true }}>
               <MeshTransmissionMaterial
-                backside={true}
-                side={DoubleSide}
+                side={FrontSide}
                 backsideThickness={0.5}
                 transmissionSampler={true}
                 transmission={1}
-                roughness={0.0}
+                roughness={0.13}
                 thickness={1.5}
                 reflectivity={0.5}
                 chromaticAberration={0.15}
-                //
               ></MeshTransmissionMaterial>
             </Sphere>
           </group>
@@ -271,19 +269,19 @@ function SelectiveBloomRender() {
     return create((set, get) => {
       return {
         postProcessingConfig: {
-          multisampling: 2,
+          multisampling: 1,
           emissiveIntensity: 1,
           envMapIntensity: 1,
 
           aoPass: {
-            useThisOne: false,
+            useThisOne: true,
             intensity: 2,
             aoRadius: 1.9020000000000001,
             distanceFalloff: 2.5540000000000003,
             color: '#000000',
           },
           colorPass: {
-            useThisOne: true,
+            useThisOne: false,
             hue: 0,
             satuation: 0.3,
             brightness: -0.1,
@@ -337,9 +335,9 @@ function SelectiveBloomRender() {
             intensity: 0.5,
           },
           chromePass: {
-            useThisOne: true,
-            offsetX: 0.004,
-            offsetY: 0.004,
+            useThisOne: false,
+            offsetX: 0.008,
+            offsetY: 0.008,
             radialModulation: true,
             modulationOffset: 0.75,
           },
@@ -432,7 +430,7 @@ function OneHand({ bone }) {
   let ref = useRef()
   useFrame(() => {
     if (ref.current) {
-      ref.current.position.lerp(bone.position, 0.25)
+      ref.current.position.lerp(bone.position, 0.3)
       ref.current.visible = bone.visible
     }
   })
