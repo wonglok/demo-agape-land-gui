@@ -1,7 +1,7 @@
 import { Canvas } from '@react-three/fiber'
 import { Joystick, PPSwitch } from 'agape-sdk/src/main'
 import { baseURL, useAgape } from './useAgape'
-import { Box, Environment, OrbitControls, Sphere } from '@react-three/drei'
+import { Box, Environment, OrbitControls, PerspectiveCamera, Sphere } from '@react-three/drei'
 import { GLBLoader } from './GLBLoader'
 import { CamConfig } from './CamConfig'
 import { Video } from './Video'
@@ -28,27 +28,29 @@ export function Garage() {
           <GameModeAdapter useStore={useAgape}></GameModeAdapter>
         </group>
 
-        <GLBLoader></GLBLoader>
+        <group>
+          <GLBLoader></GLBLoader>
 
-        <pointLight color={'#009999'} position={[-8, 4, 0]} intensity={0.2}>
-          <mesh visible={false}>
-            <sphereBufferGeometry args={[0.3, 32, 32]}></sphereBufferGeometry>
-          </mesh>
-        </pointLight>
-
-        <group scale={1.6} position={[0, 0.2, -3.5]}>
-          <pointLight color={'#009999'} position={[0, 1.6, 1]} intensity={0.5}>
+          <pointLight color={'#009999'} position={[-8, 4, 0]} intensity={0.2}>
             <mesh visible={false}>
               <sphereBufferGeometry args={[0.3, 32, 32]}></sphereBufferGeometry>
             </mesh>
           </pointLight>
-          <Suspense fallback={null}>
-            <Genesis></Genesis>
-          </Suspense>
-        </group>
 
-        <group rotation={[0, Math.PI * -0.15, 0]} scale={0.5} position={[10, 0.1, -2]}>
-          <Video></Video>
+          <group scale={1.6} position={[0, 0.2, -3.5]}>
+            <pointLight color={'#009999'} position={[0, 1.6, 1]} intensity={0.5}>
+              <mesh visible={false}>
+                <sphereBufferGeometry args={[0.3, 32, 32]}></sphereBufferGeometry>
+              </mesh>
+            </pointLight>
+            <Suspense fallback={null}>
+              <Genesis></Genesis>
+            </Suspense>
+          </group>
+
+          <group rotation={[0, Math.PI * -0.15, 0]} scale={0.5} position={[10, 0.1, -2]}>
+            <Video></Video>
+          </group>
         </group>
 
         <OrbitControls
@@ -94,7 +96,10 @@ function Birthplace() {
   useEffect(() => {
     if (game) {
       setTimeout(() => {
-        game.reset([1, 1.3, 10], [1, 1.3, 11])
+        game.reset(
+          [0, 1.25, 0],
+          [-11.008556986574158, 5.6361512214584275, 20.39209677862589].map((r) => r * 0.5),
+        )
       }, 0)
     }
   }, [game])
