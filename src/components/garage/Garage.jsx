@@ -1,5 +1,5 @@
 import { Canvas } from '@react-three/fiber'
-import { PPSwitch } from 'agape-sdk/src/main'
+import { Joystick, PPSwitch } from 'agape-sdk/src/main'
 import { baseURL, useAgape } from './useAgape'
 import { Box, Environment, OrbitControls, Sphere } from '@react-three/drei'
 import { GLBLoader } from './GLBLoader'
@@ -7,7 +7,8 @@ import { CamConfig } from './CamConfig'
 import { Video } from './Video'
 import { DoubleSide } from 'three'
 import { Genesis } from './Genesis'
-import { Suspense } from 'react'
+import { Suspense, useEffect } from 'react'
+import { GameModeAdapter } from '../Runner/GameModeAdapter'
 
 export function Garage() {
   return (
@@ -23,6 +24,9 @@ export function Garage() {
         {/* <Environment files={`${baseURL}/agape-sdk/hdr/concret.hdr`}></Environment> */}
 
         <CamConfig></CamConfig>
+        <group visible={false}>
+          <GameModeAdapter useStore={useAgape}></GameModeAdapter>
+        </group>
 
         <GLBLoader></GLBLoader>
 
@@ -32,7 +36,7 @@ export function Garage() {
           </mesh>
         </pointLight>
 
-        <group scale={1.5} position={[0, 0.2, -3.5]}>
+        <group scale={1.6} position={[0, 0.2, -3.5]}>
           <pointLight color={'#009999'} position={[0, 1.6, 1]} intensity={0.5}>
             <mesh visible={false}>
               <sphereBufferGeometry args={[0.3, 32, 32]}></sphereBufferGeometry>
@@ -50,6 +54,7 @@ export function Garage() {
         <OrbitControls
           object-position={[-11.008556986574158, 6.6361512214584275, 33.39209677862589]}
           target={[0, 2.5, 0]}
+          enabled={false}
         ></OrbitControls>
 
         <Box args={[500, 500, 0.1]} position={[0, 0, -10]}>
@@ -73,7 +78,26 @@ export function Garage() {
             envMapIntensity={0.0}
           ></meshPhysicalMaterial>
         </Box>
+
+        <Birthplace></Birthplace>
       </Canvas>
+
+      <div id='guilayer'></div>
+      <Joystick useStore={useAgape}></Joystick>
     </>
   )
+}
+
+function Birthplace() {
+  let game = useAgape((r) => r.game)
+
+  useEffect(() => {
+    if (game) {
+      setTimeout(() => {
+        game.reset([1, 1.3, 10], [1, 1.3, 11])
+      }, 0)
+    }
+  }, [game])
+
+  return null
 }

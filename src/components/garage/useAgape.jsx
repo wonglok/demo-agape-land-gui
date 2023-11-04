@@ -9,7 +9,7 @@ export const useAgape = create((set, get) => {
   return {
     envURL: '/agape-sdk/hdr/concret.hdr',
     myAvatarURL: '/assets/2023-04-07-walk/lok-groom.glb',
-    colliderGLBURL: '',
+    colliderGLBURL: '/garage/collider.glb',
     gameMode: 'room',
     postprocessing: 'game',
     insepction: 'normal',

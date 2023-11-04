@@ -29,15 +29,13 @@ export class YoMeta extends Object3D {
     }
 
     //
-    this.reset = () => {
+    this.reset = (position = [0, 1.5, 0], camPos = [0, 1.5, 3]) => {
       this.playerVelocity.set(0, 0, 0)
-      this.controls.target.set(0, 1.52, 0)
-      this.player.position.set(0, 1.52, 0)
-      this.camera.position.x = 0
-      this.camera.position.y = 1.52
-      this.camera.position.z = 3
+      this.controls.target.fromArray(position)
+      this.player.position.fromArray(position)
+      this.camera.position.fromArray(camPos)
       this.player.visible = false
-      this.controls.rotateSpeed = -0.5
+      this.controls.rotateSpeed = -1
 
       // this.camera.position.sub(this.controls.target)
       // this.controls.target.copy(this.player.position)

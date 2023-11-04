@@ -26,6 +26,7 @@ export function RoomView({ useStore }) {
               <>
                 <OrbitControls makeDefault domElement={gl.domElement}></OrbitControls>
                 <MetaverseGLB
+                  useStore={useStore}
                   glb={glb}
                   offsetY={1}
                   WhenReady={function Ready() {
