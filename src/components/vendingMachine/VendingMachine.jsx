@@ -23,7 +23,7 @@ export function VendingMachine() {
 
         <CamConfig></CamConfig>
 
-        <group visible={false}>
+        <group visible={true}>
           <GameModeAdapter useStore={useAgape}></GameModeAdapter>
         </group>
 
@@ -76,7 +76,7 @@ function Birthplace() {
       let tt = setInterval(() => {
         if (game.updatePlayer) {
           clearInterval(tt)
-          game.reset([0, 1.5, 4], [0, 1.7, 4.5])
+          game.reset([0, 1.5, 4], [0, 1.5 + 1, 4 + 4])
         }
       }, 500)
 
