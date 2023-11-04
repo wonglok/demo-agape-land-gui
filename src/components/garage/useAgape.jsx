@@ -70,7 +70,7 @@ export const useAgape = create((set, get) => {
         useThisOne: true,
         hue: 0,
         satuation: 0,
-        brightness: 0,
+        brightness: -0.05,
         contrast: 0.1,
         saturation: 0.1,
       },
