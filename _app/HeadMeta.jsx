@@ -1,7 +1,6 @@
 const title = 'Agape'
 const url = 'https://reunite.digital/'
-const description =
-  'Agape Engineering is a software engineering firm that specializes in building web and mobile applications.'
+const description = 'Agape Engine'
 const author = 'Agape Engineering'
 const twitter = '@wonglok831'
 
