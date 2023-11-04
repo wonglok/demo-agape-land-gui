@@ -238,9 +238,9 @@ export class YoMeta extends Object3D {
           }
           this.player.material.transparent = true
         } else {
-          this.player.material.opacity *= 0.95
+          this.player.material.opacity *= 0.9
           this.player.material.transparent = true
-          if (this.player.material.opacity < 0.1) {
+          if (this.player.material.opacity < 0.05) {
             this.player.visible = false
           }
         }
