@@ -10,11 +10,17 @@ export default function Page() {
           <a href={`/querlo`} target='_blank'>
             <li className='mb-2 list-item list-inside list-decimal'>Querlo</li>
           </a>
+          <a href={`/mouse`} target='_blank'>
+            <li className='mb-2 list-item list-inside list-decimal'>Mouse</li>
+          </a>
           <a href={`/vending-machine`} target='_blank'>
             <li className='mb-2 list-item list-inside list-decimal'>Vending Machine</li>
           </a>
           <a href={`/xr-blocks`} target='_blank'>
             <li className='mb-2 list-item list-inside list-decimal'>XR Lego</li>
+          </a>
+          <a href={`/mouse`} target='_blank'>
+            <li className='mb-2 list-item list-inside list-decimal'>Webcam Hand Grab</li>
           </a>
 
           <a href={`https://tool.agape.land`} target='_blank'>
