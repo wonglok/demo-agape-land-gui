@@ -13,7 +13,6 @@ export const useAgape = create((set, get) => {
     gameMode: 'room',
     postprocessing: 'game',
     insepction: 'normal',
-    tab: 'light',
     postProcessingConfig: {
       multisampling: 1,
       emissiveIntensity: 10,

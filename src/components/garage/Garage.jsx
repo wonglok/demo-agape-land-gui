@@ -5,7 +5,7 @@ import { Box, Environment, OrbitControls, Sphere } from '@react-three/drei'
 import { GLBLoader } from './GLBLoader'
 import { CamConfig } from './CamConfig'
 import { Video } from './Video'
-import { ACESFilmicToneMapping, CineonToneMapping, DoubleSide, LinearToneMapping } from 'three'
+import { DoubleSide, ACESFilmicToneMapping, CineonToneMapping, LinearToneMapping } from 'three'
 import { Genesis } from './Genesis'
 import { Suspense } from 'react'
 
@@ -16,6 +16,8 @@ export function Garage() {
         {/* <Box>
           <meshStandardMaterial></meshStandardMaterial>
         </Box> */}
+
+        {/*  */}
         <PPSwitch useStore={useAgape}></PPSwitch>
 
         {/* <Environment files={`${baseURL}/agape-sdk/hdr/concret.hdr`}></Environment> */}
