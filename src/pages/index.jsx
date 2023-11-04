@@ -13,6 +13,9 @@ export default function Page() {
           <a href={`/vending-machine`} target='_blank'>
             <li className='mb-2 list-item list-inside list-decimal'>Vending Machine</li>
           </a>
+          <a href={`/xr-blocks`} target='_blank'>
+            <li className='mb-2 list-item list-inside list-decimal'>XR Lego</li>
+          </a>
 
           <a href={`https://tool.agape.land`} target='_blank'>
             <li className='mb-2 list-item list-inside list-decimal'>Agape Artist Tool 🔗</li>
