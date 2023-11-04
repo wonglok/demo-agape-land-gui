@@ -28,13 +28,17 @@ export function Genesis() {
     })
   }, [gltf.scene])
 
-  useFrame(() => {
-    if (gltf.scene) {
-      gltf.scene.traverse((it) => {
-        //
-      })
-    }
-  })
+  //
+  // //
+  // useFrame(() => {
+  //   if (gltf.scene) {
+  //     gltf.scene.traverse((it) => {
+  //       //
+
+  //       console.log(it)
+  //     })
+  //   }
+  // })
 
   useEffect(() => {
     mixer.clipAction(gltf.animations[0]).play()
