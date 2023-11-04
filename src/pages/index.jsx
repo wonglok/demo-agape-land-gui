@@ -13,17 +13,18 @@ export default function Page() {
           <a href={`/vending-machine`} target='_blank'>
             <li className='mb-2 list-item list-inside list-decimal'>Vending Machine</li>
           </a>
+
+          <a href={`https://tool.agape.land`} target='_blank'>
+            <li className='mb-2 list-item list-inside list-decimal'>Agape Artist Tool 🔗</li>
+          </a>
           <a href={`https://gameofphonesvr.com`} target='_blank'>
-            <li className='mb-2 list-item list-inside list-decimal'>T Mobile</li>
+            <li className='mb-2 list-item list-inside list-decimal'>T Mobile 🔗</li>
           </a>
           <a href={`https://cadillac.agape.land/`} target='_blank'>
-            <li className='mb-2 list-item list-inside list-decimal'>Cadillac</li>
+            <li className='mb-2 list-item list-inside list-decimal'>Cadillac 🔗</li>
           </a>
           <a href={`https://feeling.reflektor.digital/`} target='_blank'>
-            <li className='mb-2 list-item list-inside list-decimal'>CocaCola x Marshmello</li>
-          </a>
-          <a href={`https://tool.agape.land`} target='_blank'>
-            <li className='mb-2 list-item list-inside list-decimal'>Agape Artist Tool</li>
+            <li className='mb-2 list-item list-inside list-decimal'>CocaCola x Marshmello 🔗</li>
           </a>
         </ul>
       </div>
