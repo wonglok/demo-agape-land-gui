@@ -34,6 +34,8 @@ function Cube({ position, args = [0.05, 0.05, 0.05] }) {
 
   return (
     <>
+      {/*  */}
+
       {/* <Sphere ref={sphRef} position={position} args={[0.05 / 2, 32, 32]}>
         <meshPhysicalMaterial attach='material' metalness={1} roughness={0} />
       </Sphere> */}
