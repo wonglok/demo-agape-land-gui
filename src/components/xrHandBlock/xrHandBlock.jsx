@@ -13,9 +13,10 @@ export function XRHandBlock() {
         <XR>
           <Physics
             gravity={[0, -2, 0]}
-            iterations={20}
+            iterations={30}
             defaultContactMaterial={{
               friction: 0.09,
+              restitution: 0,
             }}
           >
             <Scene />
@@ -50,14 +51,14 @@ function JointCollider({ index, hand }) {
   const joint = handObj.joints[joints[index]]
   const size = joint.jointRadius ?? 0.0001
 
-  const [tipRef, api] = useSphere(() => ({ args: size, position: [-1, 0, 0] }))
+  const [tipRef, api] = useSphere(() => ({ args: size * 1.1, position: [-1, 0, 0] }))
   useFrame(() => {
     if (joint === undefined) return
     api.position.set(joint.position.x, joint.position.y, joint.position.z)
   })
 
   return (
-    <Sphere ref={tipRef} args={[size]}>
+    <Sphere ref={tipRef} args={[size * 1.1]}>
       <meshBasicMaterial transparent opacity={0} attach='material' />
     </Sphere>
   )
@@ -70,12 +71,14 @@ function HandsReady(props) {
     if (ready) return
     const joint = gl.xr.getHand(0).joints['index-finger-tip']
     if (joint?.jointRadius !== undefined) return
+
     const id = setInterval(() => {
       const joint = gl.xr.getHand(0).joints['index-finger-tip']
-      if (joint?.jointRadius !== undefined) {
+      if (joint?.jointRadius !== undefined && !ready) {
         setReady(true)
       }
-    }, 500)
+    }, 1)
+
     return () => clearInterval(id)
   }, [gl, ready])
 
