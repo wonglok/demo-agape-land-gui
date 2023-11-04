@@ -32,6 +32,7 @@ export function Joystick() {
             if (!nip) {
               return
             }
+
             if (!ref.current) {
               return
             }
