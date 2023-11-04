@@ -24,17 +24,17 @@ export function MouseGesture() {
   return (
     <>
       <group>
-        <MathSymbol position={[0, 2, -5]} canDrag={false} left={'='} right='='></MathSymbol>
+        <MathSymbol position={[0, 3, -5]} canDrag={false} left={'='} right='='></MathSymbol>
 
         <group name='groupCast'>
-          <MathSymbol position={[-3, 2, -5]} left={'+ 1'} right='- 1'></MathSymbol>
+          <MathSymbol position={[-3, 3, -5]} left={'+ 1'} right='- 1'></MathSymbol>
 
-          <MathSymbol position={[-8, 2, -5]} left={'+ 2x'} right='- 2x'></MathSymbol>
+          <MathSymbol position={[-8, 3, -5]} left={'+ 2x'} right='- 2x'></MathSymbol>
 
-          <MathSymbol position={[3, 2, -5]} left={'+ 3'} right='- 3'></MathSymbol>
+          <MathSymbol position={[3, 3, -5]} left={'+ 3'} right='- 3'></MathSymbol>
 
-          <group position={[0, -3, -1]} userData={{ dragGroup: true }}>
-            <Sphere scale={[2, 2, 0.25]} userData={{ noGlow: true }}>
+          <group position={[0, -3, -4]} userData={{ dragGroup: true }}>
+            <Sphere scale={[3, 3, 0.25]} userData={{ noGlow: true }}>
               <MeshTransmissionMaterial
                 side={FrontSide}
                 backsideThickness={0.5}
