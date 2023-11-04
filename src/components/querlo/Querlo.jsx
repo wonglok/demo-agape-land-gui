@@ -2,7 +2,7 @@ import { Canvas } from '@react-three/fiber'
 import { GameModeAdapter } from '../Runner/GameModeAdapter'
 import { useQuerlo } from './useQuerlo'
 import { MyBG } from './MyGB'
-import { sRGBEncoding } from 'three'
+import { LinearEncoding, sRGBEncoding } from 'three'
 import { Patch } from './Path'
 import { Suspense } from 'react'
 import { Joystick, PPSwitch } from 'agape-sdk/src/main'
@@ -11,12 +11,7 @@ import { Joystick, PPSwitch } from 'agape-sdk/src/main'
 export function Querlo() {
   return (
     <>
-      <Canvas
-        onCreated={(st) => {
-          st.gl.outputEncoding = sRGBEncoding
-          st.gl.useLegacyLights = false
-        }}
-      >
+      <Canvas>
         <Suspense fallback={null}>
           <group name='querlogp'>
             <GameModeAdapter useStore={useQuerlo}></GameModeAdapter>
@@ -25,11 +20,10 @@ export function Querlo() {
 
           <PPSwitch useStore={useQuerlo}></PPSwitch>
 
-          <directionalLight intensity={1} position={[0, 1, 1]}></directionalLight>
-          <directionalLight intensity={1} position={[0, 1, -1]}></directionalLight>
-          <pointLight intensity={5} position={[0, 5, -10]}></pointLight>
+          <directionalLight intensity={0.35} position={[0, 1, 1]}></directionalLight>
+          <directionalLight intensity={0.35} position={[0, 1, -1]}></directionalLight>
+          <pointLight intensity={0.1} position={[0, 5, -10]}></pointLight>
 
-          {/* <Background useStore={useQuerlo}></Background> */}
           <MyBG useStore={useQuerlo}></MyBG>
         </Suspense>
       </Canvas>
