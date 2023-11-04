@@ -1,4 +1,3 @@
-import { useTexture } from '@react-three/drei'
 import { useThree } from '@react-three/fiber'
 import { useEffect } from 'react'
 import { EquirectangularReflectionMapping, TextureLoader, sRGBEncoding } from 'three'
