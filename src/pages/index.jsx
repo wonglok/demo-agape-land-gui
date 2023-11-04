@@ -7,6 +7,9 @@ export default function Page() {
           <a href={`/garage`} target='_blank'>
             <li className='mb-2 list-item list-inside list-decimal'>Garage</li>
           </a>
+          <a href={`/querlo`} target='_blank'>
+            <li className='mb-2 list-item list-inside list-decimal'>Querlo</li>
+          </a>
         </ul>
       </div>
     </>

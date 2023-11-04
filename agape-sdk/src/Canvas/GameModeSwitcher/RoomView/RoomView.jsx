@@ -41,7 +41,9 @@ export function RoomView({ useStore }) {
                     }, [glb])
                     return (
                       <>
-                        <primitive object={glb.scene}></primitive>
+                        <group name={'metaverse'}>
+                          <primitive object={glb.scene}></primitive>
+                        </group>
                       </>
                     )
                   }}

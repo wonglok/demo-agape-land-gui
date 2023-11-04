@@ -28,7 +28,7 @@ export function Background({ useStore }) {
         gen.compileEquirectangularShader()
         let envMap = gen.fromEquirectangular(tx)
         envMap.mapping = CubeReflectionMapping
-
+        // envMap.encoding = sRGBEncoding
         // scene.background = envMap.texture;
         scene.environment = envMap.texture
       }
