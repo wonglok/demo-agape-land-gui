@@ -19,7 +19,7 @@ export const useAgape = create((set, get) => {
       envMapIntensity: -1,
       ssrPass: {
         useThisOne: true,
-        intensity: 4,
+        intensity: 2,
         exponent: 1,
         distance: 10,
         fade: 0,
