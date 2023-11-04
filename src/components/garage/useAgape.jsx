@@ -14,9 +14,9 @@ export const useAgape = create((set, get) => {
     postprocessing: 'game',
     insepction: 'normal',
     postProcessingConfig: {
-      multisampling: 1,
-      emissiveIntensity: 10,
-      envMapIntensity: 1,
+      multisampling: 4,
+      emissiveIntensity: -1,
+      envMapIntensity: -1,
       ssrPass: {
         useThisOne: true,
         intensity: 0.8,

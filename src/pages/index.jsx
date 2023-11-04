@@ -10,6 +10,9 @@ export default function Page() {
           <a href={`/querlo`} target='_blank'>
             <li className='mb-2 list-item list-inside list-decimal'>Querlo</li>
           </a>
+          <a href={`/vending-machine`} target='_blank'>
+            <li className='mb-2 list-item list-inside list-decimal'>Vending Machine</li>
+          </a>
         </ul>
       </div>
     </>
