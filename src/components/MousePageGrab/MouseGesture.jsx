@@ -337,11 +337,11 @@ function SelectiveBloomRender() {
             intensity: 0.5,
           },
           chromePass: {
-            useThisOne: false,
-            offsetX: 0.008,
-            offsetY: 0.008,
+            useThisOne: true,
+            offsetX: 0.004,
+            offsetY: 0.004,
             radialModulation: true,
-            modulationOffset: 0.5,
+            modulationOffset: 0.75,
           },
         },
       }
