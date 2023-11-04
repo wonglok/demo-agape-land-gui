@@ -1,5 +1,18 @@
 import { create } from 'zustand'
-import { Box3, Clock, Line3, Matrix4, Mesh, MeshStandardMaterial, Object3D, Spherical, Vector3 } from 'three'
+import {
+  Box3,
+  Clock,
+  Line3,
+  MeshPhysicalMaterial,
+  Matrix4,
+  Color,
+  Mesh,
+  MeshStandardMaterial,
+  Object3D,
+  Spherical,
+  Vector3,
+  SphereGeometry,
+} from 'three'
 import { RoundedBoxGeometry } from './RBG.jsx'
 // import { RoundedBoxGeometry } from "three/examples/jsm/geometries/RoundedBoxGeometry.js";
 import { sceneToCollider } from './sceneToCollider.js'
@@ -145,12 +158,16 @@ export class YoMeta extends Object3D {
 
     // character
     this.player = new Mesh(
-      new RoundedBoxGeometry(1.0, 2.0, 1.0, 10, 0.5),
-      new MeshStandardMaterial({
-        color: 0xffffffff,
-        roughness: 0.3,
-        metalness: 1.0,
-        emissive: 0x333333,
+      new RoundedBoxGeometry(1.0, 1.0, 1.0, 10, 0.5),
+      // new SphereGeometry(1.0, 2.0, 1.0, 10, 0.5),
+      new MeshPhysicalMaterial({
+        color: new Color('#ffffff'),
+        roughness: 0.0,
+        metalness: 0.0,
+        emissive: new Color('#000000'),
+        transparent: true,
+        transmission: 1,
+        thickness: 2.2,
       }),
     )
 
@@ -218,7 +235,7 @@ export class YoMeta extends Object3D {
           this.player.material.opacity += (1 / 60) * 5
           this.player.material.transparent = true
         } else {
-          this.player.material.opacity *= 0.97
+          this.player.material.opacity *= 0.95
           this.player.material.transparent = true
           if (this.player.material.opacity < 0.1) {
             this.player.visible = false
