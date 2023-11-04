@@ -76,7 +76,7 @@ function Birthplace() {
       let tt = setInterval(() => {
         if (game.updatePlayer) {
           clearInterval(tt)
-          game.reset([0, 1.5, 4], [0, 1.5, 4.5])
+          game.reset([0, 1.5, 4], [0, 1.7, 4.5])
         }
       }, 500)
 
