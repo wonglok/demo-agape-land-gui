@@ -28,7 +28,7 @@ export function VendingMachine() {
         </group>
 
         <group scale={1.5}>
-          <directionalLight position={[0, 1, 1]} intensity={0.03}></directionalLight>
+          <directionalLight position={[0, 2, 0.1]} intensity={0.01}></directionalLight>
           <GLBLoader></GLBLoader>
         </group>
 
