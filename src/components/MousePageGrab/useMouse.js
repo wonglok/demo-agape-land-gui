@@ -238,7 +238,7 @@ export const useMouse = create((set, get) => {
               let vpy = (lmk.y * 2.0 - 1.0) * vp.height
               let vpz = lmk.z
 
-              for (let bone = 0; bone < 20; bone++) {
+              for (let bone = 0; bone < this.dots.length; bone++) {
                 let dotMesh = this.dots[bone].mesh
                 let wmk = worldLandmarks[bone]
 
@@ -278,6 +278,7 @@ export const useMouse = create((set, get) => {
                 }
               }
 
+              //
               {
                 let isGrabbing = gestures[0]?.categoryName === 'Closed_Fist'
                 let isOpenPalm = gestures[0]?.categoryName === 'Open_Palm'
@@ -295,6 +296,7 @@ export const useMouse = create((set, get) => {
                 if (result[0]?.point) {
                   if (this.useHand.getState().move) {
                     let dt = clock.getDelta()
+
                     this.change('delta', result[0]?.point.clone().sub(this.useHand.getState().move))
                   }
                   this.change('move', result[0]?.point.clone())
