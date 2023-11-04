@@ -28,6 +28,14 @@ export function Genesis() {
     })
   }, [gltf.scene])
 
+  useFrame(() => {
+    if (gltf.scene) {
+      gltf.scene.traverse((it) => {
+        //
+      })
+    }
+  })
+
   useEffect(() => {
     mixer.clipAction(gltf.animations[0]).play()
   }, [mixer, gltf.animations])
@@ -36,6 +44,11 @@ export function Genesis() {
     <>
       {/*  */}
       <group ref={refGP} scale={1}>
+        <pointLight color='#00ffff' position={[0, 0.9, 0.8]} intensity={3} distance={2}>
+          {/* <mesh visible={true} scale={0.1}>
+            <sphereGeometry></sphereGeometry>
+          </mesh> */}
+        </pointLight>
         <primitive object={gltf.scene}></primitive>
       </group>
       {/*  */}
