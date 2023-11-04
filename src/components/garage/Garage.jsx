@@ -24,7 +24,7 @@ export function Garage() {
         {/* <Environment files={`${baseURL}/agape-sdk/hdr/concret.hdr`}></Environment> */}
 
         <CamConfig></CamConfig>
-        <group visible={false}>
+        <group visible={true}>
           <GameModeAdapter useStore={useAgape}></GameModeAdapter>
         </group>
 

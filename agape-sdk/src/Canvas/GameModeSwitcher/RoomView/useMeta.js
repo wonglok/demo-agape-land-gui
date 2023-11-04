@@ -7,7 +7,7 @@ import { ColliderCache } from '../BirdView/collider/ColliderCache.js'
 
 // const WeakMapYo = new WeakMap();
 export class YoMeta extends Object3D {
-  constructor({ camera, scene, gl, controls, offsetY = 0.5 }) {
+  constructor({ useStore, camera, scene, gl, controls, offsetY = 0.5 }) {
     super()
 
     this.camera = camera
@@ -21,6 +21,7 @@ export class YoMeta extends Object3D {
     // if (controls) {
     //   controls.dispose();
     // }
+
     this.controls = controls // new OrbitControls(camera, gl.domElement);
     this.controls.enableDamping = false
 
@@ -34,7 +35,6 @@ export class YoMeta extends Object3D {
       this.controls.target.fromArray(position)
       this.player.position.fromArray(position)
       this.camera.position.fromArray(camPos)
-      this.player.visible = false
       this.controls.rotateSpeed = -1
 
       // this.camera.position.sub(this.controls.target)
@@ -144,7 +144,16 @@ export class YoMeta extends Object3D {
     this.parseScene({ scene })
 
     // character
-    this.player = new Mesh(new RoundedBoxGeometry(1.0, 2.0, 1.0, 10, 0.5), new MeshStandardMaterial({}))
+    this.player = new Mesh(
+      new RoundedBoxGeometry(1.0, 2.0, 1.0, 10, 0.5),
+      new MeshStandardMaterial({
+        color: 0xffffffff,
+        roughness: 0.3,
+        metalness: 1.0,
+        emissive: 0x333333,
+      }),
+    )
+
     this.player.name = 'player'
     this.player.geometry.translate(0, -0.5, 0)
     this.player.position.y = 1.87
@@ -152,10 +161,7 @@ export class YoMeta extends Object3D {
       radius: 0.5,
       segment: new Line3(new Vector3(), new Vector3(0, -1.0, 0.0)),
     }
-    this.player.castShadow = true
-    this.player.receiveShadow = true
-    this.player.material.shadowSide = 2
-
+    this.player.visible = true
     this.clock = new Clock()
     this.upVector = new Vector3(0, 1, 0)
     this.playerVelocity = new Vector3()
@@ -186,6 +192,39 @@ export class YoMeta extends Object3D {
       this.player.position.addScaledVector(this.playerVelocity, delta)
 
       const angle = this.controls.getAzimuthalAngle()
+
+      {
+        let keepOnFull = false
+
+        keepOnFull = keepOnFull || this.keyState.joyStickDown
+        if (this.params.fwdPressed) {
+          keepOnFull = true
+        }
+
+        if (this.params.bkdPressed) {
+          keepOnFull = true
+        }
+
+        if (this.params.lftPressed) {
+          keepOnFull = true
+        }
+
+        if (this.params.rgtPressed) {
+          keepOnFull = true
+        }
+
+        if (keepOnFull) {
+          this.player.visible = true
+          this.player.material.opacity += (1 / 60) * 5
+          this.player.material.transparent = true
+        } else {
+          this.player.material.opacity *= 0.97
+          this.player.material.transparent = true
+          if (this.player.material.opacity < 0.1) {
+            this.player.visible = false
+          }
+        }
+      }
 
       if (this.params.fwdPressed) {
         this.tempVector.set(0, 0, -1).applyAxisAngle(this.upVector, angle)

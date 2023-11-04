@@ -23,6 +23,7 @@ export function MetaverseGLB({ useStore, glb, offsetY = 1.5, WhenReady }) {
       offsetY,
       controls,
       camera,
+      useStore: useStore,
       scene: glb.scene,
       gl,
     })
@@ -43,7 +44,7 @@ export function MetaverseGLB({ useStore, glb, offsetY = 1.5, WhenReady }) {
 
     return () => {
       if (useMeta.getState()?.game) {
-        useMeta.getState()?.game.clean()
+        // useMeta.getState()?.game.clean()
       }
     }
   }, [camera, offsetY, glb.scene, glb, controls, gl, useStore])
@@ -60,6 +61,7 @@ export function MetaverseGLB({ useStore, glb, offsetY = 1.5, WhenReady }) {
   //   });
   // }, [game, glb.scene]);
 
+  let hideCollider = useStore((s) => s.hideCollider)
   useFrame(() => {
     if (game && game.updatePlayer && typeof game.updatePlayer === 'function') {
       game.updatePlayer()
@@ -79,8 +81,7 @@ export function MetaverseGLB({ useStore, glb, offsetY = 1.5, WhenReady }) {
           <WalkerCam></WalkerCam>
         </>
       )}
-
-      {typeof WhenReady === 'function' && <WhenReady glb={glb}></WhenReady>}
+      <group visible={!hideCollider}>{typeof WhenReady === 'function' && <WhenReady glb={glb}></WhenReady>}</group>
     </group>
   )
 }

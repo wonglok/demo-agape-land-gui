@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { useMeta } from './useMeta'
 
-export function Joystick() {
+export function Joystick({ useStore }) {
   let ref = useRef()
   let game = useMeta((r) => r.game)
   useEffect(() => {
