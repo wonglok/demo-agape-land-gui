@@ -65,8 +65,6 @@ export function MouseGesture() {
           camera,
         )}
 
-        <RaycastSpot></RaycastSpot>
-
         <group name='groupCast'>
           <MathSymbol position={[-3, 3, -5]} left={'+ 1'} right='- 1'></MathSymbol>
 
@@ -100,21 +98,9 @@ export function MouseGesture() {
             </group>
           </group>
 
-          <DragGUI></DragGUI>
+          {/* <DragGUI></DragGUI> */}
         </Suspense>
       </group>
-    </>
-  )
-}
-
-function RaycastSpot() {
-  let raycastToFloor = useMouse((r) => r.raycastToFloor)
-
-  return (
-    <>
-      <Sphere position={raycastToFloor}>
-        <meshStandardMaterial color={'#ff0000'}></meshStandardMaterial>
-      </Sphere>
     </>
   )
 }
@@ -291,8 +277,10 @@ function MathSymbol({ canDrag = true, position, left = '', right = '' }) {
 function Insert() {
   let handsInsert = useMouse((r) => r.handsInsert)
   let hoverPlane = useMouse((r) => r.hoverPlane)
+  let redBallInsert = useMouse((r) => r.redBallInsert)
   return (
     <>
+      {redBallInsert}
       {handsInsert}
       {hoverPlane}
     </>

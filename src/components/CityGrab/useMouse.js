@@ -7,6 +7,7 @@ import {
   MeshBasicMaterial,
   MeshPhysicalMaterial,
   Ray,
+  SphereGeometry,
 } from 'three'
 import { BoxGeometry } from 'three'
 import {
@@ -150,6 +151,7 @@ export const useMouse = create((set, get) => {
         constructor({}) {
           this.scan = new Object3D()
           this.o3d = new Object3D()
+          this.redBall = new Mesh(new SphereGeometry(1, 32, 32), new MeshBasicMaterial({ color: 0xff0000 }))
 
           let stick = new Mesh(new BoxGeometry(0.01, 0.01, 20), new MeshBasicMaterial({ color: 0xffff00 }))
           this.stick = stick
@@ -305,6 +307,7 @@ export const useMouse = create((set, get) => {
                       if (this.lastFloorPt.length() !== 0) {
                         this.change('delta', yo.clone().sub(this.lastFloorPt))
                       }
+                      this.redBall.position.copy(yo)
                       this.lastFloorPt.copy(yo)
                     }
                   }
@@ -396,6 +399,10 @@ export const useMouse = create((set, get) => {
       set({
         handsInsert: myHands.map((h) => {
           return <primitive key={h.o3d.uuid} object={h.o3d}></primitive>
+        }),
+
+        redBallInsert: myHands.map((h) => {
+          return <primitive key={h.redBall.uuid} object={h.redBall}></primitive>
         }),
 
         onLoop: () => {
