@@ -90,10 +90,10 @@ export function MouseGesture() {
 
           <Sphere position={[0, 50, -50]} args={[10, 32, 32]} userData={{ dragGroup: true }}>
             <MeshTransmissionMaterial
-              roughness={0.3}
+              roughness={0}
               metalness={0}
               transmission={1}
-              thickness={1.5}
+              thickness={0.5}
               attenuationColor={'#ff0000'}
               attenuationDistance={100}
             ></MeshTransmissionMaterial>
@@ -356,10 +356,10 @@ function SelectiveBloomRender() {
             velocityResolutionScale: 0.1,
           },
           bloomPass: {
-            useThisOne: false,
+            useThisOne: true,
             mipmapBlur: true,
-            luminanceThreshold: 0.5,
-            intensity: 1,
+            luminanceThreshold: 0.85,
+            intensity: 2,
             resolutionScale: 0.3,
           },
           wavePass: {

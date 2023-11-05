@@ -152,7 +152,7 @@ export const useMouse = create((set, get) => {
             new SphereGeometry(10, 32, 32),
             new MeshPhysicalMaterial({ color: 0xffffff, roughness: 0, transmission: 1, thickness: 1.5 }),
           )
-          this.raycastToFloor = [0, 0, 0]
+          this.raycastToFloor = [99999999990, 99999999990, 99999999990]
 
           let stick = new Mesh(new BoxGeometry(0.01, 0.01, 20), new MeshBasicMaterial({ color: 0xffff00 }))
           this.stick = stick
@@ -382,7 +382,6 @@ export const useMouse = create((set, get) => {
               let hasFound = false
               if (it?.object?.userData?.dragGroup) {
                 hasFound = true
-
                 it.object.position.fromArray(hand.raycastToFloor)
               }
               it.object.traverseAncestors((ite) => {
