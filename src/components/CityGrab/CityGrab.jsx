@@ -56,5 +56,5 @@ function InsertV({ dom }) {
       target.innerHTML = ''
     }
   }, [dom])
-  return <div className='w-36 -scale-x-100' ref={ref}></div>
+  return <div className='w-36 -scale-x-100 brightness-150' ref={ref}></div>
 }
