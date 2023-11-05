@@ -155,7 +155,7 @@ export const useMouse = create((set, get) => {
           this.redBall.visible = false
           this.raycastToFloor = [0, 0, 0]
 
-          let stick = new Mesh(new BoxGeometry(0.01, 0.01, 200), new MeshBasicMaterial({ color: 0xffff00 }))
+          let stick = new Mesh(new BoxGeometry(0.1, 0.1, 200), new MeshBasicMaterial({ color: 0xffff00 }))
           this.stick = stick
           this.o3d.add(stick)
           stick.geometry.translate(0, 0, 200 / 2)
@@ -224,6 +224,7 @@ export const useMouse = create((set, get) => {
           this.raycaster = new Raycaster()
           this.lastFloorPt = new Vector3()
           let handPos3 = new Vector3()
+          let camGP = new Vector3()
 
           this.update = ({ landmarks, worldLandmarks, gestures, handednesses, video }) => {
             let viewport = get().viewport
@@ -238,12 +239,6 @@ export const useMouse = create((set, get) => {
                 let dotMesh = this.dots[bone].mesh
                 let wmk = worldLandmarks[bone]
 
-                // goal.position.set(-wmk.x, -wmk.y, wmk.z).multiplyScalar(20)
-                // goal.position.x += -vpx
-                // goal.position.y += -vpy + 2.5
-                // goal.position.z += -vpz
-
-                // dotMesh.position.lerp(goal.position, 0.15)
                 let castedScreenSpace = new Vector3()
                 if (camera) {
                   this.raycaster.setFromCamera(
@@ -256,7 +251,8 @@ export const useMouse = create((set, get) => {
 
                   this.stick.position.set(0, 0, 0)
                   this.stick.lookAt(this.raycaster.ray.direction)
-                  this.stick.position.copy(this.raycaster.ray.origin)
+                  camera.getWorldPosition(camGP)
+                  this.stick.position.copy(camGP)
 
                   let res = []
                   let scene = get().scene
