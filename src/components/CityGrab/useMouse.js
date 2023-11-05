@@ -156,7 +156,7 @@ export const useMouse = create((set, get) => {
           this.o3d.visible = false
           this.redBall = new Mesh(
             new SphereGeometry(5, 32, 32),
-            new MeshPhysicalMaterial({ color: new Color(`#00ffff`), flatShading: true, roughness: 0, metalness: 1 }),
+            new MeshPhysicalMaterial({ color: new Color(`#ff0000`), flatShading: true, roughness: 0, metalness: 1 }),
           )
           this.o3d.add(this.redBall)
 
@@ -165,7 +165,7 @@ export const useMouse = create((set, get) => {
 
           let stick = new Mesh(
             new CylinderGeometry(0.2, 0.2, 50 + 20, 32, 1),
-            new MeshPhysicalMaterial({ color: new Color(`#00ffff`), flatShading: true, roughness: 0, metalness: 1 }),
+            new MeshPhysicalMaterial({ color: new Color(`#ff0000`), flatShading: true, roughness: 0, metalness: 1 }),
             // new MeshPhysicalMaterial({ color: new Color('#ffffff'), roughness: 0, transmission: 1, thickness: 1.5 }),
           )
           stick.geometry.rotateX(MathUtils.degToRad(-90))

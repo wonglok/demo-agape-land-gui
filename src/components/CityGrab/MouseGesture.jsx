@@ -41,8 +41,8 @@ export function MouseGesture() {
           target={[0, 0, 0]}
           enablePan={false}
           enableZoom={true}
-          minAzimuthAngle={0}
-          maxAzimuthAngle={0}
+          // minAzimuthAngle={0}
+          // maxAzimuthAngle={0}
           minPolarAngle={0}
           maxPolarAngle={0.5 * Math.PI}
           enableRotate={true}
