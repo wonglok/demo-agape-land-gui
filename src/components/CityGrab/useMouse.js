@@ -415,6 +415,7 @@ export const useMouse = create((set, get) => {
             if (result?.landmarks[idx]) {
               eHand.change('show', true)
               eHand.o3d.visible = true
+              eHand.redBall.visible = true
               eHand.update({
                 video,
                 result,
@@ -425,6 +426,7 @@ export const useMouse = create((set, get) => {
             } else {
               eHand.change('show', false)
               eHand.o3d.visible = false
+              eHand.redBall.visible = false
             }
           })
         },

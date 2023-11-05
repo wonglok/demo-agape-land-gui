@@ -27,17 +27,19 @@ export function MouseGesture() {
   return (
     <>
       <group>
-        <MathSymbol position={[0, 3, -5]} canDrag={false} left={'='} right='='></MathSymbol>
-
-        <PerspectiveCamera near={0.5} far={300} fov={76} makeDefault></PerspectiveCamera>
+        <PerspectiveCamera near={0.5} far={800} fov={76} makeDefault></PerspectiveCamera>
 
         <OrbitControls
           // rotateSpeed={-1}
-          object-position={[0, 20, 20]}
+          object-position={[0, 120, 120]}
           target={[0, 0, 0]}
           enablePan={false}
-          enableZoom={false}
-          enableRotate={false}
+          enableZoom={true}
+          minAzimuthAngle={0}
+          maxAzimuthAngle={0}
+          minPolarAngle={0}
+          maxPolarAngle={0.5 * Math.PI}
+          enableRotate={true}
           makeDefault
           enabled={true}
         ></OrbitControls>
@@ -65,12 +67,14 @@ export function MouseGesture() {
           camera,
         )}
 
+        <MathSymbol position={[0, 10, -15]} canDrag={false} left={'='} right='='></MathSymbol>
+
         <group name='groupCast'>
-          <MathSymbol position={[-3, 3, -5]} left={'+ 1'} right='- 1'></MathSymbol>
+          <MathSymbol position={[-30, 10, -15]} left={'+ 1'} right='- 1'></MathSymbol>
 
-          <MathSymbol position={[-8, 3, -5]} left={'+ 2x'} right='- 2x'></MathSymbol>
+          <MathSymbol position={[-80, 10, -15]} left={'+ 2x'} right='- 2x'></MathSymbol>
 
-          <MathSymbol position={[3, 3, -5]} left={'+ 3'} right='- 3'></MathSymbol>
+          <MathSymbol position={[30, 10, -15]} left={'+ 3'} right='- 3'></MathSymbol>
 
           <group position={[0, 0, -4]} userData={{ dragGroup: true }}>
             <Sphere scale={[3, 3, 0.25]} userData={{ noGlow: true }}>
@@ -207,7 +211,7 @@ function meshBounds(raycaster, intersects) {
   }
   if (!geometry.boundingBox.scaledUp) {
     geometry.boundingBox.scaledUp = true
-    geometry.boundingBox.expandByScalar(geometry.boundingSphere.radius * 3)
+    geometry.boundingBox.expandByScalar(geometry.boundingSphere.radius * 10)
   }
   intersects.push({
     distance: _vA.distanceTo(raycaster.ray.origin),
@@ -250,7 +254,7 @@ function MathSymbol({ canDrag = true, position, left = '', right = '' }) {
 
   return (
     <>
-      <group position={position} userData={{ dragGroup: canDrag }}>
+      <group position={position} rotation={[-0.13 * Math.PI, 0, 0]} scale={10} userData={{ dragGroup: canDrag }}>
         <Text3D
           ref={ref}
           anchorX={'center'}
@@ -264,7 +268,7 @@ function MathSymbol({ canDrag = true, position, left = '', right = '' }) {
           {side === 'right' && right}
           <meshStandardMaterial
             side={DoubleSide}
-            roughness={0.15}
+            roughness={0.2}
             metalness={1}
             color={'#0000ff'}
           ></meshStandardMaterial>
