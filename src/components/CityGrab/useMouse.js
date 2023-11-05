@@ -37,8 +37,6 @@ export const useMouse = create((set, get) => {
     bloomMeshes: [],
     handID: false,
 
-    raycastToFloor: [0, 0, 0],
-
     collider: useMouseCache.get('collider') || false,
     // handResult: false,
     bones: [],
@@ -154,6 +152,7 @@ export const useMouse = create((set, get) => {
             new SphereGeometry(10, 32, 32),
             new MeshPhysicalMaterial({ color: 0xffffff, roughness: 0, transmission: 1, thickness: 1.5 }),
           )
+          this.raycastToFloor = [0, 0, 0]
 
           let stick = new Mesh(new BoxGeometry(0.01, 0.01, 20), new MeshBasicMaterial({ color: 0xffff00 }))
           this.stick = stick
@@ -302,9 +301,8 @@ export const useMouse = create((set, get) => {
 
                       this.stick.position.copy(this.dots[9].mesh.position)
                       this.stick.lookAt(yo)
-                      set({
-                        raycastToFloor: yo.toArray(),
-                      })
+
+                      this.raycastToFloor = yo.toArray()
 
                       if (this.lastFloorPt.length() !== 0) {
                         this.change('delta', yo.clone().sub(this.lastFloorPt))
@@ -380,14 +378,17 @@ export const useMouse = create((set, get) => {
 
         hand.on('delta', ({ key, val, before, beforeState, afterState }) => {
           if (isPinching) {
-            console.log(onHandList)
-
             onHandList.forEach((it) => {
               let hasFound = false
+              if (it?.object?.userData?.dragGroup) {
+                hasFound = true
+
+                it.object.position.fromArray(hand.raycastToFloor)
+              }
               it.object.traverseAncestors((ite) => {
                 if (ite?.userData?.dragGroup && !hasFound) {
                   hasFound = true
-                  ite.position.fromArray(get().raycastToFloor)
+                  ite.position.fromArray(hand.raycastToFloor)
                 }
               })
               // it.object.position.lerp(get().raycastToFloor, 0.1)
