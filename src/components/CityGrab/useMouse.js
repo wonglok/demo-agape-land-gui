@@ -367,6 +367,7 @@ export const useMouse = create((set, get) => {
           if (before?.length > 0) {
             before.forEach((it) => {
               it.object.material.emissive = new Color('#000000')
+              it.object.material.emissiveIntensity = 0
             })
           }
           if (val?.length > 0) {
@@ -375,6 +376,7 @@ export const useMouse = create((set, get) => {
                 return
               }
               it.object.material.emissive = new Color('#00ff00')
+              it.object.material.emissiveIntensity = 3
             })
           }
         })
