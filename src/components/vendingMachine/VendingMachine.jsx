@@ -28,7 +28,15 @@ export function VendingMachine() {
         </group> */}
         {/* <Birthplace></Birthplace> */}
 
-        <OrbitControls makeDefault object-position={[0, 1.5, 5]} target={[0, 1.5, 0]}></OrbitControls>
+        <OrbitControls
+          minAzimuthAngle={-Math.PI * 0.5}
+          maxAzimuthAngle={Math.PI * 0.5}
+          minPolarAngle={0}
+          maxPolarAngle={Math.PI * 0.52}
+          makeDefault
+          object-position={[0, 1.5, 5]}
+          target={[0, 1.5, 0]}
+        ></OrbitControls>
 
         <group scale={1.5}>
           <directionalLight position={[0, 2, 0.1]} intensity={0.01}></directionalLight>
