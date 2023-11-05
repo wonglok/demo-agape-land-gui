@@ -1,5 +1,6 @@
 import {
   Color,
+  ConeGeometry,
   CubicBezierCurve3,
   DoubleSide,
   IcosahedronGeometry,
@@ -146,12 +147,23 @@ export const useMouse = create((set, get) => {
 
       class MyHand {
         constructor({}) {
+          this.onHandList = []
           this.scan = new Object3D()
           this.o3d = new Object3D()
           this.redBall = new Mesh(
-            new SphereGeometry(10, 32, 32),
-            new MeshPhysicalMaterial({ color: 0xffffff, roughness: 0, transmission: 1, thickness: 1.5 }),
+            new SphereGeometry(5, 4, 2),
+            new MeshPhysicalMaterial({ color: new Color(`#00ffff`), roughness: 0, metalness: 1 }),
           )
+          this.redBall.geometry.translate(0, 5, 0)
+          this.redBall.geometry.scale(1, 5, 1)
+          this.redBall.geometry.scale(0.5, 0.5, 0.5)
+
+          {
+            let clock = new Clock()
+            setInterval(() => {
+              this.redBall.rotation.y += clock.getDelta() * 0.1
+            })
+          }
           this.redBall.visible = false
           this.raycastToFloor = [0, 0, 0]
 
@@ -354,7 +366,6 @@ export const useMouse = create((set, get) => {
 
       let myHands = []
       for (let i = 0; i < handCount; i++) {
-        let onHandList = []
         let isPinching = false
 
         let hand = new MyHand({})
@@ -379,12 +390,12 @@ export const useMouse = create((set, get) => {
 
         hand.on('pinch', ({ key, val, before, beforeState, afterState }) => {
           isPinching = val
-          onHandList = beforeState['found']
+          hand.onHandList = beforeState['found']
         })
 
         hand.on('delta', ({ key, val, before, beforeState, afterState }) => {
           if (isPinching) {
-            onHandList.forEach((it) => {
+            hand.onHandList.forEach((it) => {
               let hasFound = false
               if (it?.object?.userData?.dragGroup) {
                 hasFound = true
