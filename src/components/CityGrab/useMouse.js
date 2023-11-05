@@ -152,7 +152,8 @@ export const useMouse = create((set, get) => {
             new SphereGeometry(10, 32, 32),
             new MeshPhysicalMaterial({ color: 0xffffff, roughness: 0, transmission: 1, thickness: 1.5 }),
           )
-          this.raycastToFloor = [99999999990, 99999999990, 99999999990]
+          this.redBall.visible = false
+          this.raycastToFloor = [0, 0, 0]
 
           let stick = new Mesh(new BoxGeometry(0.01, 0.01, 20), new MeshBasicMaterial({ color: 0xffff00 }))
           this.stick = stick
@@ -222,10 +223,11 @@ export const useMouse = create((set, get) => {
           let clock = new Clock()
           this.raycaster = new Raycaster()
           this.lastFloorPt = new Vector3()
+          let handPos3 = new Vector3()
+
           this.update = ({ landmarks, worldLandmarks, gestures, handednesses, video }) => {
             let viewport = get().viewport
             let vp = viewport.getCurrentViewport()
-
             if (vp) {
               let lmk = landmarks[0]
               let vpx = (lmk.x * 2.0 - 1.0) * vp.width
@@ -287,8 +289,11 @@ export const useMouse = create((set, get) => {
                 if (camera) {
                   let dir = new Vector3()
 
-                  dir.copy(camera.position).sub(this.dots[9].mesh.position).negate().normalize()
-                  this.raycaster.set(this.dots[9].mesh.position, dir)
+                  handPos3.lerp(this.dots[9].mesh.position, 0.3)
+
+                  dir.copy(camera.position).sub(handPos3).negate().normalize()
+
+                  this.raycaster.set(handPos3, dir)
 
                   let res = []
                   let scene = get().scene
@@ -299,9 +304,6 @@ export const useMouse = create((set, get) => {
                     if (res[0]) {
                       let yo = res[0].point
 
-                      this.stick.position.copy(this.dots[9].mesh.position)
-                      this.stick.lookAt(yo)
-
                       this.raycastToFloor = yo.toArray()
 
                       if (this.lastFloorPt.length() !== 0) {
@@ -309,6 +311,9 @@ export const useMouse = create((set, get) => {
                       }
                       this.redBall.position.copy(yo)
                       this.lastFloorPt.copy(yo)
+                    } else {
+                      this.lastFloorPt.setScalar(0)
+                      this.handPos3 = [0, 0, 0]
                     }
                   }
                 }
