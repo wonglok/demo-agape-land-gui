@@ -154,7 +154,7 @@ export const useMouse = create((set, get) => {
           this.scan = new Object3D()
           this.o3d = new Object3D()
           this.redBall = new Mesh(
-            new CylinderGeometry(3, 0, 10, 32, 1),
+            new SphereGeometry(5, 32, 32),
             new MeshPhysicalMaterial({ color: new Color(`#00ffff`), flatShading: true, roughness: 0, metalness: 1 }),
           )
           this.o3d.add(this.redBall)
@@ -163,8 +163,9 @@ export const useMouse = create((set, get) => {
           this.raycastToFloor = [0, 0, 0]
 
           let stick = new Mesh(
-            new CylinderGeometry(0.1, 0.1, 50 + 20, 32, 1),
-            new MeshPhysicalMaterial({ color: new Color('#ffffff'), roughness: 0, transmission: 1, thickness: 1.5 }),
+            new CylinderGeometry(0.2, 0.2, 50 + 20, 32, 1),
+            new MeshPhysicalMaterial({ color: new Color(`#00ffff`), flatShading: true, roughness: 0, metalness: 1 }),
+            // new MeshPhysicalMaterial({ color: new Color('#ffffff'), roughness: 0, transmission: 1, thickness: 1.5 }),
           )
           stick.geometry.rotateX(MathUtils.degToRad(-90))
           this.stick = stick
@@ -280,7 +281,7 @@ export const useMouse = create((set, get) => {
                 if (camera) {
                   let dir = new Vector3()
 
-                  handPos3.lerp(this.dots[9].mesh.position, 0.5)
+                  handPos3.lerp(this.dots[9].mesh.position, 0.25)
 
                   dir.copy(camera.position).sub(handPos3).negate().normalize()
 
