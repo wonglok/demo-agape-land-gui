@@ -151,7 +151,10 @@ export const useMouse = create((set, get) => {
         constructor({}) {
           this.scan = new Object3D()
           this.o3d = new Object3D()
-          this.redBall = new Mesh(new SphereGeometry(1, 32, 32), new MeshBasicMaterial({ color: 0xff0000 }))
+          this.redBall = new Mesh(
+            new SphereGeometry(2.5, 32, 32),
+            new MeshPhysicalMaterial({ color: 0xffffff, roughness: 0, transmission: 1, thickness: 1.5 }),
+          )
 
           let stick = new Mesh(new BoxGeometry(0.01, 0.01, 20), new MeshBasicMaterial({ color: 0xffff00 }))
           this.stick = stick
