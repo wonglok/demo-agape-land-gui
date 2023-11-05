@@ -54,7 +54,13 @@ export function MouseGesture() {
 
         <Vars></Vars>
 
-        <Plane name='hoverFloor' rotation={[Math.PI * -0.5, 0, 0]} position={[0, 3, -1]} scale={5000}>
+        <Plane
+          name='hoverFloor'
+          args={[1, 1, 2, 2]}
+          rotation={[Math.PI * -0.5, 0, 0]}
+          position={[0, 50, -1]}
+          scale={5000}
+        >
           <MeshDiscardMaterial></MeshDiscardMaterial>
         </Plane>
 
@@ -67,14 +73,14 @@ export function MouseGesture() {
           camera,
         )}
 
-        <MathSymbol position={[0, 10, -15]} canDrag={false} left={'='} right='='></MathSymbol>
+        <MathSymbol position={[0, 50, -15]} canDrag={false} left={'='} right='='></MathSymbol>
 
         <group name='groupCast'>
-          <MathSymbol position={[-30, 10, -15]} left={'+ 1'} right='- 1'></MathSymbol>
+          <MathSymbol position={[-30, 50, -15]} left={'+ 1'} right='- 1'></MathSymbol>
 
-          <MathSymbol position={[-80, 10, -15]} left={'+ 2x'} right='- 2x'></MathSymbol>
+          <MathSymbol position={[-80, 50, -15]} left={'+ 2x'} right='- 2x'></MathSymbol>
 
-          <MathSymbol position={[30, 10, -15]} left={'+ 3'} right='- 3'></MathSymbol>
+          <MathSymbol position={[30, 50, -15]} left={'+ 3'} right='- 3'></MathSymbol>
 
           <group position={[0, 0, -4]} userData={{ dragGroup: true }}>
             <Sphere scale={[3, 3, 0.25]} userData={{ noGlow: true }}>
