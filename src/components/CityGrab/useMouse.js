@@ -155,10 +155,10 @@ export const useMouse = create((set, get) => {
           this.redBall.visible = false
           this.raycastToFloor = [0, 0, 0]
 
-          let stick = new Mesh(new BoxGeometry(0.01, 0.01, 20), new MeshBasicMaterial({ color: 0xffff00 }))
+          let stick = new Mesh(new BoxGeometry(0.01, 0.01, 200), new MeshBasicMaterial({ color: 0xffff00 }))
           this.stick = stick
           this.o3d.add(stick)
-          stick.geometry.translate(0, 0, 20 / 2)
+          stick.geometry.translate(0, 0, 200 / 2)
           stick.direction = new Vector3()
 
           let crystal = new MeshPhysicalMaterial({ color: '#0000ff', metalness: 1, roughness: 0 })
@@ -253,6 +253,11 @@ export const useMouse = create((set, get) => {
                     },
                     camera,
                   )
+
+                  this.stick.position.set(0, 0, 0)
+                  this.stick.lookAt(this.raycaster.ray.direction)
+                  this.stick.position.copy(this.raycaster.ray.origin)
+
                   let res = []
                   let scene = get().scene
                   let screenHand = scene.getObjectByName('screenHand')
