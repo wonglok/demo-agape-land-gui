@@ -111,7 +111,7 @@ export const useMouse = create((set, get) => {
         video.play()
       })
 
-      const handCount = 2
+      const handCount = 4
 
       // Create task for image file processing:
       const vision = await FilesetResolver.forVisionTasks(
