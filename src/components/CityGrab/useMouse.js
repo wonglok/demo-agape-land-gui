@@ -39,7 +39,6 @@ export const useMouse = create((set, get) => {
 
     raycastToFloor: [0, 0, 0],
 
-    //
     collider: useMouseCache.get('collider') || false,
     // handResult: false,
     bones: [],
@@ -69,7 +68,7 @@ export const useMouse = create((set, get) => {
 
       let stream = navigator.mediaDevices.getUserMedia({
         video: {
-          width: (256 * 16) / 9,
+          width: 256,
           height: 256,
         },
         audio: false,

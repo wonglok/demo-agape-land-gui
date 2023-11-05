@@ -30,7 +30,13 @@ export function MouseGesture() {
         <PerspectiveCamera near={0.5} far={800} fov={76} makeDefault></PerspectiveCamera>
 
         <OrbitControls
+          //
+
+          //
           // rotateSpeed={-1}
+          //
+
+          //
           object-position={[0, 120, 120]}
           target={[0, 0, 0]}
           enablePan={false}
@@ -188,6 +194,7 @@ function meshBounds(raycaster, intersects) {
   if (geometry.boundingSphere === null) geometry.computeBoundingSphere()
   _sphere.copy(geometry.boundingSphere)
   _sphere.radius = _sphere.radius
+  _sphere.set(_sphere.center, _sphere.radius * 3)
   _sphere.applyMatrix4(matrixWorld)
   if (raycaster.ray.intersectsSphere(_sphere) === false) return
   _inverseMatrix.copy(matrixWorld).invert()
