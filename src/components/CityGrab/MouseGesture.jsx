@@ -88,7 +88,7 @@ export function MouseGesture() {
 
           <MathSymbol position={[30, 50, -15]} left={'+ 3'} right='- 3'></MathSymbol>
 
-          <Sphere position={[0, 50, -50]} args={[10, 32, 32]} userData={{ dragGroup: true }}>
+          <Sphere position={[0, 25, 50]} args={[10, 32, 32]} userData={{ dragGroup: true }}>
             <MeshTransmissionMaterial
               roughness={0}
               metalness={0}
@@ -205,7 +205,7 @@ function meshBounds(raycaster, intersects) {
   if (geometry.boundingSphere === null) geometry.computeBoundingSphere()
   _sphere.copy(geometry.boundingSphere)
   _sphere.radius = _sphere.radius
-  _sphere.set(_sphere.center, _sphere.radius * 3)
+  _sphere.set(_sphere.center, _sphere.radius * 5)
   _sphere.applyMatrix4(matrixWorld)
   if (raycaster.ray.intersectsSphere(_sphere) === false) return
   _inverseMatrix.copy(matrixWorld).invert()
