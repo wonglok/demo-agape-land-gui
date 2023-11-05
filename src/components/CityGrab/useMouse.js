@@ -164,14 +164,14 @@ export const useMouse = create((set, get) => {
           this.raycastToFloor = [0, 0, 0]
 
           let stick = new Mesh(
-            new CylinderGeometry(0.2, 0.2, 50 + 20, 32, 1),
+            new CylinderGeometry(0.2, 0.2, 100, 32, 1),
             new MeshPhysicalMaterial({ color: new Color(`#ff0000`), flatShading: true, roughness: 0, metalness: 1 }),
             // new MeshPhysicalMaterial({ color: new Color('#ffffff'), roughness: 0, transmission: 1, thickness: 1.5 }),
           )
           stick.geometry.rotateX(MathUtils.degToRad(-90))
           this.stick = stick
           this.o3d.add(stick)
-          stick.geometry.translate(0, 0, 50 / 2 - 20 / 2)
+          stick.geometry.translate(0, 0, 100 / 2)
           stick.direction = new Vector3()
 
           let crystal = new MeshPhysicalMaterial({ color: '#0000ff', metalness: 1, roughness: 0 })
@@ -304,6 +304,7 @@ export const useMouse = create((set, get) => {
                       }
 
                       this.stick.position.copy(yo)
+                      this.stick.position.y = 0
                       this.stick.lookAt(yo.x, yo.y + 1, yo.z)
 
                       this.redBall.position.x = yo.x
