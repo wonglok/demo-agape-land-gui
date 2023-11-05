@@ -2,6 +2,7 @@ import {
   Color,
   ConeGeometry,
   CubicBezierCurve3,
+  CylinderGeometry,
   DoubleSide,
   IcosahedronGeometry,
   MathUtils,
@@ -170,7 +171,11 @@ export const useMouse = create((set, get) => {
           this.redBall.visible = false
           this.raycastToFloor = [0, 0, 0]
 
-          let stick = new Mesh(new BoxGeometry(0.1, 0.1, 200), new MeshBasicMaterial({ color: 0xffff00 }))
+          let stick = new Mesh(
+            new CylinderGeometry(0.1, 0.1, 200, 32, 1),
+            new MeshPhysicalMaterial({ color: new Color('#ffffff'), roughness: 0, transmission: 1, thickness: 1.5 }),
+          )
+          stick.geometry.rotateX(MathUtils.degToRad(90))
           this.stick = stick
           this.o3d.add(stick)
           stick.geometry.translate(0, 0, 200 / 2)
@@ -264,10 +269,10 @@ export const useMouse = create((set, get) => {
                     camera,
                   )
 
-                  this.stick.position.set(0, 0, 0)
-                  this.stick.lookAt(this.raycaster.ray.direction)
-                  camera.getWorldPosition(camGP)
-                  this.stick.position.copy(camGP)
+                  // this.stick.position.set(0, 0, 0)
+                  // this.stick.lookAt(this.raycaster.ray.direction)
+                  // camera.getWorldPosition(camGP)
+                  // this.stick.position.copy(camGP)
 
                   let res = []
                   let scene = get().scene
@@ -324,8 +329,11 @@ export const useMouse = create((set, get) => {
                         this.change('delta', yo.clone().sub(this.lastFloorPt))
                       }
 
+                      this.stick.position.copy(yo)
+                      this.stick.lookAt(yo.x, yo.y + 1, yo.z)
+
                       this.redBall.position.x = yo.x
-                      this.redBall.position.y = yo.y
+                      this.redBall.position.y = yo.y + 50
                       this.redBall.position.z = yo.z
                       this.lastFloorPt.copy(yo)
                     } else {
