@@ -168,7 +168,9 @@ export const useMouse = create((set, get) => {
               this.redBall.position.y = Math.sin(t * 3 * 2) * 5
             }, 16)
           }
+
           this.redBall.visible = false
+
           this.raycastToFloor = [0, 0, 0]
 
           let stick = new Mesh(
