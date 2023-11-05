@@ -156,21 +156,11 @@ export const useMouse = create((set, get) => {
             new MeshPhysicalMaterial({ color: new Color(`#00ffff`), flatShading: true, roughness: 0, metalness: 1 }),
           )
           this.redBall.geometry.translate(0, 5, 0)
-          this.redBall.geometry.scale(1, 4, 1)
-          this.redBall.geometry.scale(0.8, 0.8, 0.8)
+          this.redBall.geometry.scale(1, 3, 1)
+          this.redBall.geometry.scale(0.3, 0.3, 0.3)
           this.o3d.add(this.redBall)
 
-          {
-            let clock = new Clock()
-            setInterval(() => {
-              let t = clock.getElapsedTime()
-              this.redBall.rotation.y = t * 3
-              this.redBall.position.y = Math.sin(t * 3 * 2) * 5
-            }, 16)
-          }
-
           this.redBall.visible = false
-
           this.raycastToFloor = [0, 0, 0]
 
           let stick = new Mesh(
@@ -271,11 +261,6 @@ export const useMouse = create((set, get) => {
                     camera,
                   )
 
-                  // this.stick.position.set(0, 0, 0)
-                  // this.stick.lookAt(this.raycaster.ray.direction)
-                  // camera.getWorldPosition(camGP)
-                  // this.stick.position.copy(camGP)
-
                   let res = []
                   let scene = get().scene
                   let screenHand = scene.getObjectByName('screenHand')
@@ -296,17 +281,6 @@ export const useMouse = create((set, get) => {
               }
 
               {
-                // this.stick.position.copy(this.dots[9].mesh.position)
-                // this.stick.lookAt(
-                //   //!SECTION
-                //   this.dots[9].mesh.position.x,
-                //   this.dots[9].mesh.position.y,
-                //   this.dots[9].mesh.position.z - 5,
-                // )
-
-                // this.stick.getWorldDirection(this.dots[9].dir)
-                // this.raycaster.set(this.dots[9].mesh.position, this.dots[9].dir)
-
                 if (camera) {
                   let dir = new Vector3()
 
