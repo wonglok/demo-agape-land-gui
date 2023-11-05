@@ -323,6 +323,7 @@ export const useMouse = create((set, get) => {
                       if (this.lastFloorPt.length() !== 0) {
                         this.change('delta', yo.clone().sub(this.lastFloorPt))
                       }
+
                       this.redBall.position.x = yo.x
                       this.redBall.position.y = yo.y
                       this.redBall.position.z = yo.z
