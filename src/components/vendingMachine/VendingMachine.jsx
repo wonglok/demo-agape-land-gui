@@ -21,11 +21,14 @@ export function VendingMachine() {
         {/*  */}
         <PPSwitch useStore={useAgape}></PPSwitch>
 
-        <CamConfig></CamConfig>
+        {/* <CamConfig></CamConfig> */}
 
-        <group visible={true}>
+        {/* <group visible={true}>
           <GameModeAdapter useStore={useAgape}></GameModeAdapter>
-        </group>
+        </group> */}
+        {/* <Birthplace></Birthplace> */}
+
+        <OrbitControls makeDefault object-position={[0, 1.5, 5]} target={[0, 1.5, 0]}></OrbitControls>
 
         <group scale={1.5}>
           <directionalLight position={[0, 2, 0.1]} intensity={0.01}></directionalLight>
@@ -53,8 +56,6 @@ export function VendingMachine() {
             envMapIntensity={0.0}
           ></meshPhysicalMaterial>
         </Box>
-
-        <Birthplace></Birthplace>
       </Canvas>
 
       <div id='guilayer'></div>
