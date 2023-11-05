@@ -152,7 +152,7 @@ export const useMouse = create((set, get) => {
           this.scan = new Object3D()
           this.o3d = new Object3D()
           this.redBall = new Mesh(
-            new SphereGeometry(2.5, 32, 32),
+            new SphereGeometry(10, 32, 32),
             new MeshPhysicalMaterial({ color: 0xffffff, roughness: 0, transmission: 1, thickness: 1.5 }),
           )
 
