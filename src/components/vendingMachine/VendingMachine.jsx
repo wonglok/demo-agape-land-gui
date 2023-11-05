@@ -3,12 +3,12 @@ import { Joystick, PPSwitch } from 'agape-sdk/src/main'
 import { baseURL, useAgape } from './useAgape'
 import { Backdrop, Box, Environment, OrbitControls, PerspectiveCamera, Sphere } from '@react-three/drei'
 import { GLBLoader } from './GLBLoader'
-import { CamConfig } from './CamConfig'
-import { Video } from './Video'
+// import { CamConfig } from './CamConfig'
+// import { Video } from './Video'
 import { DoubleSide } from 'three'
-import { Genesis } from './Genesis'
+// import { Genesis } from './Genesis'
 import { Suspense, useEffect } from 'react'
-import { GameModeAdapter } from '../Runner/GameModeAdapter'
+// import { GameModeAdapter } from '../Runner/GameModeAdapter'
 
 export function VendingMachine() {
   return (
