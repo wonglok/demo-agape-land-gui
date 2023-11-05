@@ -154,25 +154,22 @@ export const useMouse = create((set, get) => {
           this.scan = new Object3D()
           this.o3d = new Object3D()
           this.redBall = new Mesh(
-            new SphereGeometry(5, 4, 2),
+            new CylinderGeometry(3, 0, 10, 32, 1),
             new MeshPhysicalMaterial({ color: new Color(`#00ffff`), flatShading: true, roughness: 0, metalness: 1 }),
           )
-          this.redBall.geometry.translate(0, 5, 0)
-          this.redBall.geometry.scale(1, 3, 1)
-          this.redBall.geometry.scale(0.3, 0.3, 0.3)
           this.o3d.add(this.redBall)
 
           this.redBall.visible = false
           this.raycastToFloor = [0, 0, 0]
 
           let stick = new Mesh(
-            new CylinderGeometry(0.1, 0.1, 200, 32, 1),
+            new CylinderGeometry(0.1, 0.1, 50 + 20, 32, 1),
             new MeshPhysicalMaterial({ color: new Color('#ffffff'), roughness: 0, transmission: 1, thickness: 1.5 }),
           )
-          stick.geometry.rotateX(MathUtils.degToRad(90))
+          stick.geometry.rotateX(MathUtils.degToRad(-90))
           this.stick = stick
           this.o3d.add(stick)
-          stick.geometry.translate(0, 0, 200 / 2)
+          stick.geometry.translate(0, 0, 50 / 2 - 20 / 2)
           stick.direction = new Vector3()
 
           let crystal = new MeshPhysicalMaterial({ color: '#0000ff', metalness: 1, roughness: 0 })
