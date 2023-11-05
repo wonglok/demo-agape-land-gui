@@ -289,7 +289,7 @@ export const useMouse = create((set, get) => {
                 if (camera) {
                   let dir = new Vector3()
 
-                  handPos3.lerp(this.dots[9].mesh.position, 0.3)
+                  handPos3.lerp(this.dots[9].mesh.position, 1)
 
                   dir.copy(camera.position).sub(handPos3).negate().normalize()
 
@@ -312,8 +312,6 @@ export const useMouse = create((set, get) => {
                       this.redBall.position.copy(yo)
                       this.lastFloorPt.copy(yo)
                     } else {
-                      this.lastFloorPt.setScalar(0)
-                      this.handPos3 = [0, 0, 0]
                     }
                   }
                 }
