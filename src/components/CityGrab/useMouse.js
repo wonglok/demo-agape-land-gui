@@ -153,6 +153,7 @@ export const useMouse = create((set, get) => {
           this.onHandList = []
           this.scan = new Object3D()
           this.o3d = new Object3D()
+          this.o3d.visible = false
           this.redBall = new Mesh(
             new SphereGeometry(5, 32, 32),
             new MeshPhysicalMaterial({ color: new Color(`#00ffff`), flatShading: true, roughness: 0, metalness: 1 }),
