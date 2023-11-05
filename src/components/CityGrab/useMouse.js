@@ -33,6 +33,8 @@ import { Clock } from 'three'
 //
 export const useMouse = create((set, get) => {
   return {
+    adjustY: 0.1,
+
     cursor: null,
     stick: null,
     bloomLights: [],
@@ -243,9 +245,6 @@ export const useMouse = create((set, get) => {
             let vp = viewport.getCurrentViewport()
             if (vp) {
               let lmk = landmarks[0]
-              // let vpx = (lmk.x * 2.0 - 1.0) * vp.width
-              // let vpy = (lmk.y * 2.0 - 1.0) * vp.height
-              // let vpz = lmk.z
 
               for (let bone = 0; bone < this.dots.length; bone++) {
                 let dotMesh = this.dots[bone].mesh
@@ -256,7 +255,7 @@ export const useMouse = create((set, get) => {
                   this.raycaster.setFromCamera(
                     {
                       x: ((1.0 - lmk.x) * 2.0 - 1.0) * 2.0,
-                      y: ((1.0 - lmk.y) * 2.0 - 1.0) * 2.0,
+                      y: ((1.0 - lmk.y - get().adjustY) * 2.0 - 1.0) * 2.0,
                     },
                     camera,
                   )
@@ -312,7 +311,6 @@ export const useMouse = create((set, get) => {
                       this.redBall.position.y = yo.y + 50
                       this.redBall.position.z = yo.z
                       this.lastFloorPt.copy(yo)
-                    } else {
                     }
                   }
                 }
@@ -325,7 +323,6 @@ export const useMouse = create((set, get) => {
                 }
 
                 let castRes = this.raycaster.intersectObjects(opt, true)
-
                 if (castRes && castRes[0]) {
                   this.change('found', [castRes[0]])
                 } else {
