@@ -110,7 +110,7 @@ export function MouseGesture() {
             </group>
           </group>
 
-          {/* <DragGUI></DragGUI> */}
+          <DragGUI></DragGUI>
         </Suspense>
       </group>
     </>
@@ -162,15 +162,21 @@ function DragGUI() {
   let scene = useThree((r) => r.scene)
   let camera = useThree((r) => r.camera)
   let controls = useThree((r) => r.controls)
+
+  let dragMeshes = useMemo(() => {
+    return []
+  }, [])
+
+  dragMeshes.forEach((it, idx) => {
+    dragMeshes.splice(idx, 1)
+  })
+  scene.traverse((r) => {
+    if (r.userData.dragGroup && !r.geometry) {
+      dragMeshes.push(r)
+    }
+  })
+
   useEffect(() => {
-    let dragMeshes = []
-
-    scene.traverse((r) => {
-      if (r.userData.dragGroup && !r.geometry) {
-        dragMeshes.push(r)
-      }
-    })
-
     let dc = new DragControls(dragMeshes, camera, gl.domElement)
     dc.addEventListener('dragstart', (event) => {
       controls.enabled = false
@@ -181,7 +187,7 @@ function DragGUI() {
     return () => {
       dc.dispose()
     }
-  }, [gl, camera, scene, controls])
+  }, [gl, camera, scene, dragMeshes, controls])
   return (
     <>
       {/*  */}

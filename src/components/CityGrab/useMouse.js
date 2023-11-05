@@ -231,9 +231,9 @@ export const useMouse = create((set, get) => {
             let vp = viewport.getCurrentViewport()
             if (vp) {
               let lmk = landmarks[0]
-              let vpx = (lmk.x * 2.0 - 1.0) * vp.width
-              let vpy = (lmk.y * 2.0 - 1.0) * vp.height
-              let vpz = lmk.z
+              // let vpx = (lmk.x * 2.0 - 1.0) * vp.width
+              // let vpy = (lmk.y * 2.0 - 1.0) * vp.height
+              // let vpz = lmk.z
 
               for (let bone = 0; bone < this.dots.length; bone++) {
                 let dotMesh = this.dots[bone].mesh
