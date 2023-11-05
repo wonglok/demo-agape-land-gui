@@ -1,13 +1,13 @@
 import { Canvas } from '@react-three/fiber'
 import { Joystick, PPSwitch } from 'agape-sdk/src/main'
 import { baseURL, useAgape } from './useAgape'
-import { Backdrop, Box, Environment, OrbitControls, PerspectiveCamera, Sphere } from '@react-three/drei'
+import { Box, OrbitControls } from '@react-three/drei'
 import { GLBLoader } from './GLBLoader'
 // import { CamConfig } from './CamConfig'
 // import { Video } from './Video'
 import { DoubleSide } from 'three'
 // import { Genesis } from './Genesis'
-import { Suspense, useEffect } from 'react'
+import { useEffect } from 'react'
 // import { GameModeAdapter } from '../Runner/GameModeAdapter'
 
 export function VendingMachine() {
@@ -26,6 +26,7 @@ export function VendingMachine() {
         {/* <group visible={true}>
           <GameModeAdapter useStore={useAgape}></GameModeAdapter>
         </group> */}
+
         {/* <Birthplace></Birthplace> */}
 
         <OrbitControls
@@ -72,11 +73,6 @@ export function VendingMachine() {
   )
 }
 
-function JoyStickHTML({ useStore }) {
-  let gameMode = useStore((r) => r.gameMode)
-  return <>{gameMode === 'room' && <Joystick></Joystick>}</>
-}
-
 function Birthplace() {
   let game = useAgape((r) => r.game)
 
@@ -96,4 +92,9 @@ function Birthplace() {
   }, [game])
 
   return null
+}
+
+function JoyStickHTML({ useStore }) {
+  let gameMode = useStore((r) => r.gameMode)
+  return <>{gameMode === 'room' && <Joystick></Joystick>}</>
 }
