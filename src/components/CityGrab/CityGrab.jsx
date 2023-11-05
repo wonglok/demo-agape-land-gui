@@ -27,10 +27,6 @@ export function CityGrab() {
 
         <Stats></Stats>
 
-        {/* fa */}
-
-        {/*  */}
-
         <MouseGesture></MouseGesture>
 
         {/*  */}

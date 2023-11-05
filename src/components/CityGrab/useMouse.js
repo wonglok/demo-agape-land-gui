@@ -152,17 +152,20 @@ export const useMouse = create((set, get) => {
           this.o3d = new Object3D()
           this.redBall = new Mesh(
             new SphereGeometry(5, 4, 2),
-            new MeshPhysicalMaterial({ color: new Color(`#00ffff`), roughness: 0, metalness: 1 }),
+            new MeshPhysicalMaterial({ color: new Color(`#00ffff`), flatShading: true, roughness: 0, metalness: 1 }),
           )
           this.redBall.geometry.translate(0, 5, 0)
-          this.redBall.geometry.scale(1, 5, 1)
-          this.redBall.geometry.scale(0.5, 0.5, 0.5)
+          this.redBall.geometry.scale(1, 4, 1)
+          this.redBall.geometry.scale(0.8, 0.8, 0.8)
+          this.o3d.add(this.redBall)
 
           {
             let clock = new Clock()
             setInterval(() => {
-              this.redBall.rotation.y += clock.getDelta() * 0.1
-            })
+              let t = clock.getElapsedTime()
+              this.redBall.rotation.y = t * 3
+              this.redBall.position.y = Math.sin(t * 3 * 2) * 5
+            }, 16)
           }
           this.redBall.visible = false
           this.raycastToFloor = [0, 0, 0]
@@ -276,12 +279,10 @@ export const useMouse = create((set, get) => {
                     if (res[0]) {
                       let yo = res[0].point
                       castedScreenSpace.set(-wmk.x, -wmk.y, wmk.z).multiplyScalar(10)
-
                       castedScreenSpace.add(yo)
 
                       dotMesh.position.lerp(castedScreenSpace, 0.15)
-
-                      dotMesh.visible = true
+                      dotMesh.visible = false
                     }
                   }
                 }
@@ -322,7 +323,9 @@ export const useMouse = create((set, get) => {
                       if (this.lastFloorPt.length() !== 0) {
                         this.change('delta', yo.clone().sub(this.lastFloorPt))
                       }
-                      this.redBall.position.copy(yo)
+                      this.redBall.position.x = yo.x
+                      this.redBall.position.y = yo.y
+                      this.redBall.position.z = yo.z
                       this.lastFloorPt.copy(yo)
                     } else {
                     }
@@ -401,6 +404,7 @@ export const useMouse = create((set, get) => {
                 hasFound = true
                 it.object.position.fromArray(hand.raycastToFloor)
               }
+
               it.object.traverseAncestors((ite) => {
                 if (ite?.userData?.dragGroup && !hasFound) {
                   hasFound = true
@@ -420,9 +424,12 @@ export const useMouse = create((set, get) => {
           return <primitive key={h.o3d.uuid} object={h.o3d}></primitive>
         }),
 
-        redBallInsert: myHands.map((h) => {
-          return <primitive key={h.redBall.uuid} object={h.redBall}></primitive>
-        }),
+        /*
+          myHands.map((h) => {
+            return <primitive key={h.redBall.uuid} object={h.redBall}></primitive>
+          })
+        */
+        redBallInsert: null,
 
         onLoop: () => {
           let result = get().handResult

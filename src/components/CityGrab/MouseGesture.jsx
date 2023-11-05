@@ -60,7 +60,7 @@ export function MouseGesture() {
 
         <Vars></Vars>
 
-        <Plane name='hoverFloor' args={[32000, 32000, 2, 2]} rotation={[Math.PI * -0.5, 0, 0]} position={[0, 1, -1]}>
+        <Plane name='hoverFloor' args={[32000, 32000, 2, 2]} rotation={[Math.PI * -0.5, 0, 0]} position={[0, 50, -1]}>
           <MeshDiscardMaterial></MeshDiscardMaterial>
         </Plane>
 
