@@ -60,13 +60,13 @@ export function MouseGesture() {
 
         <Vars></Vars>
 
-        <Plane name='hoverFloor' args={[320, 320, 2, 2]} rotation={[Math.PI * -0.5, 0, 0]} position={[0, 50, -1]}>
+        <Plane name='hoverFloor' args={[32000, 32000, 2, 2]} rotation={[Math.PI * -0.5, 0, 0]} position={[0, 50, -1]}>
           <MeshDiscardMaterial></MeshDiscardMaterial>
         </Plane>
 
         {createPortal(
           <group position={[0, 0, -15]}>
-            <Plane name='screenHand' args={[320, 320]}>
+            <Plane name='screenHand' args={[32000, 32000]}>
               <MeshDiscardMaterial></MeshDiscardMaterial>
             </Plane>
           </group>,
