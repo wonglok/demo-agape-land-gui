@@ -81,21 +81,6 @@ export function MouseGesture() {
           <MathSymbol position={[-80, 50, -15]} left={'+ 2x'} right='- 2x'></MathSymbol>
 
           <MathSymbol position={[30, 50, -15]} left={'+ 3'} right='- 3'></MathSymbol>
-
-          <group position={[0, 0, -4]} userData={{ dragGroup: true }}>
-            <Sphere scale={[3, 3, 0.25]} userData={{ noGlow: true }}>
-              <MeshTransmissionMaterial
-                side={FrontSide}
-                backsideThickness={0.5}
-                transmissionSampler={true}
-                transmission={1}
-                roughness={0.13}
-                thickness={1.5}
-                reflectivity={0.5}
-                chromaticAberration={0.15}
-              ></MeshTransmissionMaterial>
-            </Sphere>
-          </group>
         </group>
 
         <Suspense fallback={null}>
