@@ -37,7 +37,7 @@ export function MouseGesture() {
           //
 
           //
-          object-position={[0, 120, 120]}
+          object-position={[0, 150, 150]}
           target={[0, 0, 0]}
           enablePan={false}
           enableZoom={true}

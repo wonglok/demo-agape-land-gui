@@ -172,7 +172,7 @@ export const useMouse = create((set, get) => {
             this.o3d.add(mesh)
           }
 
-          let goal = new Object3D()
+          // let goal = new Object3D()
 
           this.useHand = create((set, get) => {
             return {}
@@ -238,10 +238,10 @@ export const useMouse = create((set, get) => {
                 let dotMesh = this.dots[bone].mesh
                 let wmk = worldLandmarks[bone]
 
-                goal.position.set(-wmk.x, -wmk.y, wmk.z).multiplyScalar(20)
-                goal.position.x += -vpx
-                goal.position.y += -vpy + 2.5
-                goal.position.z += -vpz
+                // goal.position.set(-wmk.x, -wmk.y, wmk.z).multiplyScalar(20)
+                // goal.position.x += -vpx
+                // goal.position.y += -vpy + 2.5
+                // goal.position.z += -vpz
 
                 // dotMesh.position.lerp(goal.position, 0.15)
                 let castedScreenSpace = new Vector3()
