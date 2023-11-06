@@ -134,8 +134,8 @@ function Player() {
 
     beacon.position.lerp(beacon.target, 0.05)
 
-    let distance = beacon.position.distanceTo(player.position)
-    if (distance <= 0.5) {
+    let distance = beacon.target.distanceTo(player.position)
+    if (distance <= 1) {
       if (walkState !== 'idle') {
         useMouse.setState({ walkState: 'idle' })
       }
