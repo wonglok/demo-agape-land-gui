@@ -29,24 +29,39 @@ export function Garage() {
         </group>
 
         <group>
-          <GLBLoader></GLBLoader>
-
-          <pointLight color={'#009999'} position={[-8, 4, 0]} intensity={0.2}>
+          <pointLight color={'#777777'} position={[-8, 4, 0]} intensity={0.2}>
             <mesh visible={false}>
               <sphereBufferGeometry args={[0.3, 32, 32]}></sphereBufferGeometry>
             </mesh>
           </pointLight>
 
+          <pointLight color={'#777777'} position={[-3, 5, -2]} distance={5} intensity={1.3}>
+            <mesh visible={false}>
+              <meshBasicMaterial color={'#ff0000'}> </meshBasicMaterial>
+              <sphereBufferGeometry args={[0.3, 32, 32]}></sphereBufferGeometry>
+            </mesh>
+          </pointLight>
+
+          <directionalLight color={'#333333'} position={[-1, 1, 1]}></directionalLight>
+
           <group scale={1.6} position={[0, 0.2, -3.5]}>
-            <pointLight color={'#009999'} position={[0, 1.6, 1]} intensity={0.5}>
-              <mesh visible={false}>
-                <sphereBufferGeometry args={[0.3, 32, 32]}></sphereBufferGeometry>
-              </mesh>
-            </pointLight>
             <Suspense fallback={null}>
+              <pointLight color={'#999999'} position={[0, 1.6, 1]} intensity={0.5}>
+                <mesh visible={false}>
+                  <sphereBufferGeometry args={[0.3, 32, 32]}></sphereBufferGeometry>
+                </mesh>
+              </pointLight>
               <Genesis></Genesis>
+              <pointLight color='#00ffff' position={[0, 0.9, 0.8]} intensity={3} distance={2}>
+                {/* <mesh visible={true} scale={0.1}>
+            <sphereGeometry></sphereGeometry>
+          </mesh> */}
+              </pointLight>
             </Suspense>
           </group>
+
+          {/* Grage */}
+          <GLBLoader></GLBLoader>
 
           <group rotation={[0, Math.PI * -0.15, 0]} scale={0.5} position={[10, 0.1, -2]}>
             <Video></Video>
