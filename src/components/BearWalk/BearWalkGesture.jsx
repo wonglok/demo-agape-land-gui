@@ -123,10 +123,13 @@ function Player() {
     }
   }, [beacon.target])
 
+  let d3v = useMemo(() => {
+    return new Vector3()
+  }, [])
   useFrame(({ controls, camera }, dt) => {
-    //
-    let diff = new Vector3().subVectors(beacon.target, player.position).normalize()
-    let speed = 10
+    d3v.set(0, 0, 0)
+    let diff = d3v.subVectors(beacon.target, player.position).normalize()
+    let speed = 12.5
 
     beacon.position.lerp(beacon.target, 0.05)
 
