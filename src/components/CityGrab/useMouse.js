@@ -34,6 +34,20 @@ import { Clock } from 'three'
 export const useMouse = create((set, get) => {
   return {
     adjustY: 0.1,
+    calibrate: (
+      <>
+        <div className='m-2 bg-white p-2'>
+          Calibrate
+          <input
+            className='ml-2'
+            defaultValue={0.1}
+            onChange={(ev) => {
+              set({ adjustY: ev.target.value })
+            }}
+          ></input>
+        </div>
+      </>
+    ),
 
     cursor: null,
     stick: null,

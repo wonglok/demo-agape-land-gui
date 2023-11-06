@@ -82,7 +82,7 @@ export function MouseGesture() {
 
           <MathSymbol position={[30, 50, -15]} left={'+ 3'} right='- 3'></MathSymbol>
 
-          <Sphere position={[0, 25, 50]} args={[10, 32, 32]} userData={{ dragGroup: true }}>
+          <Sphere position={[0, 50, 70]} args={[10, 32, 32]} userData={{ dragGroup: true }}>
             <MeshTransmissionMaterial
               roughness={0}
               metalness={0}
@@ -90,6 +90,7 @@ export function MouseGesture() {
               thickness={0.5}
               attenuationColor={'#ff0000'}
               attenuationDistance={100}
+              transmissionSampler
             ></MeshTransmissionMaterial>
           </Sphere>
         </group>

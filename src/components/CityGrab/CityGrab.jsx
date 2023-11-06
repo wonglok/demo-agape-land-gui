@@ -9,6 +9,7 @@ export function CityGrab() {
   let showStartMenu = useMouse((r) => r.showStartMenu)
   let video = useMouse((r) => r.video)
   let loading = useMouse((r) => r.loading)
+  let calibrate = useMouse((r) => r.calibrate)
 
   return (
     <>
@@ -43,6 +44,8 @@ export function CityGrab() {
           <InsertV dom={video}></InsertV>
         </div>
       )}
+
+      <div className='absolute bottom-0 right-0'>{calibrate}</div>
     </>
   )
 }
