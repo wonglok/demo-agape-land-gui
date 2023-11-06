@@ -16,12 +16,16 @@ export function XRHandBlock() {
       <Canvas>
         <XR>
           <Physics
+            //
+
             gravity={[0, -2, 0]}
             iterations={30}
             defaultContactMaterial={{
               friction: 0.09,
               restitution: 0,
             }}
+
+            //
           >
             <Scene />
           </Physics>
@@ -113,7 +117,7 @@ function Scene() {
   }))
   return (
     <>
-      <Sky />
+      {/* <Sky /> */}
       <Plane ref={floorRef} args={[10, 10]} receiveShadow>
         <meshStandardMaterial attach='material' color='#fff' />
       </Plane>
