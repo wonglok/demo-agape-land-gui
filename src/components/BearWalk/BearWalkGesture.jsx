@@ -163,7 +163,7 @@ function Player() {
     <>
       <OrbitControls
         //
-        object-position={[0, 25, 25]}
+        object-position={[0, 25, 15]}
         target={[0, 0, 0]}
         //
         makeDefault
