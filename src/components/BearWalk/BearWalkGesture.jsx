@@ -130,16 +130,18 @@ function Player() {
   useFrame(({ controls, camera }, dt) => {
     d3v.set(0, 0, 0)
     let diff = d3v.subVectors(beacon.target, player.position).normalize()
-    let speed = 12.5
+    let speed = 10
 
     beacon.position.lerp(beacon.target, 0.05)
 
     let distance = beacon.target.distanceTo(player.position)
     if (distance <= 1) {
+      beacon.visible = false
       if (walkState !== 'idle') {
         useMouse.setState({ walkState: 'idle' })
       }
     } else {
+      beacon.visible = true
       if (walkState !== 'walk') {
         useMouse.setState({ walkState: 'walk' })
       }
