@@ -47,6 +47,8 @@ export const useMouse = create((set, get) => {
           Calibrate
           <input
             className='ml-2'
+            min={0.1}
+            max={1}
             defaultValue={0.1}
             onChange={(ev) => {
               set({ adjustY: ev.target.value })

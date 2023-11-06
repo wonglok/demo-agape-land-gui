@@ -152,9 +152,16 @@ function Player() {
 
     if (controls) {
       controls.update()
-      camera.position.sub(controls.target)
-      controls.target.copy(player.position)
-      camera.position.add(player.position)
+
+      // camera.position.sub(controls.target)
+      // controls.target.copy(player.position)
+      // camera.position.add(player.position)
+
+      let latestPlayerPos = player.position.clone()
+      let diff = player.position.clone().sub(controls.target)
+
+      controls.target.copy(latestPlayerPos)
+      camera.position.add(diff)
     }
   })
 
@@ -162,7 +169,7 @@ function Player() {
     <>
       <OrbitControls
         //
-        object-position={[0, 25, 15]}
+        object-position={[0, 15, 10]}
         target={[0, 0, 0]}
         //
         makeDefault
