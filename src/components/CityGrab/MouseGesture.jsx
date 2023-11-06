@@ -221,6 +221,7 @@ function meshBounds(raycaster, intersects) {
   if (!geometry.boundingBox) {
     geometry.computeBoundingBox()
   }
+
   if (!geometry.boundingBox.scaledUp) {
     geometry.boundingBox.scaledUp = true
     geometry.boundingBox.expandByScalar(geometry.boundingSphere.radius * 10)
@@ -313,7 +314,7 @@ function SelectiveBloomRender() {
           envMapIntensity: 1,
 
           aoPass: {
-            useThisOne: true,
+            useThisOne: false,
             intensity: 2,
             aoRadius: 1.9020000000000001,
             distanceFalloff: 2.5540000000000003,
@@ -350,8 +351,8 @@ function SelectiveBloomRender() {
             jitterRoughness: 0.01,
 
             //
-            steps: 8,
-            refineSteps: 8,
+            steps: 20,
+            refineSteps: 4,
             missedRays: true,
             useNormalMap: true,
             useRoughnessMap: true,
