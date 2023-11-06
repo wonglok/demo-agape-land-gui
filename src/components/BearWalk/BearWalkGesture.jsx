@@ -61,12 +61,9 @@ export function BearWalkGesture() {
         </Plane>
 
         <MathSymbol position={[0, 0, -15]} canDrag={false} left={'='} right='='></MathSymbol>
-
         <group name='groupCast'>
           <MathSymbol position={[-30, 0, -15]} left={'+ 1'} right='- 1'></MathSymbol>
-
           <MathSymbol position={[-80, 0, -15]} left={'+ 2x'} right='- 2x'></MathSymbol>
-
           <MathSymbol position={[30, 0, -15]} left={'+ 3'} right='- 3'></MathSymbol>
         </group>
 
@@ -79,6 +76,8 @@ export function BearWalkGesture() {
               <BG url={`/city/city.glb`}></BG>
             </group>
           </group>
+
+          {/*  */}
           {/* <DragGUI></DragGUI> */}
         </Suspense>
       </group>
@@ -172,7 +171,7 @@ function Player() {
         minAzimuthAngle={0}
         maxAzimuthAngle={0}
         minPolarAngle={0}
-        maxPolarAngle={0.5 * Math.PI}
+        maxPolarAngle={0.25 * Math.PI}
         enableRotate={true}
         enabled={true}
       ></OrbitControls>
@@ -256,6 +255,7 @@ function Vars() {
     </>
   )
 }
+
 function DragGUI() {
   let gl = useThree((r) => r.gl)
   let scene = useThree((r) => r.scene)
@@ -343,6 +343,7 @@ function MathSymbol({ canDrag = true, position, left = '', right = '' }) {
   }, [])
 
   useFrame(() => {
+    //
     if (ref.current) {
       ref.current.getWorldPosition(v3)
 
@@ -359,12 +360,17 @@ function MathSymbol({ canDrag = true, position, left = '', right = '' }) {
         setSide(shouldBeSide)
       }
     }
+
+    //
+
     if (ref.current) {
       if (!ref.current.geometry.centered) {
         ref.current.centered = true
         ref.current.geometry.center()
       }
     }
+
+    //
   })
 
   return (
