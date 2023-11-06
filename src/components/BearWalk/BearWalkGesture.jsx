@@ -126,6 +126,7 @@ function Player() {
   let d3v = useMemo(() => {
     return new Vector3()
   }, [])
+
   useFrame(({ controls, camera }, dt) => {
     d3v.set(0, 0, 0)
     let diff = d3v.subVectors(beacon.target, player.position).normalize()
