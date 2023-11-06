@@ -9,6 +9,7 @@ import {
   MeshTransmissionMaterial,
   Plane,
   MeshDiscardMaterial,
+  Box,
 } from '@react-three/drei'
 import { useMouse } from './useMouse.js'
 import { createPortal, useFrame, useThree } from '@react-three/fiber'
@@ -207,7 +208,7 @@ function meshBounds(raycaster, intersects) {
   if (geometry.boundingSphere === null) geometry.computeBoundingSphere()
   _sphere.copy(geometry.boundingSphere)
   _sphere.radius = _sphere.radius
-  _sphere.set(_sphere.center, _sphere.radius * 5)
+  _sphere.set(_sphere.center, _sphere.radius * 5.0)
   _sphere.applyMatrix4(matrixWorld)
   if (raycaster.ray.intersectsSphere(_sphere) === false) return
   _inverseMatrix.copy(matrixWorld).invert()
