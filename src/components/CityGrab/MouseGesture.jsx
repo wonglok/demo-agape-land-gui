@@ -66,7 +66,7 @@ export function MouseGesture() {
         </Plane>
 
         {createPortal(
-          <group position={[0, 0, -15]}>
+          <group position={[0, 0, -3]}>
             <Plane name='screenHand' args={[32000, 32000]}>
               <MeshDiscardMaterial></MeshDiscardMaterial>
             </Plane>
