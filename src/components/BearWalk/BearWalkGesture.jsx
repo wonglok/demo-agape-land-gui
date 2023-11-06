@@ -187,7 +187,7 @@ function Player() {
         <group position={[0, 2, 0]}>
           <Capsule args={[1, 2, 32, 32]}>
             <meshPhysicalMaterial
-              color={walkState === 'idle' ? '#ffffff' : '#00ffff'}
+              color={walkState === 'idle' ? '#ffff00' : '#00ffff'}
               roughness={0}
               metalness={0}
               transmission={1}
