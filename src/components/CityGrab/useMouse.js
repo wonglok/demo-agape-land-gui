@@ -30,7 +30,6 @@ import { Clock } from 'three'
 // import { Mini } from './Noodle/Mini'
 // import { CursorTrackerTail } from './Noodle/CursorTrackerTail'
 
-//
 export const useMouse = create((set, get) => {
   return {
     adjustY: 0.1,

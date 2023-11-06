@@ -84,11 +84,12 @@ export function MouseGesture() {
 
           <Sphere position={[0, 50, 70]} args={[10, 32, 32]} userData={{ dragGroup: true }}>
             <MeshTransmissionMaterial
-              roughness={0}
-              metalness={0}
+              roughness={0.2}
+              metalness={0.1}
               transmission={1}
-              thickness={0.5}
-              attenuationColor={'#ff0000'}
+              thickness={1.5}
+              chromaticAberration={0.1}
+              attenuationColor={'#ffffff'}
               attenuationDistance={100}
               transmissionSampler
             ></MeshTransmissionMaterial>
