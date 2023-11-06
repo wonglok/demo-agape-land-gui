@@ -93,7 +93,7 @@ export const useMouse = create((set, get) => {
 
       let stream = navigator.mediaDevices.getUserMedia({
         video: {
-          width: 256 * (4 / 3),
+          width: 256 * (16 / 9),
           height: 256,
         },
         audio: false,
