@@ -17,10 +17,13 @@ export default function Page() {
             <li className='mb-2 list-item list-inside list-decimal'>XR Lego</li>
           </a>
           <a href={`/mouse`} target='_blank'>
-            <li className='mb-2 list-item list-inside list-decimal'>Webcam Grab - Home</li>
+            <li className='mb-2 list-item list-inside list-decimal'>Webcam - Home</li>
           </a>
           <a href={`/city`} target='_blank'>
-            <li className='mb-2 list-item list-inside list-decimal'>Webcam Grab - City</li>
+            <li className='mb-2 list-item list-inside list-decimal'>Webcam - City</li>
+          </a>
+          <a href={`/bear-walk`} target='_blank'>
+            <li className='mb-2 list-item list-inside list-decimal'>Webcam - Bear Walk</li>
           </a>
 
           <a href={`https://tool.agape.land`} target='_blank'>

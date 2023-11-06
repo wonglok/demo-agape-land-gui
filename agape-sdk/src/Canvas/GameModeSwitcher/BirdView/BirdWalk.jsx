@@ -1,28 +1,22 @@
-import {
-  Html,
-  OrbitControls,
-  PerspectiveCamera,
-  Sphere,
-  useGLTF,
-} from "@react-three/drei";
-import { createPortal, useThree } from "@react-three/fiber";
-import { useEffect, useMemo, useRef, useState } from "react";
-import { Object3D } from "three";
-import { Collider } from "../../../main.jsx";
-import { Mouse3D } from "../../../main.jsx";
-import { AvaZoom } from "../../../main.jsx";
-import { BirdCamSync } from "../../../main.jsx";
-import { AvatarGuide } from "../../../main.jsx";
-import { LoaderGLB } from "../../../main.jsx";
-import { clone } from "../../../main.jsx";
+import { Html, OrbitControls, PerspectiveCamera, Sphere, useGLTF } from '@react-three/drei'
+import { createPortal, useThree } from '@react-three/fiber'
+import { useEffect, useMemo, useRef, useState } from 'react'
+import { Object3D } from 'three'
+import { Collider } from '../../../main.jsx'
+import { Mouse3D } from '../../../main.jsx'
+import { AvaZoom } from '../../../main.jsx'
+import { BirdCamSync } from '../../../main.jsx'
+import { AvatarGuide } from '../../../main.jsx'
+import { LoaderGLB } from '../../../main.jsx'
+import { clone } from '../../../main.jsx'
 //
 export function BirdWalk({ useStore }) {
-  let colliderGLBURL = useStore((r) => r.colliderGLBURL);
-  let gl = useThree((r) => r.gl);
-  let mounter = useRef(gl.domElement);
+  let colliderGLBURL = useStore((r) => r.colliderGLBURL)
+  let gl = useThree((r) => r.gl)
+  let mounter = useRef(gl.domElement)
   useEffect(() => {
-    mounter.current = gl.domElement;
-  }, [gl]);
+    mounter.current = gl.domElement
+  }, [gl])
 
   return (
     <>
@@ -32,56 +26,50 @@ export function BirdWalk({ useStore }) {
           decorate={({ glb }) => {
             glb.scene.traverse((it) => {
               if (it.isLight) {
-                it.visible = false;
+                it.visible = false
               }
-            });
+            })
           }}
           animate={true}
           WhenDone={({ glb }) => {
             glb.scene.traverse((it) => {
-              it.castShadow = true;
-              it.receiveShadow = true;
-            });
+              it.castShadow = true
+              it.receiveShadow = true
+            })
 
             useEffect(() => {
               useStore.setState({
                 colliderGLBObjectSrc: colliderGLBURL,
-              });
-            }, [glb]);
+              })
+            }, [glb])
 
-            return (
-              <Internal
-                useStore={useStore}
-                mounter={mounter}
-                glb={glb}
-              ></Internal>
-            );
+            return <Internal useStore={useStore} mounter={mounter} glb={glb}></Internal>
           }}
         ></LoaderGLB>
       )}
     </>
-  );
+  )
 }
 
 function Internal({ useStore, mounter, glb, fromPos = [0, 0, 0] }) {
-  let gl = useThree((s) => s.gl);
-  let camera = useThree((s) => s.camera);
-  let controls = useThree((r) => r.controls);
+  let gl = useThree((s) => s.gl)
+  let camera = useThree((s) => s.camera)
+  let controls = useThree((r) => r.controls)
 
-  let avatarUrl = `/agape-sdk/glb/lok-groom.glb`;
+  let avatarUrl = `/agape-sdk/glb/lok-groom.glb`
   let destObj = useMemo(() => {
-    let dd = new Object3D();
-    dd.position.y = 2.0;
-    return dd;
-  }, []);
+    let dd = new Object3D()
+    dd.position.y = 2.0
+    return dd
+  }, [])
 
   let colliderScene = useMemo(() => {
-    let o3 = new Object3D();
-    let clonedScene = clone(glb.scene);
-    o3.add(clonedScene);
+    let o3 = new Object3D()
+    let clonedScene = clone(glb.scene)
+    o3.add(clonedScene)
 
-    return o3;
-  }, [glb.scene]);
+    return o3
+  }, [glb.scene])
 
   return (
     <>
@@ -115,22 +103,18 @@ function Internal({ useStore, mounter, glb, fromPos = [0, 0, 0] }) {
                 avatarUrl={avatarUrl}
                 onACore={(aCore) => {
                   if (controls) {
-                    controls.object.position.set(
-                      fromPos[0],
-                      fromPos[1] + 15,
-                      fromPos[2] + 15
-                    );
-                    controls.target.fromArray(fromPos);
+                    controls.object.position.set(fromPos[0], fromPos[1] + 15, fromPos[2] + 15)
+                    controls.target.fromArray(fromPos)
                   }
 
-                  aCore.player.position.fromArray(fromPos);
-                  destObj.position.fromArray(fromPos);
+                  aCore.player.position.fromArray(fromPos)
+                  destObj.position.fromArray(fromPos)
 
                   return (
                     <group>
                       <BirdCamSync player={aCore.player}></BirdCamSync>
                     </group>
-                  );
+                  )
                 }}
               ></AvatarGuide>
 
@@ -143,14 +127,10 @@ function Internal({ useStore, mounter, glb, fromPos = [0, 0, 0] }) {
               {createPortal(
                 <>
                   <Sphere scale={0.3}>
-                    <meshPhysicalMaterial
-                      roughness={0}
-                      metalness={1}
-                      color={"#ffffff"}
-                    ></meshPhysicalMaterial>
+                    <meshPhysicalMaterial roughness={0} metalness={1} color={'#ffffff'}></meshPhysicalMaterial>
                   </Sphere>
                 </>,
-                destObj
+                destObj,
               )}
 
               <group position={[0, 0, 0]}>
@@ -158,13 +138,13 @@ function Internal({ useStore, mounter, glb, fromPos = [0, 0, 0] }) {
                 <primitive object={destObj}></primitive>
               </group>
             </group>
-          );
+          )
         }}
       ></Collider>
     </>
-  );
+  )
 }
 
 function GateMousee({ mouse3d, collider }) {
-  return <Mouse3D collider={collider} mouse3d={mouse3d}></Mouse3D>;
+  return <Mouse3D collider={collider} mouse3d={mouse3d}></Mouse3D>
 }

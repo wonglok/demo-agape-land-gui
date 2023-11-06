@@ -8,7 +8,11 @@ import { joints } from './joints'
 export function XRHandBlock() {
   return (
     <>
-      <ARButton />
+      <ARButton
+        sessionInit={{
+          requiredFeatures: ['hand-tracking'],
+        }}
+      />
       <Canvas>
         <XR>
           <Physics
