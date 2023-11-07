@@ -40,16 +40,16 @@ export const useMouse = create((set, get) => {
     player: new Object3D(),
     beacon,
     //
-    adjustY: 0.1,
+    adjustY: 0.0,
     calibrate: (
       <>
         <div className='m-2 bg-white p-2'>
           Calibrate
           <input
             className='ml-2'
-            min={0.1}
+            min={0.0}
             max={1}
-            defaultValue={0.1}
+            defaultValue={0.0}
             onChange={(ev) => {
               set({ adjustY: ev.target.value })
             }}
@@ -186,9 +186,9 @@ export const useMouse = create((set, get) => {
           this.redBall.visible = true
           this.raycastToFloor = [0, 0, 0]
 
-          this.stickHeight = 5 * 1.5
+          this.stickHeight = 5 * 1
           let stick = new Mesh(
-            new CylinderGeometry(0.1, 0.1, this.stickHeight, 32, 1),
+            new CylinderGeometry(0.2, 0.2, this.stickHeight, 32, 1),
             new MeshPhysicalMaterial({ color: new Color(`#ffffff`), flatShading: true, roughness: 0, metalness: 1 }),
             // new MeshPhysicalMaterial({ color: new Color('#ffffff'), roughness: 0, transmission: 1, thickness: 1.5 }),
           )
@@ -296,7 +296,7 @@ export const useMouse = create((set, get) => {
                       castedScreenSpace.set(-wmk.x, -wmk.y, wmk.z).multiplyScalar(10)
                       castedScreenSpace.add(yo)
 
-                      dotMesh.position.lerp(castedScreenSpace, 0.15)
+                      dotMesh.position.lerp(castedScreenSpace, 1)
                       dotMesh.visible = false
                     }
                   }
@@ -307,7 +307,7 @@ export const useMouse = create((set, get) => {
                 if (camera) {
                   let dir = new Vector3()
 
-                  handPos3.lerp(this.dots[9].mesh.position, 0.25)
+                  handPos3.lerp(this.dots[9].mesh.position, 1)
 
                   dir.copy(camera.position).sub(handPos3).negate().normalize()
 
@@ -328,7 +328,7 @@ export const useMouse = create((set, get) => {
                         this.change('delta', yo.clone().sub(this.lastFloorPt))
                       }
 
-                      this.stick.position.lerp(yo, 0.1)
+                      this.stick.position.lerp(yo, 1)
                       this.stick.position.y = 0
                       this.stick.lookAt(
                         this.stick.position.x,
@@ -336,7 +336,7 @@ export const useMouse = create((set, get) => {
                         this.stick.position.z,
                       )
 
-                      this.redBall.position.lerp(yo, 0.1)
+                      this.redBall.position.lerp(yo, 1)
                       this.redBall.position.y = this.stickHeight
                       this.redBall.lookAt(
                         this.redBall.position.x,
@@ -344,9 +344,12 @@ export const useMouse = create((set, get) => {
                         this.redBall.position.z,
                       )
 
+                      //
                       // this.redBall.position.x = yo.x
                       // this.redBall.position.y = yo.y + this.stickHeight
                       // this.redBall.position.z = yo.z
+                      //
+
                       this.lastFloorPt.copy(yo)
                     }
                   }
@@ -405,7 +408,7 @@ export const useMouse = create((set, get) => {
                 return
               }
               it.object.material.emissive = new Color('#00ff00')
-              it.object.material.emissiveIntensity = 3
+              it.object.material.emissiveIntensity = 2
             })
           }
         })

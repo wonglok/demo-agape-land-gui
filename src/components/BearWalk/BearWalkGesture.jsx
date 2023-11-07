@@ -48,7 +48,7 @@ export function BearWalkGesture() {
         <Vars></Vars>
 
         {createPortal(
-          <group position={[0, 0, -3]}>
+          <group position={[0, 0, -5]}>
             <Plane name='screenHand' args={[32000, 32000]}>
               <MeshDiscardMaterial></MeshDiscardMaterial>
             </Plane>
@@ -134,7 +134,7 @@ function Player() {
     let diff = d3v.subVectors(beacon.target, player.position).normalize()
     let speed = 10
 
-    beacon.position.lerp(beacon.target, 0.05)
+    beacon.position.lerp(beacon.target, 0.3)
 
     let distance = beacon.target.distanceTo(player.position)
     if (distance <= 1) {
@@ -592,7 +592,7 @@ function OneHand({ bone }) {
   let ref = useRef()
   useFrame(() => {
     if (ref.current) {
-      ref.current.position.lerp(bone.position, 0.3)
+      ref.current.position.lerp(bone.position, 1)
       ref.current.visible = bone.visible
     }
   })
