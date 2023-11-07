@@ -12,6 +12,7 @@ import {
   Box,
   RoundedBox,
   Capsule,
+  Gltf,
 } from '@react-three/drei'
 import { useMouse } from './useMouse.js'
 import { createPortal, useFrame, useThree } from '@react-three/fiber'
@@ -60,12 +61,14 @@ export function BearWalkGesture() {
           <gridHelper rotation={[Math.PI * 0.5, 0, 0]} args={[1000, 100]}></gridHelper>
         </Plane>
 
-        <MathSymbol position={[0, 0, -15]} canDrag={false} left={'='} right='='></MathSymbol>
+        {/* <MathSymbol position={[0, 0, -15]} canDrag={false} left={'='} right='='></MathSymbol>
         <group name='groupCast'>
           <MathSymbol position={[-30, 0, -15]} left={'+ 1'} right='- 1'></MathSymbol>
           <MathSymbol position={[-80, 0, -15]} left={'+ 2x'} right='- 2x'></MathSymbol>
           <MathSymbol position={[30, 0, -15]} left={'+ 3'} right='- 3'></MathSymbol>
-        </group>
+        </group> */}
+
+        <Gltf src={`/bear-walk/grass.glb`}></Gltf>
 
         <Suspense fallback={null}>
           <Environment background files={`/mouse/envMap/poly_haven_studio_1k.hdr`}></Environment>
@@ -178,7 +181,7 @@ function Player() {
         minAzimuthAngle={0}
         maxAzimuthAngle={0}
         minPolarAngle={0}
-        maxPolarAngle={0.25 * Math.PI}
+        maxPolarAngle={0.5 * Math.PI}
         enableRotate={true}
         enabled={true}
       ></OrbitControls>
