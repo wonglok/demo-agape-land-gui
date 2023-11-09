@@ -29,7 +29,7 @@ export default function Page() {
             <li className='mb-2 list-item list-inside list-decimal'>Webcam - Fingers</li>
           </a>
           <a href={`/princess-cruise/ship-source.reality`} target='_blank'>
-            <li className='mb-2 list-item list-inside list-decimal'>Apple AR / Headset - Princess Cruise</li>
+            <li className='mb-2 list-item list-inside list-decimal'>Apple AR / Vision Pro Headset - Princess Cruise</li>
           </a>
 
           {/* public/princess-cruise/ship-source.reality */}
