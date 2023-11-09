@@ -25,7 +25,14 @@ export default function Page() {
           <a href={`/bear-walk`} target='_blank'>
             <li className='mb-2 list-item list-inside list-decimal'>Webcam - Bear Walk</li>
           </a>
+          <a href={`/fingers`} target='_blank'>
+            <li className='mb-2 list-item list-inside list-decimal'>Webcam - Fingers</li>
+          </a>
+          <a href={`/princess-cruise/ship-source.reality`} target='_blank'>
+            <li className='mb-2 list-item list-inside list-decimal'>Apple AR - Princess Cruise</li>
+          </a>
 
+          {/* public/princess-cruise/ship-source.reality */}
           <a href={`https://tool.agape.land`} target='_blank'>
             <li className='mb-2 list-item list-inside list-decimal'>Agape Artist Tool 🔗</li>
           </a>
