@@ -32,6 +32,10 @@ export default function Page() {
             <li className='mb-2 list-item list-inside list-decimal'>Apple AR / Vision Pro Headset - Princess Cruise</li>
           </a>
 
+          <a href={`/gsplat`} target='_blank'>
+            <li className='mb-2 list-item list-inside list-decimal'>Gaussian Splat</li>
+          </a>
+
           {/* public/princess-cruise/ship-source.reality */}
           <a href={`https://tool.agape.land`} target='_blank'>
             <li className='mb-2 list-item list-inside list-decimal'>Agape Artist Tool 🔗</li>
