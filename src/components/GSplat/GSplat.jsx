@@ -664,7 +664,7 @@ class SPlatMobileClass extends Group {
           mid.normalize().multiplyScalar(1)
           pos.add(mid)
 
-          material.uniforms.origin.value.copy(pos)
+          material.uniforms.origin.value.copy(detail.target)
           // camera.getWorldPosition(material.uniforms.origin.value)
           material.uniforms.progress.value = 0
           material.uniforms.radius.value = 80
