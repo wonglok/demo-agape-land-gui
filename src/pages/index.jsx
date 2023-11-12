@@ -16,6 +16,10 @@ export default function Page() {
           <a href={`/xr-blocks`} target='_blank'>
             <li className='mb-2 list-item list-inside list-decimal'>XR Lego</li>
           </a>
+
+          <a href={`/face-move`} target='_blank'>
+            <li className='mb-2 list-item list-inside list-decimal'>Webcam - FaceMovement</li>
+          </a>
           <a href={`/mouse`} target='_blank'>
             <li className='mb-2 list-item list-inside list-decimal'>Webcam - Home</li>
           </a>

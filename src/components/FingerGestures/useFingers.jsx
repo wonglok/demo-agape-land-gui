@@ -1,13 +1,119 @@
-import { EquirectangularReflectionMapping, VideoTexture, sRGBEncoding } from 'three'
+import { Color, EquirectangularReflectionMapping, Vector3, VideoTexture, sRGBEncoding } from 'three'
 import { create } from 'zustand'
+import { INDEX_FINGER_TIP, THUMB_TIP } from './FigerNames'
 
+let positionMap = new Map()
+let colorMap = new Map()
 export const useFingers = create((set, get) => {
+  let onLoop = (v) => {
+    get().tasks.push(v)
+  }
+  let lastVideoTime = 0
   return {
+    bothHovering: false,
+    bothPinching: false,
     //
-    gui2d: <></>,
+    viewport: { width: 1, height: 1 },
+
     video: false,
     cancelVideoSetup: () => {},
-    setupVideo: async () => {
+    tasks: [],
+    onLoop: onLoop,
+
+    handednesses: [],
+    landmarks: [],
+    worldLandmarks: [],
+    //
+    eachVideoFrameProc: () => {
+      let video = get().video
+      let handLandmarker = get().handLandmarker
+
+      if (!video) {
+        return
+      }
+
+      if (!handLandmarker) {
+        return
+      }
+
+      let startTimeMs = performance.now()
+      if (lastVideoTime !== video.currentTime) {
+        if (!(video.videoWidth > 0 && video.videoHeight > 0)) {
+          return
+        }
+
+        lastVideoTime = video.currentTime
+
+        let { handednesses, landmarks, worldLandmarks } = handLandmarker.detectForVideo(video, startTimeMs)
+
+        let sides = handednesses.map((r) => {
+          return r[0]?.categoryName?.toLowerCase()
+        })
+
+        let bothHovering = sides.includes('left') && sides.includes('right')
+
+        landmarks = landmarks || []
+        landmarks.forEach((hand, hidx) => {
+          hand.forEach((finger, fidx, fingers) => {
+            //
+            finger.color = finger.color || new Color('#ffffff')
+
+            finger.type = fidx
+            finger.position = finger.position || new Vector3()
+            finger.position.fromArray([
+              //
+              -(finger.x * 2.0 - 1.0) * 5 * (video.videoWidth / video.videoHeight),
+              -(finger.y * 2.0 - 1.0) * 5 * 1,
+              -finger.z * 5,
+            ])
+          })
+
+          return hand
+        })
+
+        landmarks.forEach((hand, hidx) => {
+          hand.forEach((finger) => {
+            finger.color.set('#ffffff')
+          })
+
+          let idxT = hand[INDEX_FINGER_TIP]
+          let thbT = hand[THUMB_TIP]
+
+          if (idxT?.position?.distanceTo(thbT?.position) <= 1) {
+            idxT.color.set('#ff0000')
+            thbT.color.set('#ff0000')
+
+            console.log(idxT, thbT)
+          }
+          return hand
+        })
+
+        let tip = landmarks[INDEX_FINGER_TIP]?.position
+        let thumb = landmarks[THUMB_TIP]?.position
+
+        if (tip && thumb) {
+          if (get().bothPinching !== bothPinching) {
+            set({
+              bothPinching,
+            })
+          }
+        }
+
+        if (get().bothHovering !== bothHovering) {
+          set({
+            bothHovering,
+          })
+        }
+
+        set({
+          bothHovering,
+          handednesses: handednesses || [],
+          landmarks: landmarks || [],
+          worldLandmarks: worldLandmarks || [],
+        })
+      }
+    },
+    setup: async () => {
       //
       let video = document.createElement('video')
       video.playsInline = true
@@ -20,6 +126,7 @@ export const useFingers = create((set, get) => {
         },
         audio: false,
       })
+      set({ video: video })
 
       video.srcObject = stream
       video.onloadeddata = () => {
@@ -34,17 +141,13 @@ export const useFingers = create((set, get) => {
             id = video.requestVideoFrameCallback(func)
           }
           videoTexture.needsUpdate = true
-          get().eachVideoFrameProc({ video })
+          get().eachVideoFrameProc()
         }
         id = video.requestVideoFrameCallback(func)
 
         get().cancelVideoSetup()
         set({
           cancelVideoSetup: () => {
-            let recogizer = get().recogizer
-            if (recogizer?.close) {
-              recogizer.close()
-            }
             canRun = false
           },
           videoTexture: videoTexture,
@@ -54,11 +157,28 @@ export const useFingers = create((set, get) => {
       }
       video.play()
 
-      set({ video: video })
+      let { FilesetResolver, HandLandmarker } = await import('@mediapipe/tasks-vision')
 
-      let { FilesetResolver, GestureRecognizer, HandLandmarker } = await import('@mediapipe/tasks-vision')
+      let vision = await FilesetResolver.forVisionTasks(`/Handlandmark/wasm`)
+
+      let handLandmarker = await HandLandmarker.createFromOptions(vision, {
+        baseOptions: {
+          modelAssetPath: `/Handlandmark/hand_landmarker.task`,
+          delegate: 'GPU',
+        },
+        runningMode: 'VIDEO',
+        numHands: 2,
+      })
+      video.onplaying = async () => {
+        await handLandmarker.setOptions({ runningMode: 'VIDEO' })
+        set({ handLandmarker })
+      }
+      set({ handLandmarker })
+
+      //  public/Handlandmark/hand_landmarker.task
     },
     gui3d: <></>,
+    gui2d: <></>,
     //
   }
 })
