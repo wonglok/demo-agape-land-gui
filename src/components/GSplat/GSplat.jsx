@@ -655,6 +655,7 @@ class SPlatMobileClass extends Group {
 
         material.uniforms.progress.value = 0
         window.addEventListener('click-floor', ({ detail }) => {
+          //
           // console.log(detail)
 
           let pos = camera.position.clone()
