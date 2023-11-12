@@ -763,7 +763,7 @@ class SPlatMobileClass extends Group {
               detail: { camera: new THREE.Vector3(0, 0, 0), target: new THREE.Vector3(0, 0, 0) },
             }),
           )
-        }, 1000)
+        }, 10)
         this.worker.onmessage = (e) => {
           let indexes = new Uint32Array(e.data.sortedIndexes)
           mesh.geometry.attributes.splatIndex.set(indexes)
