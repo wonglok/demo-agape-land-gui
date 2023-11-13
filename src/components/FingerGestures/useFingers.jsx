@@ -46,7 +46,8 @@ export const useFingers = create((set, get) => {
 
         lastVideoTime = video.currentTime
 
-        let { handednesses, landmarks, worldLandmarks } = handLandmarker.detectForVideo(video, startTimeMs)
+        let results = handLandmarker.detectForVideo(video, startTimeMs)
+        let { handednesses, landmarks, worldLandmarks } = results
 
         set({
           handednesses: handednesses || [],
@@ -218,7 +219,7 @@ export const useFingers = create((set, get) => {
         numHands: 2,
       })
       video.onplaying = async () => {
-        await handLandmarker.setOptions({ runningMode: 'VIDEO' })
+        await handLandmarker.setOptions({ runningMode: 'VIDEO', baseOptions: { delegate: 'GPU' } })
         set({ handLandmarker })
       }
       set({ handLandmarker })

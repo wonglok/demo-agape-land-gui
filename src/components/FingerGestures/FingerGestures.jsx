@@ -1,13 +1,17 @@
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { useFingers } from './useFingers'
 import { useEffect, useMemo, useRef } from 'react'
-import { Box, Environment, OrbitControls, Text } from '@react-three/drei'
-import { Object3D, SphereGeometry } from 'three'
+import { Box, Environment, OrbitControls, Text, useTexture } from '@react-three/drei'
+import { IcosahedronGeometry, Object3D, SRGBColorSpace, SphereGeometry, sRGBEncoding } from 'three'
 
 export function FingerGestures() {
   let gui2d = useFingers((r) => r.gui2d)
   let gui3d = useFingers((r) => r.gui3d)
-  useEffect(() => {}, [])
+  // useEffect(() => {}, [])
+
+  //
+
+  //
   return (
     <>
       <Canvas>
@@ -68,7 +72,8 @@ function PinchCompos() {
 
       o3.scale.x += detail.diff / 5
       o3.scale.y += detail.diff / 5
-      o3.scale.z += detail.diff / 5
+      o3.scale.z = 0.1
+      // o3.scale.z += detail.diff / 5
     }
     window.addEventListener('moveZooming', hh)
     return () => {
@@ -93,11 +98,15 @@ function PinchCompos() {
       ref.current.scale.lerp(o3.scale, 0.15)
     }
   })
+  let map = useTexture('/thekiss-art/4k-thekiss.jpg')
+  map.encoding = sRGBEncoding
+  map.colorSpace = SRGBColorSpace
 
+  //
   return (
     <>
-      <Box ref={ref}>
-        <meshStandardMaterial color={'red'}></meshStandardMaterial>
+      <Box position={[0, 0, 0]} ref={ref}>
+        <meshStandardMaterial color={'#fff'} roughness={1} metalness={0} map={map}></meshStandardMaterial>
       </Box>
     </>
   )
@@ -107,7 +116,7 @@ function MyLandmarks() {
   let landmarks = useFingers((r) => r.landmarks)
   let handednesses = useFingers((r) => r.handednesses)
   let geo = useMemo((r) => {
-    return new SphereGeometry(0.1, 32, 32)
+    return new IcosahedronGeometry(0.2, 2)
   }, [])
 
   let sides = handednesses.map((r) => {
@@ -120,38 +129,46 @@ function MyLandmarks() {
   //
   return (
     <>
-      {landmarks.map((hand, hidx) => {
-        let handMetaList = handednesses[hidx] || []
+      <group position={[0, 0, 1]}>
+        {landmarks.map((hand, hidx) => {
+          let handMetaList = handednesses[hidx] || []
 
-        let handInfo = handMetaList[0]
+          let handInfo = handMetaList[0]
 
-        if (!handInfo) {
-          return <group key={hidx + 'hidx'}></group>
-        }
+          if (!handInfo) {
+            return <group key={hidx + 'hidx'}></group>
+          }
 
-        //
-        let handSide = handInfo.categoryName.toLowerCase()
-        let color = handSide === 'left' ? 'green' : 'blue'
+          //
+          let handSide = handInfo.categoryName.toLowerCase()
+          let color = handSide === 'left' ? 'green' : 'blue'
 
-        return (
-          <group key={'rand' + 'yo' + '' + hidx + '' + color + handSide + 'hand'}>
-            {hand.map((finger, fidx) => {
-              return (
-                <>
-                  <group
-                    position={finger.position.toArray() || [0, 0, 0]}
-                    key={'gp' + '_side' + handSide + '_h' + hidx + '_f' + fidx}
-                  >
-                    <mesh scale={[1, 1, 1]} geometry={geo}>
-                      <meshStandardMaterial color={finger.color}></meshStandardMaterial>
-                    </mesh>
-                  </group>
-                </>
-              )
-            })}
-          </group>
-        )
-      })}
+          return (
+            <group key={'rand' + 'yo' + '' + hidx + '' + color + handSide + 'hand'}>
+              {hand.map((finger, fidx) => {
+                return (
+                  <>
+                    <group
+                      position={finger.position.toArray() || [0, 0, 0]}
+                      key={'gp' + '_side' + handSide + '_h' + hidx + '_f' + fidx}
+                    >
+                      <mesh scale={[1, 1, 1]} geometry={geo}>
+                        <meshPhysicalMaterial
+                          transmission={1}
+                          roughness={0}
+                          thickness={1.3}
+                          flatShading
+                          color={finger.color}
+                        ></meshPhysicalMaterial>
+                      </mesh>
+                    </group>
+                  </>
+                )
+              })}
+            </group>
+          )
+        })}
+      </group>
     </>
   )
 }
