@@ -70,8 +70,8 @@ function PinchCompos() {
     let hh = ({ detail }) => {
       console.log('moveZooming', detail)
 
-      o3.scale.x += detail.diff / 5
-      o3.scale.y += detail.diff / 5
+      o3.scale.x += detail.diff / 2.5
+      o3.scale.y += detail.diff / 2.5
       o3.scale.z = 0.1
       // o3.scale.z += detail.diff / 5
     }
@@ -155,8 +155,8 @@ function MyLandmarks() {
                       <mesh scale={[1, 1, 1]} geometry={geo}>
                         <meshPhysicalMaterial
                           transmission={1}
-                          roughness={0}
-                          thickness={1.3}
+                          roughness={0.1}
+                          thickness={1.5}
                           flatShading
                           color={finger.color}
                         ></meshPhysicalMaterial>
