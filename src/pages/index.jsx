@@ -30,7 +30,10 @@ export default function Page() {
             <li className='mb-2 list-item list-inside list-decimal'>Webcam - Bear Walk</li>
           </a>
           <a href={`/fingers`} target='_blank'>
-            <li className='mb-2 list-item list-inside list-decimal'>Webcam - Fingers</li>
+            <li className='mb-2 list-item list-inside list-decimal'>Gesture - Pinch to magnify</li>
+          </a>
+          <a href={`/fan-gesture`} target='_blank'>
+            <li className='mb-2 list-item list-inside list-decimal'>Gesture - Pinch to Shuffle</li>
           </a>
           <a href={`/princess-cruise/ship-source.reality`} target='_blank'>
             <li className='mb-2 list-item list-inside list-decimal'>Apple AR / Vision Pro Headset - Princess Cruise</li>
