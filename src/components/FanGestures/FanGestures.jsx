@@ -92,6 +92,7 @@ function PinchCompos() {
       window.removeEventListener('moveZooming', hh)
     }
   }, [o3.scale])
+
   useFrame(() => {
     vAcc.current = MathUtils.lerp(vAcc.current, acc.current, 0.1)
 
