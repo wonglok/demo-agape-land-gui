@@ -61,9 +61,27 @@ export function Core() {
   )
 }
 
-function PinchCompos() {
-  let o3 = useMemo(() => new Object3D(), [])
+function Compute({ children, scale = () => [1, 1, 1], position = () => [0, 0, 0], rotation = () => [0, 0, 0] }) {
+  let ref = useRef()
 
+  useFrame(() => {
+    //
+    let it = ref.current
+    if (it) {
+      //
+      it.position.fromArray(position())
+      it.scale.fromArray(scale())
+      let rot = rotation()
+      it.rotation.x = rot[0]
+      it.rotation.y = rot[1]
+      it.rotation.z = rot[2]
+    }
+  })
+
+  return <group ref={ref}>{children}</group>
+}
+
+function PinchCompos() {
   let ref = useRef()
   useEffect(() => {
     let hh = ({ detail }) => {
@@ -76,13 +94,15 @@ function PinchCompos() {
   }, [])
 
   let [items, setItems] = useState([])
-  let acc = useRef(1)
+  let lAcc = useRef(1)
   let vAcc = useRef(1)
+
+  //
   useEffect(() => {
     let hh = ({ detail }) => {
       console.log('moveZooming', detail)
 
-      acc.current += detail.diff * 1.5
+      lAcc.current += detail.diff * 1.5
 
       // <Instance color='red' scale={2} position={[1, 2, 3]} rotation={[Math.PI / 3, 0, 0]} onClick={onClick} />
       // o3.scale.z += detail.diff / 5
@@ -92,42 +112,43 @@ function PinchCompos() {
     return () => {
       window.removeEventListener('moveZooming', hh)
     }
-  }, [o3.scale])
+  }, [])
 
   useFrame(() => {
-    vAcc.current = MathUtils.lerp(vAcc.current, acc.current, 0.05)
+    vAcc.current = MathUtils.lerp(vAcc.current, lAcc.current, 0.05)
+  })
 
-    let acu = vAcc.current
+  useEffect(() => {
     let arr = []
 
     let total = 500
     let half = total / 2
     let i = 0
     for (let y = 0; y < total; y++) {
-      let ey = 1 - y / total
-      let rey = y / total
+      let each = y / total
 
-      // arr.push(
-      //   <group key={i + 'key_key'}>
-      //     <group>
-      //       <group position={[i * 0.2 - half * 0.25, 0, 0]} rotation={[ey * acu * 3.141592, 0, 0]}>
-      //         <Instance position={[0, (i / total) * 5.2, 0]}></Instance>
-      //       </group>
-      //     </group>
-      //   </group>,
-      // )
+      let vv = {
+        idx: i,
+        total,
+        each,
+        middle: each - 0.5,
+        half,
+        get progress() {
+          return vAcc.current
+        },
+      }
 
       arr.push(
         <group key={i + 'key_key'}>
-          <group position={[0, -2, 0]}>
-            <group rotation={[0, 1 * acu * ey, 0]}>
-              <group position={[0, acu * ey * 0.5, 5]}>
-                <group rotation={[0, 0, ey]}>
-                  <Instance key={'card' + i}></Instance>
-                </group>
-              </group>
-            </group>
-          </group>
+          <Compute rotation={() => [0, 3.141592 * vv.each * 3, 0]}>
+            <Compute
+              //
+              rotation={() => [0, vv.each * 3.141592 * 2 * 0.1, 0]}
+              position={() => [vv.each * 4.0, vv.each * 0.5 * vv.progress, 0]}
+            >
+              <Instance></Instance>
+            </Compute>
+          </Compute>
         </group>,
       )
 
@@ -137,7 +158,7 @@ function PinchCompos() {
     }
 
     setItems(arr)
-  })
+  }, [])
 
   useEffect(() => {
     let hh = () => {}
