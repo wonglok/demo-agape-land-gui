@@ -119,15 +119,11 @@ function PinchCompos() {
 
       arr.push(
         <group key={i + 'key_key'}>
-          <group>
+          <group position={[0, -2, 0]}>
             <group rotation={[0, 1 * acu * ey, 0]}>
               <group position={[0, acu * ey * 0.5, 5]}>
                 <group rotation={[0, 0, ey]}>
-                  <Instance
-                    // position={[0.01 * (i - total) * acu, 0, 0]}
-                    // scale={[0.005, ey * 2.5, ey * 2.5]}
-                    key={'card' + i}
-                  ></Instance>
+                  <Instance key={'card' + i}></Instance>
                 </group>
               </group>
             </group>
@@ -142,6 +138,7 @@ function PinchCompos() {
 
     setItems(arr)
   })
+
   useEffect(() => {
     let hh = () => {}
     window.addEventListener('stopZooming', hh)
