@@ -3,6 +3,7 @@ import { useFingers } from './useFingers'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { Box, Environment, Instance, Instances, OrbitControls, Text, useTexture } from '@react-three/drei'
 import {
+  BoxGeometry,
   IcosahedronGeometry,
   InstancedMesh,
   MathUtils,
@@ -75,8 +76,8 @@ function PinchCompos() {
   }, [])
 
   let [items, setItems] = useState([])
-  let acc = useRef(4)
-  let vAcc = useRef(4)
+  let acc = useRef(1)
+  let vAcc = useRef(1)
   useEffect(() => {
     let hh = ({ detail }) => {
       console.log('moveZooming', detail)
@@ -99,21 +100,36 @@ function PinchCompos() {
     let acu = vAcc.current
     let arr = []
 
-    let total = 150
+    let total = 500
+    let half = total / 2
     let i = 0
     for (let y = 0; y < total; y++) {
-      //
+      let ey = 1 - y / total
+      let rey = y / total
 
-      let ey = 1.0 - y / total
+      // arr.push(
+      //   <group key={i + 'key_key'}>
+      //     <group>
+      //       <group position={[i * 0.2 - half * 0.25, 0, 0]} rotation={[ey * acu * 3.141592, 0, 0]}>
+      //         <Instance position={[0, (i / total) * 5.2, 0]}></Instance>
+      //       </group>
+      //     </group>
+      //   </group>,
+      // )
+
       arr.push(
         <group key={i + 'key_key'}>
-          <group rotation={[ey, 0.0, ey * acu]}>
-            <group rotation={[0, 0, acu * Math.PI * ey]}>
-              <Instance
-                position={[0.01 * (i - total) * acu, 0, 0]}
-                scale={[0.005, ey * 2.5, ey * 2.5]}
-                key={'card' + i}
-              ></Instance>
+          <group>
+            <group rotation={[0, 1 * acu * ey, 0]}>
+              <group position={[0, acu * ey * 0.5, 5]}>
+                <group rotation={[0, 0, ey]}>
+                  <Instance
+                    // position={[0.01 * (i - total) * acu, 0, 0]}
+                    // scale={[0.005, ey * 2.5, ey * 2.5]}
+                    key={'card' + i}
+                  ></Instance>
+                </group>
+              </group>
             </group>
           </group>
         </group>,
@@ -145,15 +161,17 @@ function PinchCompos() {
   map.colorSpace = SRGBColorSpace
 
   //
-
+  let geo = useMemo(() => {
+    return new BoxGeometry(0.005, 1, 1)
+  }, [])
   //
   return (
     <>
       <Instances
+        geometry={geo}
         limit={500} // Optional: max amount of items (for calculating buffer size)
         range={500} // Optional: draw-range
       >
-        <boxGeometry />
         <meshStandardMaterial map={map} />
 
         <group>
