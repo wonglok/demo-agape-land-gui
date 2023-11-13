@@ -75,8 +75,8 @@ function PinchCompos() {
   }, [])
 
   let [items, setItems] = useState([])
-  let acc = useRef(10)
-  let vAcc = useRef(10)
+  let acc = useRef(4)
+  let vAcc = useRef(4)
   useEffect(() => {
     let hh = ({ detail }) => {
       console.log('moveZooming', detail)
