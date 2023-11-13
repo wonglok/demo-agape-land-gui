@@ -1,8 +1,8 @@
-import { Canvas, useThree } from '@react-three/fiber'
+import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { useFingers } from './useFingers'
-import { useEffect, useMemo } from 'react'
-import { Environment, OrbitControls, Text } from '@react-three/drei'
-import { SphereGeometry } from 'three'
+import { useEffect, useMemo, useRef } from 'react'
+import { Box, Environment, OrbitControls, Text } from '@react-three/drei'
+import { Object3D, SphereGeometry } from 'three'
 
 export function FingerGestures() {
   let gui2d = useFingers((r) => r.gui2d)
@@ -41,8 +41,64 @@ export function Core() {
       <>
         <Environment files={`/Handlandmark/room.hdr`}></Environment>
         <MyLandmarks></MyLandmarks>
+        <PinchCompos></PinchCompos>
         <OrbitControls object-position={[0, 0, 10]} makeDefault></OrbitControls>
       </>
+    </>
+  )
+}
+
+function PinchCompos() {
+  let o3 = useMemo(() => new Object3D(), [])
+
+  let ref = useRef()
+  useEffect(() => {
+    let hh = ({ detail }) => {
+      console.log('startZooming', detail)
+    }
+    window.addEventListener('startZooming', hh)
+    return () => {
+      window.removeEventListener('startZooming', hh)
+    }
+  }, [])
+
+  useEffect(() => {
+    let hh = ({ detail }) => {
+      console.log('moveZooming', detail)
+
+      o3.scale.x += detail.diff / 5
+      o3.scale.y += detail.diff / 5
+      o3.scale.z += detail.diff / 5
+    }
+    window.addEventListener('moveZooming', hh)
+    return () => {
+      window.removeEventListener('moveZooming', hh)
+    }
+  }, [])
+
+  useEffect(() => {
+    let hh = ({ detail }) => {
+      console.log('stopZooming', detail)
+    }
+    window.addEventListener('stopZooming', hh)
+    return () => {
+      window.removeEventListener('stopZooming', hh)
+    }
+  }, [])
+
+  useFrame(() => {
+    //
+
+    if (ref.current) {
+      ref.current.scale.lerp(o3.scale, 0.15)
+    }
+  })
+
+  return (
+    <>
+      <Box ref={ref}>
+        <meshStandardMaterial color={'red'}></meshStandardMaterial>
+      </Box>
     </>
   )
 }

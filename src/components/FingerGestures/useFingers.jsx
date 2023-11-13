@@ -11,7 +11,9 @@ export const useFingers = create((set, get) => {
   let lastVideoTime = 0
   return {
     bothHovering: false,
-    bothPinching: false,
+    isZooming: false,
+
+    initPinchDist: 0,
     //
     viewport: { width: 1, height: 1 },
 
@@ -46,6 +48,12 @@ export const useFingers = create((set, get) => {
 
         let { handednesses, landmarks, worldLandmarks } = handLandmarker.detectForVideo(video, startTimeMs)
 
+        set({
+          handednesses: handednesses || [],
+          landmarks: landmarks || [],
+          worldLandmarks: worldLandmarks || [],
+        })
+
         let sides = handednesses.map((r) => {
           return r[0]?.categoryName?.toLowerCase()
         })
@@ -79,25 +87,20 @@ export const useFingers = create((set, get) => {
           let idxT = hand[INDEX_FINGER_TIP]
           let thbT = hand[THUMB_TIP]
 
+          hand.pinchDist = idxT?.position?.distanceTo(thbT?.position)
+
           if (idxT?.position?.distanceTo(thbT?.position) <= 1) {
             idxT.color.set('#ff0000')
             thbT.color.set('#ff0000')
 
-            console.log(idxT, thbT)
+            hand.isPinching = true
+          } else {
+            hand.isPinching = false
           }
+
+          //
           return hand
         })
-
-        let tip = landmarks[INDEX_FINGER_TIP]?.position
-        let thumb = landmarks[THUMB_TIP]?.position
-
-        if (tip && thumb) {
-          if (get().bothPinching !== bothPinching) {
-            set({
-              bothPinching,
-            })
-          }
-        }
 
         if (get().bothHovering !== bothHovering) {
           set({
@@ -105,12 +108,57 @@ export const useFingers = create((set, get) => {
           })
         }
 
-        set({
-          bothHovering,
-          handednesses: handednesses || [],
-          landmarks: landmarks || [],
-          worldLandmarks: worldLandmarks || [],
-        })
+        if (bothHovering && landmarks[0] && landmarks[1]) {
+          let isZooming = landmarks.filter((r) => r.isPinching)?.length >= 2.0
+
+          let pinchDist = landmarks[0][INDEX_FINGER_TIP]?.position.distanceTo(landmarks[1][INDEX_FINGER_TIP]?.position)
+
+          if (isZooming === true && get().isZooming === false) {
+            set({
+              initPinchDist: pinchDist,
+            })
+
+            window.dispatchEvent(
+              new CustomEvent('startZooming', {
+                detail: {
+                  //
+                  dist: pinchDist,
+                },
+              }),
+            )
+          } else if (isZooming === true && get().isZooming === true) {
+            window.dispatchEvent(
+              new CustomEvent('moveZooming', {
+                detail: {
+                  //
+                  expand: pinchDist / get().initPinchDist,
+                  diff: pinchDist - get().pinchDist,
+                  dist: pinchDist,
+                },
+              }),
+            )
+          } else if (get().isZooming === true && isZooming === false) {
+            window.dispatchEvent(
+              new CustomEvent('stopZooming', {
+                detail: {
+                  //
+                  dist: pinchDist,
+                },
+              }),
+            )
+            set({
+              initPinchDist: 0,
+            })
+          }
+
+          set({ pinchDist: pinchDist })
+
+          if (get().isZooming !== isZooming) {
+            set({
+              isZooming,
+            })
+          }
+        }
       }
     },
     setup: async () => {
