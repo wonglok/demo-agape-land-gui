@@ -81,7 +81,7 @@ function PinchCompos() {
     let hh = ({ detail }) => {
       console.log('moveZooming', detail)
 
-      acc.current += detail.diff / 5
+      acc.current += detail.diff * 1.5
 
       // <Instance color='red' scale={2} position={[1, 2, 3]} rotation={[Math.PI / 3, 0, 0]} onClick={onClick} />
       // o3.scale.z += detail.diff / 5
@@ -94,32 +94,34 @@ function PinchCompos() {
   }, [o3.scale])
 
   useFrame(() => {
-    vAcc.current = MathUtils.lerp(vAcc.current, acc.current, 0.1)
+    vAcc.current = MathUtils.lerp(vAcc.current, acc.current, 0.05)
 
+    let acu = vAcc.current
     let arr = []
 
+    let total = 150
     let i = 0
-    for (let y = 0; y < 200; y++) {
-      for (let x = 0; x < 5; x++) {
-        //
-        //
+    for (let y = 0; y < total; y++) {
+      //
 
-        let ey = y / 200
-        arr.push(
-          <group rotation={[0, 0, vAcc.current * 3.2 * (y / 200)]} key={i + 'key_key'}>
-            <Instance
-              rotation={[(vAcc.current * y) / 50, 0, vAcc.current * 0.11 * 1.14]}
-              position={[0.001 * (i - 50) * vAcc.current, 0, 0]}
-              scale={[0.005, ey * 2.5, ey * 2.5]}
-              key={'card' + i}
-            ></Instance>
-          </group>,
-        )
+      let ey = 1.0 - y / total
+      arr.push(
+        <group key={i + 'key_key'}>
+          <group rotation={[ey, 0.0, ey * acu]}>
+            <group rotation={[0, 0, acu * Math.PI * ey]}>
+              <Instance
+                position={[0.01 * (i - total) * acu, 0, 0]}
+                scale={[0.005, ey * 2.5, ey * 2.5]}
+                key={'card' + i}
+              ></Instance>
+            </group>
+          </group>
+        </group>,
+      )
 
-        i++
-        //
-        //
-      }
+      i++
+      //
+      //
     }
 
     setItems(arr)
