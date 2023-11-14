@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { Box, Environment, Instance, Instances, OrbitControls, Text, useTexture } from '@react-three/drei'
 import {
   BoxGeometry,
+  DoubleSide,
   IcosahedronGeometry,
   InstancedMesh,
   MathUtils,
@@ -144,9 +145,11 @@ function PinchCompos() {
             <Compute
               //
               rotation={() => [0, vv.each * 3.141592 * 2 * 0.1, 0]}
-              position={() => [vv.each * 4.0, vv.each * 0.5 * vv.progress, 0]}
+              position={() => [3, vv.each * 3, 0]}
             >
-              <Instance></Instance>
+              <Compute rotation={() => [vv.progress, 0, vv.progress]}>
+                <Instance></Instance>
+              </Compute>
             </Compute>
           </Compute>
         </group>,
@@ -190,7 +193,7 @@ function PinchCompos() {
         limit={500} // Optional: max amount of items (for calculating buffer size)
         range={500} // Optional: draw-range
       >
-        <meshStandardMaterial map={map} />
+        <meshStandardMaterial side={DoubleSide} map={map} />
 
         <group>
           <group>{items}</group>
