@@ -43,6 +43,10 @@ export default function Page() {
             <li className='mb-2 list-item list-inside list-decimal'>Gaussian Splat</li>
           </a>
 
+          <a href='https://creativecodelab.com/runner.html?siteID=5e34d3d26396a80d0f4bcc96'>
+            <li className='mb-2 list-item list-inside list-decimal'>Creative Code Lab - Immersive Sphere</li>
+          </a>
+
           {/* public/princess-cruise/ship-source.reality */}
           <a href={`https://tool.agape.land`} target='_blank'>
             <li className='mb-2 list-item list-inside list-decimal'>Agape Artist Tool 🔗</li>
