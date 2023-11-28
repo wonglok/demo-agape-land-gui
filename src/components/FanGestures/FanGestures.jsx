@@ -56,7 +56,7 @@ export function Core() {
         <Environment files={`/Handlandmark/room.hdr`}></Environment>
         <MyLandmarks></MyLandmarks>
         <PinchCompos></PinchCompos>
-        <OrbitControls object-position={[0, 0, 10]} makeDefault></OrbitControls>
+        <OrbitControls object-position={[0, 0, 20]} target={[0, 0, 0]} makeDefault></OrbitControls>
       </>
     </>
   )
@@ -103,7 +103,7 @@ function PinchCompos() {
     let hh = ({ detail }) => {
       console.log('moveZooming', detail)
 
-      lAcc.current += detail.diff * 1.5
+      lAcc.current += detail.diff * 13.5
 
       // <Instance color='red' scale={2} position={[1, 2, 3]} rotation={[Math.PI / 3, 0, 0]} onClick={onClick} />
       // o3.scale.z += detail.diff / 5
@@ -116,48 +116,63 @@ function PinchCompos() {
   }, [])
 
   useFrame(() => {
-    vAcc.current = MathUtils.lerp(vAcc.current, lAcc.current, 0.05)
+    vAcc.current = MathUtils.lerp(vAcc.current, lAcc.current, 0.02)
   })
 
   useEffect(() => {
     let arr = []
 
-    let total = 500
-    let half = total / 2
+    let totalY = 32
+    let totalX = 32
+    let halfY = totalY / 2
+    let halfX = totalX / 2
     let i = 0
-    for (let y = 0; y < total; y++) {
-      let each = y / total
+    for (let y = 0; y < totalY; y++) {
+      for (let x = 0; x < totalX; x++) {
+        let eachX = x / totalX
+        let eachY = y / totalY
 
-      let vv = {
-        idx: i,
-        total,
-        each,
-        middle: each - 0.5,
-        half,
-        get progress() {
-          return vAcc.current
-        },
-      }
+        let vv = {
+          idx: i,
+          totalY,
+          totalX,
+          eachY,
+          eachX,
+          middleY: eachY - 0.5,
+          middleX: eachX - 0.5,
+          halfY: halfY,
+          halfX: halfX,
+          get progress() {
+            return vAcc.current
+          },
+          get t() {
+            return window.performance.now() / 1000
+          },
+        }
 
-      arr.push(
-        <group key={i + 'key_key'}>
-          <Compute rotation={() => [0, 3.141592 * vv.each * 3, 0]}>
-            <Compute
-              //
-              rotation={() => [0, vv.each * 3.141592 * 2 * 0.1, 0]}
-              position={() => [3, vv.each * 3, 0]}
-            >
-              <Compute rotation={() => [vv.progress, 0, vv.progress]}>
-                <Instance></Instance>
+        let pi = Math.PI
+        arr.push(
+          <group rotation={[0, 0, 0]} position={[0, 0, 0]} key={i + 'key_key'}>
+            <Compute position={() => [x - halfX, y - halfY, 0]}>
+              <Compute
+                rotation={() => [
+                  0,
+                  (1.0 - vv.eachY) * vv.eachY * (1.0 - vv.eachX) * vv.eachX * vv.progress * pi * 2,
+                  0,
+                ]}
+              >
+                <Compute rotation={() => [0, pi * 0.5, 0]}>
+                  <Instance></Instance>
+                </Compute>
               </Compute>
             </Compute>
-          </Compute>
-        </group>,
-      )
+          </group>,
+        )
 
-      i++
-      //
-      //
+        i++
+        //
+        //
+      }
     }
 
     setItems(arr)
@@ -183,15 +198,15 @@ function PinchCompos() {
 
   //
   let geo = useMemo(() => {
-    return new BoxGeometry(0.005, 1, 1)
+    return new BoxGeometry(0.1, 1, 1)
   }, [])
   //
   return (
     <>
       <Instances
         geometry={geo}
-        limit={500} // Optional: max amount of items (for calculating buffer size)
-        range={500} // Optional: draw-range
+        limit={31 * 31} // Optional: max amount of items (for calculating buffer size)
+        range={31 * 31} // Optional: draw-range
       >
         <meshStandardMaterial side={DoubleSide} map={map} />
 
@@ -221,7 +236,7 @@ function MyLandmarks() {
   //
   return (
     <>
-      <group position={[0, 0, 1]}>
+      <group position={[0, 0, 0]}>
         {landmarks.map((hand, hidx) => {
           let handMetaList = handednesses[hidx] || []
 
