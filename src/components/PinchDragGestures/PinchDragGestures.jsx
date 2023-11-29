@@ -195,6 +195,7 @@ function PinchCompos() {
       for (let x = -halfX; x < halfX; x++) {
         let eachX = x / (halfX + 1)
         let eachY = y / (halfY + 1 + totalY)
+        let pi = Math.PI
 
         let vv = {
           idx: i,
@@ -219,20 +220,19 @@ function PinchCompos() {
           get t() {
             return window.performance.now() / 1000
           },
+          get color() {
+            return `#888`
+          },
         }
 
         let circle = (vv.eachY * vv.eachX) / Math.PI
-
-        let pi = Math.PI
 
         arr.push(
           <group rotation={[0, 0, 0]} position={[0, 5.5, 0]} key={i + x + y + 'key_key'}>
             <Compute position={() => [x, y, 0]}>
               <Compute rotation={() => [vv.pinchValueY, vv.pinchValueX, vv.pinchValueZ]}>
                 <Compute rotation={() => [0, circle * vv.zoomValue * pi * 2, 0]}>
-                  <Compute rotation={() => [0, circle * vv.zoomValue * pi * 2, 0]}>
-                    <Instance></Instance>
-                  </Compute>
+                  <Instance color={vv.color}></Instance>
                 </Compute>
               </Compute>
             </Compute>
@@ -264,14 +264,17 @@ function PinchCompos() {
   })
 
   //
-  let map = useTexture(`/reel/heart.png`)
+  let map = useTexture(`/reel/life2.png`)
   map.encoding = sRGBEncoding
   map.colorSpace = SRGBColorSpace
   //
 
   //
   let geo = useMemo(() => {
-    return new PlaneGeometry(1, 1)
+    // return new PlaneGeometry(1, 1)
+    let sh = new SphereGeometry(1 / 2, 32)
+
+    return sh
   }, [])
   //
   return (
@@ -281,10 +284,10 @@ function PinchCompos() {
         limit={1500} // Optional: max amount of items (for calculating buffer size)
         range={1500} // Optional: draw-range
       >
-        <meshStandardMaterial
+        <meshPhysicalMaterial
           side={DoubleSide}
-          metalness={1}
-          roughness={0.3}
+          roughness={0.5}
+          metalness={0.5}
           map={map}
           metalnessMap={map}
           roughnessMap={map}
@@ -312,8 +315,6 @@ function MyHandLandmarks() {
   })
 
   let hasLeftAndRight = sides.includes('left') && sides.includes('right')
-  //
-
   //
 
   return (
