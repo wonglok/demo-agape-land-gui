@@ -20,6 +20,9 @@ export default function Page() {
           <a href={`/face-move`} target='_blank'>
             <li className='mb-2 list-item list-inside list-decimal'>Webcam - FaceMovement</li>
           </a>
+          <a href={`/pinch`} target='_blank'>
+            <li className='mb-2 list-item list-inside list-decimal'>Webcam - Pinch and Zoom</li>
+          </a>
           <a href={`/mouse`} target='_blank'>
             <li className='mb-2 list-item list-inside list-decimal'>Webcam - Home</li>
           </a>
