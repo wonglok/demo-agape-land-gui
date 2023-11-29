@@ -4,7 +4,6 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { Box, Environment, Instance, Instances, OrbitControls, Text, useTexture } from '@react-three/drei'
 import {
   BoxGeometry,
-  Clock,
   DoubleSide,
   IcosahedronGeometry,
   InstancedMesh,
@@ -12,7 +11,6 @@ import {
   Object3D,
   SRGBColorSpace,
   SphereGeometry,
-  Vector3,
   sRGBEncoding,
 } from 'three'
 
@@ -105,7 +103,7 @@ function PinchCompos() {
     let hh = ({ detail }) => {
       console.log('moveZooming', detail)
 
-      lAcc.current += detail.diff * 5.5
+      lAcc.current += detail.diff * 13.5
 
       // <Instance color='red' scale={2} position={[1, 2, 3]} rotation={[Math.PI / 3, 0, 0]} onClick={onClick} />
       // o3.scale.z += detail.diff / 5
@@ -121,67 +119,11 @@ function PinchCompos() {
     vAcc.current = MathUtils.lerp(vAcc.current, lAcc.current, 0.02)
   })
 
-  let pinchAcc = useRef(new Vector3())
-  let pinchAccTarget = useRef(new Vector3())
-  useFrame(() => {
-    pinchAcc.current.lerp(pinchAccTarget.current, 0.02)
-  })
-  let init = useMemo(() => {
-    return new Vector3()
-  }, [])
-  let delta = useMemo(() => {
-    return new Vector3()
-  }, [])
-  let accu = useMemo(() => {
-    return new Vector3()
-  }, [])
-  useEffect(() => {
-    let hh = ({ detail }) => {
-      init.copy(detail.position)
-      delta.set(0, 0, 0)
-      accu.set(0, 0, 0)
-      console.log('startPinching', detail.position)
-    }
-    window.addEventListener('startPinching', hh)
-    return () => {
-      window.removeEventListener('startPinching', hh)
-    }
-  }, [accu, delta, init])
-  useEffect(() => {
-    let clock = new Clock()
-    let hh = ({ detail }) => {
-      delta.copy(init).sub(detail.position)
-      console.log('movePinching', detail)
-      accu.add(delta)
-
-      let dt = clock.getDelta()
-
-      pinchAccTarget.current.addScaledVector(delta, dt * 2)
-
-      console.log(delta.length())
-    }
-    window.addEventListener('movePinching', hh)
-    return () => {
-      window.removeEventListener('movePinching', hh)
-    }
-  }, [accu, delta, init])
-  useEffect(() => {
-    let hh = ({ detail }) => {
-      // clean up
-      init.set(0, 0, 0)
-      console.log('stopPinching', detail)
-    }
-    window.addEventListener('stopPinching', hh)
-    return () => {
-      window.removeEventListener('stopPinching', hh)
-    }
-  }, [accu, delta, init])
-
-  let totalY = 32
-  let totalX = 32
   useEffect(() => {
     let arr = []
 
+    let totalY = 32
+    let totalX = 32
     let halfY = totalY / 2
     let halfX = totalX / 2
     let i = 0
@@ -200,17 +142,8 @@ function PinchCompos() {
           middleX: eachX - 0.5,
           halfY: halfY,
           halfX: halfX,
-          get zoomValue() {
+          get progress() {
             return vAcc.current
-          },
-          get pinchValueX() {
-            return pinchAcc.current.x
-          },
-          get pinchValueY() {
-            return pinchAcc.current.y
-          },
-          get pinchValueZ() {
-            return pinchAcc.current.z
           },
           get t() {
             return window.performance.now() / 1000
@@ -219,12 +152,12 @@ function PinchCompos() {
 
         let pi = Math.PI
         arr.push(
-          <group rotation={[0, 0, 0]} position={[0, 0, 0]} key={i + x + y + 'key_key'}>
+          <group rotation={[0, 0, 0]} position={[0, 0, 0]} key={i + 'key_key'}>
             <Compute position={() => [x - halfX, y - halfY, 0]}>
               <Compute
                 rotation={() => [
-                  vv.pinchValueX,
-                  vv.pinchValueY + (1.0 - vv.eachY) * vv.eachY * (1.0 - vv.eachX) * vv.eachX * vv.zoomValue * pi * 2,
+                  0,
+                  (1.0 - vv.eachY) * vv.eachY * (1.0 - vv.eachX) * vv.eachX * vv.progress * pi * 2,
                   0,
                 ]}
               >
@@ -272,8 +205,8 @@ function PinchCompos() {
     <>
       <Instances
         geometry={geo}
-        limit={totalX * totalY} // Optional: max amount of items (for calculating buffer size)
-        range={totalX * totalY} // Optional: draw-range
+        limit={31 * 31} // Optional: max amount of items (for calculating buffer size)
+        range={31 * 31} // Optional: draw-range
       >
         <meshStandardMaterial side={DoubleSide} map={map} />
 
@@ -301,7 +234,6 @@ function MyLandmarks() {
   //
 
   //
-
   return (
     <>
       <group position={[0, 0, 0]}>

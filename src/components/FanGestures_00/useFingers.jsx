@@ -26,9 +26,6 @@ export const useFingers = create((set, get) => {
     landmarks: [],
     worldLandmarks: [],
     //
-
-    isPinchingOneHand: false,
-    //
     eachVideoFrameProc: () => {
       let video = get().video
       let handLandmarker = get().handLandmarker
@@ -63,8 +60,6 @@ export const useFingers = create((set, get) => {
         })
 
         let bothHovering = sides.includes('left') && sides.includes('right')
-
-        let anyOneHovering = sides.includes('left') || sides.includes('right')
 
         landmarks = landmarks || []
         landmarks.forEach((hand, hidx) => {
@@ -112,68 +107,6 @@ export const useFingers = create((set, get) => {
           set({
             bothHovering,
           })
-        }
-        if (get().anyOneHovering !== anyOneHovering) {
-          set({
-            anyOneHovering,
-          })
-        }
-
-        if (anyOneHovering && landmarks[0]) {
-          //
-          let isPinchingOneHand = landmarks.filter((r) => r.isPinching)?.length >= 1.0
-
-          let pinchPos = new Vector3()
-            .add(landmarks[0][INDEX_FINGER_TIP]?.position)
-            .add(landmarks[0][THUMB_TIP]?.position)
-            .multiplyScalar(0.5)
-
-          // console.log(pinchPos)
-          if (isPinchingOneHand === true && get().isPinchingOneHand === false) {
-            set({
-              initPinchPos: pinchPos.clone(),
-            })
-
-            window.dispatchEvent(
-              new CustomEvent('startPinching', {
-                detail: {
-                  //
-                  position: pinchPos.clone(),
-                },
-              }),
-            )
-          } else if (isPinchingOneHand === true && get().isPinchingOneHand === true) {
-            window.dispatchEvent(
-              new CustomEvent('movePinching', {
-                detail: {
-                  //
-                  expand: pinchPos.clone().divide(get().initPinchPos.clone()),
-                  diff: pinchPos.clone().sub(get().pinchPos.clone()),
-                  position: pinchPos.clone(),
-                },
-              }),
-            )
-          } else if (get().isPinchingOneHand === true && isPinchingOneHand === false) {
-            window.dispatchEvent(
-              new CustomEvent('stopPinching', {
-                detail: {
-                  //
-                  position: pinchPos.clone(),
-                },
-              }),
-            )
-            set({
-              initPinchPos: new Vector3(),
-            })
-          }
-
-          set({ pinchPos: pinchPos })
-
-          if (get().isPinchingOneHand !== isPinchingOneHand) {
-            set({
-              isPinchingOneHand,
-            })
-          }
         }
 
         if (bothHovering && landmarks[0] && landmarks[1]) {
