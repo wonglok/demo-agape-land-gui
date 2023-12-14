@@ -16,7 +16,7 @@ export const useWorld = create((set, get) => {
       envMapIntensity: 0.5,
       ssrPass: {
         useThisOne: true,
-        intensity: 1,
+        intensity: 0.5,
         exponent: 1,
         distance: 15,
         fade: 0.5,
@@ -42,10 +42,10 @@ export const useWorld = create((set, get) => {
         velocityResolutionScale: 0.5,
       },
       bloomPass: {
-        useThisOne: false,
+        useThisOne: true,
         mipmapBlur: true,
         luminanceThreshold: 0.85,
-        intensity: 1,
+        intensity: 2,
         resolutionScale: 1,
       },
       wavePass: {
