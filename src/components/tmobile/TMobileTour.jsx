@@ -39,12 +39,12 @@ export function TMobileTour() {
       scene: gltf.scene,
     })
 
-    controls.object.fov = 55
+    controls.object.fov = 65
     controls.object.updateProjectionMatrix()
 
     let place = {
-      startAt: [-0.1, 1.5, 0.1],
-      startY: Math.PI * 0.3,
+      startAt: [-1, 1.5, -1.0],
+      startY: Math.PI * -1.4,
     }
 
     // rotation :D
