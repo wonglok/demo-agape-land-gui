@@ -16,7 +16,7 @@ export const useWorld = create((set, get) => {
       envMapIntensity: 0.5,
       ssrPass: {
         useThisOne: true,
-        intensity: 0.5,
+        intensity: 0.25,
         exponent: 1,
         distance: 15,
         fade: 0.5,
