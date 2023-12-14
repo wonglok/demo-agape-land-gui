@@ -13,6 +13,7 @@ export function TMobileTour() {
   let gltf = useGLTF(`/tmobile/r6-t-mobile--1636713668.glb`)
   let displayWorld = useTM((r) => r.displayWorld)
   let game = useTM((r) => r.game)
+
   useEffect(() => {
     if (!controls) {
       return
