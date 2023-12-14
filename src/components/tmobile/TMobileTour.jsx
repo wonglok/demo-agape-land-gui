@@ -53,7 +53,7 @@ export function TMobileTour() {
 
     game.parseScene({ scene: gltf.scene }).then(() => {
       game.reset = () => {
-        let yPos = 1.5
+        let yPos = 2
         game.playerVelocity.set(0, 0, 0)
         game.player.position.set(place.startAt[0], yPos, place.startAt[2])
         game.camera.position.set(place.startAt[0], yPos, place.startAt[2])
@@ -118,6 +118,7 @@ export function TMobileTour() {
         minPolarAngle={0.5 * Math.PI}
         maxPolarAngle={0.5 * Math.PI}
         rotateSpeed={0.6}
+        object-position={[0, 1.5, 0]}
         makeDefault
         enableZoom={false}
       ></OrbitControls>

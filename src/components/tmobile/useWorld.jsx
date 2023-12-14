@@ -29,7 +29,7 @@ export const useWorld = create((set, get) => {
         correction: 1,
         correctionRadius: 1,
         blur: 0,
-        blurKernel: 1,
+        blurKernel: 0,
         blurSharpness: 10,
         jitter: 0.1,
         jitterRoughness: 0.1,
