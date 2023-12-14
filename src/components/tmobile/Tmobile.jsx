@@ -4,8 +4,9 @@ import { useWorld } from './useWorld'
 import { MyBG } from './MyGB'
 // import { LinearEncoding, sRGBEncoding } from 'three'
 import { Suspense } from 'react'
-import { Joystick, PPSwitch } from 'agape-sdk/src/main'
+import { PPSwitch } from 'agape-sdk/src/main'
 import { TMobileTour } from './TMobileTour'
+import { Joystick } from './RoomView/Joystick'
 // import { Background } from 'agape-sdk/src/main'
 
 export function Tmobile() {
@@ -31,7 +32,7 @@ export function Tmobile() {
       </Canvas>
 
       <div id='guilayer'></div>
-      <JoyStickHTML useStore={useWorld}></JoyStickHTML>
+      <Joystick useStore={useWorld}></Joystick>
     </>
   )
 }
