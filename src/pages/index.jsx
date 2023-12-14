@@ -4,6 +4,9 @@ export default function Page() {
       <div className='p-2'>
         <div className='mb-4 text-2xl'>AGAPE Demos</div>
         <ul className=''>
+          <a href={`/tmobile`} target='_blank'>
+            <li className='mb-2 list-item list-inside list-decimal'>T-Mobile</li>
+          </a>
           <a href={`/garage`} target='_blank'>
             <li className='mb-2 list-item list-inside list-decimal'>Garage</li>
           </a>
@@ -54,9 +57,9 @@ export default function Page() {
           <a href={`https://tool.agape.land`} target='_blank'>
             <li className='mb-2 list-item list-inside list-decimal'>Agape Artist Tool 🔗</li>
           </a>
-          <a href={`https://gameofphonesvr.com`} target='_blank'>
+          {/* <a href={`https://gameofphonesvr.com`} target='_blank'>
             <li className='mb-2 list-item list-inside list-decimal'>T Mobile 🔗</li>
-          </a>
+          </a> */}
           <a href={`https://cadillac.agape.land/`} target='_blank'>
             <li className='mb-2 list-item list-inside list-decimal'>Cadillac 🔗</li>
           </a>
