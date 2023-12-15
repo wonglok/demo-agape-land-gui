@@ -446,10 +446,10 @@ void main (void) {
   vel.y += -0.987;
 
 
-  // vel.rgb += vel.rgb * rotateY(maxRange) * maxRange;
+  vel.rgb += vel.rgb * rotateY(maxRange) * maxRange;
   // vel.rgb *= pow(maxRange, 1.15);
 
-  vel.rg += get_velocity(pos.rg) * maxRange;
+  // vel.rg += get_velocity(pos.rg) * maxRange;
   // vel.rgb *= maxRange;
   // vel.rgb *= 0.8;
 
