@@ -321,11 +321,11 @@ float sdSceneSDF ( vec3 p, float s ) {
   // float pitch = 0.0;
 
   float pitch = texture2D(audioTexture, vec2(s, 0.0)).r;
-  // pitch += pitch * 1.5 + 0.5;
+  pitch += pitch * 1.5 + 0.5;
 
-  // outData += chladniLokLokVersion(p.x, p.y, p.z, pitch, pitch, pitch, 0.5, 0.5, 0.5);
+  outData += chladniLokLokVersion(p.x, p.y, p.z, pitch, pitch, pitch, 0.5, 0.5, 0.5);
 
-  // outData += waveSuperPosition(acc, s * 300.0, dt, time, p);
+  outData += waveSuperPosition(pitch, 4.0, dt, time, p);
 
   // // // outData = sdOctahedron(p, acc);
   // // for (float i = 0.0; i < 32.0; i++) {
@@ -445,12 +445,7 @@ void main (void) {
 
   vel.y += -0.987;
 
-  vel.rgb += vel.rgb * rotateY(maxRange) * maxRange;
-  // vel.rgb *= pow(maxRange, 1.15);
-
-  // vel.rg += get_velocity(pos.rg) * maxRange;
-  // vel.rgb *= maxRange;
-  // vel.rgb *= 0.8;
+  vel.rgb += normalize(vec3(pos.x, 0.0, pos.z)) * rotateY(2.0 * dt);
 
   gl_FragColor = vel;
 }
