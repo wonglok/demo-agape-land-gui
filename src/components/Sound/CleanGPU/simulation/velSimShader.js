@@ -409,13 +409,13 @@ uniform vec3 mouseLast;
 void collisionMouseSphere (float life, inout vec4 particlePos, inout vec3 particleVel, float sphereRadius) {
   vec3 dif = (mouseNow) - particlePos.xyz;
   if( length( dif ) - sphereRadius < 0.0 ){
-    particleVel -= normalize(dif) * dt * 150.0;
+    particleVel -= normalize(dif) * dt * 50.0;
     vec3 mouseForce = mouseNow - mouseLast;
-    particleVel += mouseForce * dt * 150.0;
+    particleVel += mouseForce * dt * 50.0;
   } else if (length( dif ) - sphereRadius < sphereRadius * 0.5) {
-    particleVel += normalize(dif) * dt * 150.0;
+    particleVel += normalize(dif) * dt * 50.0;
     vec3 mouseForce = mouseNow - mouseLast;
-    particleVel += mouseForce * dt * 150.0;
+    particleVel += mouseForce * dt * 50.0;
   }
 }
 
@@ -444,7 +444,6 @@ void main (void) {
   collisionMouseSphere(1.0, pos, vel.rgb, 2.0);
 
   vel.y += -0.987;
-
 
   vel.rgb += vel.rgb * rotateY(maxRange) * maxRange;
   // vel.rgb *= pow(maxRange, 1.15);

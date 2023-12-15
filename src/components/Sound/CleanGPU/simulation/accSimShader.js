@@ -60,7 +60,7 @@ vec3 calcNormal( in vec3 p ) {
 void main (void) {
   vec2 uv = gl_FragCoord.xy / resolution.xy;
   vec4 acc = texture2D( accSim, uv );
-  // vec4 pos = texture2D( posSim, uv );
+  vec4 pos = texture2D( posSim, uv );
 
   if (acc.g == 0.0) {
     acc.g = 1.0;
@@ -79,10 +79,20 @@ void main (void) {
   // acc.r += dt * pitch;
   acc.r += dt * rand(uv) * 0.5;
 
+  bool needsReset = false;
   if (acc.r >= 1.0) {
+    needsReset = true;
+  }
+
+  if (pos.y <= -2.0) {
+    needsReset = true;
+  }
+
+  if (needsReset) {
     acc.r = 0.0 + rand(uv + time);
     acc.g = 0.0;
   }
+
 
   gl_FragColor = acc;
 }
