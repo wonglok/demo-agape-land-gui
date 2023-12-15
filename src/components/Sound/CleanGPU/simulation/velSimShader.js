@@ -409,13 +409,13 @@ uniform vec3 mouseLast;
 void collisionMouseSphere (float life, inout vec4 particlePos, inout vec3 particleVel, float sphereRadius) {
   vec3 dif = (mouseNow) - particlePos.xyz;
   if( length( dif ) - sphereRadius < 0.0 ){
-    particleVel -= normalize(dif) * dt * 120.0;
+    particleVel -= normalize(dif) * dt * 150.0;
     vec3 mouseForce = mouseNow - mouseLast;
-    particleVel += mouseForce * dt * 120.0;
+    particleVel += mouseForce * dt * 150.0;
   } else if (length( dif ) - sphereRadius < sphereRadius * 0.5) {
-    particleVel += normalize(dif) * dt * 120.0;
+    particleVel += normalize(dif) * dt * 150.0;
     vec3 mouseForce = mouseNow - mouseLast;
-    particleVel += mouseForce * dt * 120.0;
+    particleVel += mouseForce * dt * 150.0;
   }
 }
 
@@ -439,16 +439,18 @@ void main (void) {
   } else {
     vel.rgb += (calcNormal((pos.rgb), maxRange));
   }
+  vel.xyz *= dt;
 
   collisionMouseSphere(1.0, pos, vel.rgb, 2.0);
 
   vel.y += -0.987;
 
+
   // vel.rgb += vel.rgb * rotateY(maxRange) * maxRange;
   // vel.rgb *= pow(maxRange, 1.15);
 
-  // vel.rg += get_velocity(pos.rg) * maxRange;
-  vel.rgb *= maxRange;
+  vel.rg += get_velocity(pos.rg) * maxRange;
+  // vel.rgb *= maxRange;
   // vel.rgb *= 0.8;
 
   gl_FragColor = vel;
