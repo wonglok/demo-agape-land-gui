@@ -1,7 +1,7 @@
 import { Canvas } from '@react-three/fiber'
-import { GameModeAdapter } from '../Runner/GameModeAdapter'
 import { useWorld } from './useWorld'
 import { MyBG } from './MyGB'
+// import { GameModeAdapter } from '../Runner/GameModeAdapter'
 // import { LinearEncoding, sRGBEncoding } from 'three'
 import { Suspense } from 'react'
 import { PPSwitch } from 'agape-sdk/src/main'

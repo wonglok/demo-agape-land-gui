@@ -428,6 +428,7 @@ void main (void) {
 
   float maxRange = 0.0;
   float minRange = 0.1;
+
   for (float i = 0.0; i < 32.0; i++) {
     float pitch = texture2D(audioTexture, vec2(i / 32.0, 0.0)).r;
     maxRange = max(maxRange, pitch);
