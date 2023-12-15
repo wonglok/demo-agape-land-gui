@@ -4,6 +4,9 @@ export default function Page() {
       <div className='p-2'>
         <div className='mb-4 text-2xl'>AGAPE Demos</div>
         <ul className=''>
+          <a href={`/sound`} target='_blank'>
+            <li className='mb-2 list-item list-inside list-decimal'>Sound</li>
+          </a>
           <a href={`/tmobile`} target='_blank'>
             <li className='mb-2 list-item list-inside list-decimal'>T-Mobile</li>
           </a>
@@ -42,7 +45,9 @@ export default function Page() {
             <li className='mb-2 list-item list-inside list-decimal'>Gesture - Pinch to Shuffle</li>
           </a>
           <a href={`/princess-cruise/ship-source.reality`} target='_blank'>
-            <li className='mb-2 list-item list-inside list-decimal'>Apple AR / Vision Pro Headset - Princess Cruise</li>
+            <li className='mb-2 list-item list-inside list-decimal'>
+              Apple AR / Vision Pro Headset - Princess Cruise 🔗
+            </li>
           </a>
 
           <a href={`/gsplat`} target='_blank'>
@@ -50,7 +55,7 @@ export default function Page() {
           </a>
 
           <a href='https://creativecodelab.com/runner.html?siteID=5e34d3d26396a80d0f4bcc96' target='_blank'>
-            <li className='mb-2 list-item list-inside list-decimal'>Creative Code Lab - Immersive Sphere</li>
+            <li className='mb-2 list-item list-inside list-decimal'>Creative Code Lab - Immersive Sphere 🔗</li>
           </a>
 
           {/* public/princess-cruise/ship-source.reality */}

@@ -23,9 +23,10 @@ export function Tmobile() {
 
           <PPSwitch useStore={useWorld}></PPSwitch>
 
-          {/* <directionalLight intensity={0.35} position={[0, 1, 1]}></directionalLight>
+          <directionalLight intensity={0.35} position={[0, -1, 1]}></directionalLight>
+          <directionalLight intensity={0.35} position={[0, 1, 1]}></directionalLight>
           <directionalLight intensity={0.35} position={[0, 1, -1]}></directionalLight>
-          <pointLight intensity={0.1} position={[0, 5, -10]}></pointLight> */}
+          <pointLight intensity={0.1} position={[0, 5, -10]}></pointLight>
 
           <MyBG useStore={useWorld}></MyBG>
         </Suspense>
