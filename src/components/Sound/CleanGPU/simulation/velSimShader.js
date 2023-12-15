@@ -440,6 +440,7 @@ void main (void) {
   } else {
     vel.rgb += (calcNormal((pos.rgb), maxRange));
   }
+
   vel.xyz *= dt;
 
   collisionMouseSphere(1.0, pos, vel.rgb, 2.0);
