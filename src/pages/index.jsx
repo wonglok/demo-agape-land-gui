@@ -8,8 +8,12 @@ export default function Page() {
             <li className='mb-2 list-item list-inside list-decimal'>Sound</li>
           </a>
           <a href={`/tmobile`} target='_blank'>
-            <li className='mb-2 list-item list-inside list-decimal'>T-Mobile</li>
+            <li className='mb-2 list-item list-inside list-decimal'>T-Mobile Rendered</li>
           </a>
+          <a href={`https://t-mobile.agape.land/`} target='_blank'>
+            <li className='mb-2 list-item list-inside list-decimal'>T-Mobile 🔗</li>
+          </a>
+          {/*  */}
           <a href={`/garage`} target='_blank'>
             <li className='mb-2 list-item list-inside list-decimal'>Garage</li>
           </a>
