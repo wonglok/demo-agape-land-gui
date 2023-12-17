@@ -425,7 +425,7 @@ void main (void) {
 
   // collisionMouseSphere(2.0, pos, vel.rgb, 3.0);
 
-  vel.rgb += galaxy(pos.xyz * maxRange * 0.3141592 * 2.0) * dt * 100.5;
+  vel.rgb += galaxy(pos.xyz * maxRange * 0.3141592 * 2.0) * dt * 50.5;
 
   vel.rgb *= maxRange * 1.333 + 0.01;
   
