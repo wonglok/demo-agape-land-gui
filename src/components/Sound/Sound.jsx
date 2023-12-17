@@ -26,7 +26,13 @@ export function Sound() {
         </Suspense>
 
         <PerspectiveCamera makeDefault near={1} far={10000}></PerspectiveCamera>
-        <OrbitControls makeDefault object-position={[0, 0, 80]} target={[0, 0, 0]}></OrbitControls>
+        <OrbitControls
+          makeDefault
+          enablePan={false}
+          enableRotate={false}
+          object-position={[0, 0, 80]}
+          target={[0, 0, 0]}
+        ></OrbitControls>
 
         {/* <EffectComposer
           frameBufferType={HalfFloatType}

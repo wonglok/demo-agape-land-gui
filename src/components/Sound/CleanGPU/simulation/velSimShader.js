@@ -420,13 +420,14 @@ void main (void) {
   } 
 
   if (sdSceneSDF(pos.rgb, maxRange) < 0.0) {
-    vel.rgb += -pow(calcNormal((pos.rgb), maxRange), vec3(1.0)) * dt * 60.0;
+    vel.rgb += -pow(calcNormal((pos.rgb), maxRange), vec3(1.0)) * dt * 2.0;
   } else {
-    vel.rgb += pow(calcNormal((pos.rgb), maxRange), vec3(1.0)) * dt * 60.0;
+    vel.rgb += pow(calcNormal((pos.rgb), maxRange), vec3(1.0)) * dt * 2.0;
   }
 
-  vel.rgb += getDiff(pos.rgb, mouseNow) * dt * 60.0 * -1.0;
-  collisionMouseSphere(10.0, pos, vel.rgb, 5.0);
+  vel.rgb += getDiff(pos.rgb, mouseNow) * dt * 1.0 * 1.0;
+  collisionMouseSphere(1.0, pos, vel.rgb, 5.0);
+
 
   gl_FragColor = vel;
 }

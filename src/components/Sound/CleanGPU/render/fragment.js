@@ -35,7 +35,7 @@ void main (void) {
 
     gl_FragColor.rgb = normalize(vel.rgb * 0.5 + 0.5) * 0.5 + 0.5;
   
-    gl_FragColor.a = 0.5 * size;
+    gl_FragColor.a = 1.0;
   }
 
   

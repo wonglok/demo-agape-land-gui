@@ -12,7 +12,7 @@ export class GPURun extends Object3D {
 
     this.works = []
 
-    this.size = new Vector2(1024, 1024)
+    this.size = new Vector2(512, 512)
 
     this.gl = gl
     this.gpu = new GPUComputationRenderer(this.size.x, this.size.y, this.gl)
