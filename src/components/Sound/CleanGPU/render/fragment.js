@@ -16,7 +16,7 @@ uniform vec3 color4;
 
 uniform float time;
 
-
+#include <common>
 
 void main (void) {
 
@@ -35,7 +35,7 @@ void main (void) {
 
     gl_FragColor.rgb = normalize(vel.rgb * 0.5 + 0.5) * 0.5 + 0.5;
   
-    gl_FragColor.a = 1.0;
+    gl_FragColor.a = rand(v_uv + size) * 0.5 + 0.5;
   }
 
   

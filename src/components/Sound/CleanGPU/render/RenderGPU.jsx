@@ -63,7 +63,7 @@ export class RenderGPU extends Object3D {
       this.uniforms.velSim.value = velSim
       this.uniforms.audioTexture.value = audioTexture
 
-      this.uniforms.time.value = performance.now() //
+      this.uniforms.time.value = performance.now() / 1000 //
     })
 
     this.points = new Points(geometry, shader)
