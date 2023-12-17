@@ -1,24 +1,24 @@
-import { BoxGeometry, Clock, HalfFloatType, Mesh, Object3D, Raycaster, Vector2, Vector3 } from 'three'
+import { BoxGeometry, Clock, FloatType, HalfFloatType, Mesh, Object3D, Raycaster, Vector2, Vector3 } from 'three'
 
 import { GPUComputationRenderer } from 'three/examples/jsm/misc/GPUComputationRenderer'
 import { posSimShader } from './simulation/posSimShader'
 import { velSimShader } from './simulation/velSimShader'
 import { RenderGPU } from './render/RenderGPU'
 import { accSimShader } from './simulation/accSimShader'
+import { useMic } from './mic/histroymic'
 
 export class GPURun extends Object3D {
-  constructor({ gl, useMic }) {
+  constructor({ gl }) {
     super()
 
     this.works = []
 
-    this.size = new Vector2(1024, 1024)
+    this.size = new Vector2(512, 512)
 
     this.gl = gl
     this.gpu = new GPUComputationRenderer(this.size.x, this.size.y, this.gl)
 
-    ///
-    this.gpu.setDataType(HalfFloatType)
+    this.gpu.setDataType(FloatType)
 
     this.iTex = {
       posSim: this.gpu.createTexture(),
@@ -40,7 +40,7 @@ export class GPURun extends Object3D {
     let bug = this.gpu.init()
 
     if (bug) {
-      console.log(bug)
+      // console.log(bug)
       return
     }
 
@@ -57,19 +57,14 @@ export class GPURun extends Object3D {
 
     this.render = new RenderGPU({
       size: this.size,
-      onLoop: this.onLoop,
       gpu: this.gpu,
-
-      getTexSet: () => {
-        let MicTexture = useMic.getState().MicTexture
-
-        return {
-          audioTexture: MicTexture,
-          posSim: this.gpu.getCurrentRenderTarget(this.iVars.posSim).texture,
-          velSim: this.gpu.getCurrentRenderTarget(this.iVars.velSim).texture,
-          accSim: this.gpu.getCurrentRenderTarget(this.iVars.accSim).texture,
-        }
-      },
+    })
+    this.onLoop(() => {
+      this.render.uniforms.accSim.value = this.gpu.getCurrentRenderTarget(this.iVars.accSim).texture
+      this.render.uniforms.posSim.value = this.gpu.getCurrentRenderTarget(this.iVars.posSim).texture
+      this.render.uniforms.velSim.value = this.gpu.getCurrentRenderTarget(this.iVars.velSim).texture
+      this.render.uniforms.audioTexture.value = useMic.getState().MicTexture
+      this.render.uniforms.time.value = performance.now() //
     })
     this.add(this.render)
 
@@ -98,7 +93,8 @@ export class GPURun extends Object3D {
     let raycastMouse = new Vector3()
 
     let meshRc = new Mesh(new BoxGeometry(100000, 100000, 0.1))
-    // this.add(meshRc)
+    this.add(meshRc)
+    meshRc.visible = false
     let rc = new Raycaster()
 
     this.onLoop((st, dt) => {
@@ -107,7 +103,7 @@ export class GPURun extends Object3D {
       let res = rc.intersectObjects([meshRc], false)
 
       if (res[0]) {
-        raycastMouse.copy(res[0].point)
+        raycastMouse.lerp(res[0].point, 1.0)
       }
 
       let MicTexture = useMic.getState().MicTexture
@@ -139,6 +135,13 @@ export class GPURun extends Object3D {
         lastMouse.copy(raycastMouse)
       }
     })
+
+    this.clean = () => {
+      //
+      Object.values(this.iTex).forEach((it) => {
+        it.dispose()
+      })
+    }
   }
 
   preProcess() {
@@ -147,9 +150,9 @@ export class GPURun extends Object3D {
       let idx = 0
       for (let y = 0; y < this.size.y; y++) {
         for (let x = 0; x < this.size.x; x++) {
-          this.iTex.posSim.image.data[idx * 4 + 0.0] = (Math.random() * 2.0 - 1.0) * 3.0
-          this.iTex.posSim.image.data[idx * 4 + 1.0] = (Math.random() * 2.0 - 1.0) * 3.0
-          this.iTex.posSim.image.data[idx * 4 + 2.0] = (Math.random() * 2.0 - 1.0) * 3.0
+          this.iTex.posSim.image.data[idx * 4 + 0.0] = (Math.random() * 2.0 - 1.0) * 1.0
+          this.iTex.posSim.image.data[idx * 4 + 1.0] = (Math.random() * 2.0 - 1.0) * 1.0 + 2
+          this.iTex.posSim.image.data[idx * 4 + 2.0] = (Math.random() * 2.0 - 1.0) * 1.0
           this.iTex.posSim.image.data[idx * 4 + 3.0] = 1
           idx++
         }
@@ -162,9 +165,9 @@ export class GPURun extends Object3D {
       let idx = 0
       for (let y = 0; y < this.size.y; y++) {
         for (let x = 0; x < this.size.x; x++) {
-          this.iTex.velSim.image.data[idx * 4 + 0.0] = (Math.random() * 2.0 - 1.0) * 3.0
-          this.iTex.velSim.image.data[idx * 4 + 1.0] = (Math.random() * 2.0 - 1.0) * 3.0
-          this.iTex.velSim.image.data[idx * 4 + 2.0] = (Math.random() * 2.0 - 1.0) * 3.0
+          this.iTex.velSim.image.data[idx * 4 + 0.0] = (Math.random() * 2.0 - 1.0) * 1.0
+          this.iTex.velSim.image.data[idx * 4 + 1.0] = (Math.random() * 2.0 - 1.0) * 1.0
+          this.iTex.velSim.image.data[idx * 4 + 2.0] = (Math.random() * 2.0 - 1.0) * 1.0
           this.iTex.velSim.image.data[idx * 4 + 3.0] = 0.0
           idx++
         }
@@ -176,10 +179,10 @@ export class GPURun extends Object3D {
       let idx = 0
       for (let y = 0; y < this.size.y; y++) {
         for (let x = 0; x < this.size.x; x++) {
-          this.iTex.accSim.image.data[idx * 4 + 0.0] = (Math.random() * 2.0 - 1.0) * 3.0
-          this.iTex.accSim.image.data[idx * 4 + 1.0] = (Math.random() * 2.0 - 1.0) * 3.0
-          this.iTex.accSim.image.data[idx * 4 + 2.0] = (Math.random() * 2.0 - 1.0) * 3.0
-          this.iTex.accSim.image.data[idx * 4 + 3.0] = (Math.random() * 2.0 - 1.0) * 3.0
+          this.iTex.accSim.image.data[idx * 4 + 0.0] = (Math.random() * 2.0 - 1.0) * 1.0
+          this.iTex.accSim.image.data[idx * 4 + 1.0] = (Math.random() * 2.0 - 1.0) * 1.0
+          this.iTex.accSim.image.data[idx * 4 + 2.0] = (Math.random() * 2.0 - 1.0) * 1.0
+          this.iTex.accSim.image.data[idx * 4 + 3.0] = (Math.random() * 2.0 - 1.0) * 1.0
           idx++
         }
       }

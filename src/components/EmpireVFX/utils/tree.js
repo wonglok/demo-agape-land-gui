@@ -13,13 +13,10 @@ export const toArray = (v) => {
   })
 }
 
-export const editTreeOnArray = ({ tree, onArray = () => {} }) => {
-  let array = toArray(tree)
-  onArray({ array })
-  return toTree(array)
+export const getTreeItemByOID = (tree, id) => {
+  return toArray(tree).find((item) => item.oid === id)
 }
 
-export const forEachTree = ({ tree, onEach = () => {} }) => {
-  let array = toArray(tree)
-  array.forEach(onEach)
+export const getArrayItemByOID = (array, id) => {
+  return array.find((item) => item.oid === id)
 }
