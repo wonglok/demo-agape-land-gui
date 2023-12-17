@@ -293,34 +293,34 @@ vec3 opTwist( in vec3 p, in float k )
 
 
 float sdSceneSDF ( vec3 p, float s ) {
-  // vec2 uv = gl_FragCoord.xy / resolution.xy;
+  vec2 uv = gl_FragCoord.xy / resolution.xy;
 
-  // float outData = 0.0;
-  // float acc = 0.1;
-  // for (float i = 0.0; i < 32.0; i++) {
-  //   float pitch = texture2D(audioTexture, vec2(i / 32.0,  0.0)).r;
-  //   acc += pitch;
-  // }
+  float outData = 0.0;
+  float acc = 0.1;
+  for (float i = 0.0; i < 32.0; i++) {
+    float pitch = texture2D(audioTexture, vec2(i / 32.0,  0.0)).r;
+    acc += pitch;
+  }
   
-  // outData += chladni(p.x, p.y, acc, acc, p.x, p.y);
-
-  // return outData;
-
-    vec2 uv = gl_FragCoord.xy / resolution.xy;
-
-  // p = opRepetition(p, vec3(2.0, 2.0, 2.0));
-
-  float acc = 0.0;
-  float pitch = 0.0;
-
-  pitch = texture2D(audioTexture, vec2(s, 0.0)).r;
-  acc += pitch + 0.5;
-
-
-  float outData = chladni(p.x, p.y, 1.0, 1.0, 0.5 * p.x * acc, 0.5 * p.y * acc);
-
+  outData += chladni(p.x, p.y, acc * 0.1, acc * 0.1, 0.1 * p.x, 0.1 * p.y);
 
   return outData;
+
+  // vec2 uv = gl_FragCoord.xy / resolution.xy;
+
+  // // p = opRepetition(p, vec3(2.0, 2.0, 2.0));
+
+  // float acc = 0.0;
+  // float pitch = 0.0;
+
+  // pitch = texture2D(audioTexture, vec2(s, 0.0)).r;
+  // acc += pitch + 0.5;
+
+  
+  // float outData = chladni(p.x, p.y, 1.0, 1.0, 0.5 * p.x * acc, 0.5 * p.y * acc);
+
+
+  // return outData;
 }
 
 
@@ -419,9 +419,9 @@ void main (void) {
   } 
 
   if (sdSceneSDF(pos.rgb, maxRange) < 0.0) {
-    vel.rgb += -pow(calcNormal((pos.rgb), maxRange), vec3(5.0)) * dt;
+    vel.rgb += -pow(calcNormal((pos.rgb), maxRange), vec3(5.0)) * dt * 60.0;
   } else {
-    vel.rgb += pow(calcNormal((pos.rgb), maxRange), vec3(5.0)) * dt;
+    vel.rgb += pow(calcNormal((pos.rgb), maxRange), vec3(5.0)) * dt * 60.0;
   }
 
   // collisionMouseSphere(0.0, pos, vel.rgb, 1.0);
