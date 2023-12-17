@@ -215,7 +215,7 @@ vec3 get_vel (vec3 pp) {
   }
 }
 
-#define M_PI_3_1415 3.1415926535897932384626433832795
+#define M_PI_3_1415 3.141592653589793
 
 float atan2(in float y, in float x) {
   bool xgty = (abs(x) > abs(y));
@@ -290,6 +290,42 @@ vec3 opTwist( in vec3 p, in float k )
     return (q);
 }
 
+const float PIVal = 3.141592;
+const float SCALE = 1.0;
+const mat3 m = mat3(
+  cos(PIVal * SCALE), -sin(PIVal * SCALE), 0.0,
+  sin(PIVal * SCALE),  cos(PIVal * SCALE), 0.0,
+  0.0,  0.0, 1.0
+);
+
+float noise( in vec3 p ) {
+  return cos(p.x) * sin(p.y) * cos(p.z);
+}
+
+float fbm4( vec3 p ) {
+    float f = 0.0;
+    f += 0.5000 * noise( p ); p = m * p * 2.02;
+    f += 0.2500 * noise( p ); p = m * p * 2.03;
+    f += 0.1250 * noise( p ); p = m * p * 2.01;
+    f += 0.0625 * noise( p );
+    return f / 0.9375;
+}
+
+float fbm6( vec3 p ) {
+    float f = 0.0;
+    f += 0.500000*(0.5 + 0.5 * noise( p )); p = m*p*2.02;
+    f += 0.250000*(0.5 + 0.5 * noise( p )); p = m*p*2.03;
+    f += 0.125000*(0.5 + 0.5 * noise( p )); p = m*p*2.01;
+    f += 0.062500*(0.5 + 0.5 * noise( p )); p = m*p*2.04;
+    f += 0.031250*(0.5 + 0.5 * noise( p )); p = m*p*2.01;
+    f += 0.015625*(0.5 + 0.5 * noise( p ));
+    return f/0.96875;
+}
+
+float pattern (vec3 p) {
+  float vout = fbm4( p + time + fbm6(  p + fbm4( p + time )) );
+  return abs(vout);
+}
 
 float sdSceneSDF ( vec3 p, float s ) {
   vec2 uv = gl_FragCoord.xy / resolution.xy;
@@ -301,7 +337,9 @@ float sdSceneSDF ( vec3 p, float s ) {
     acc += pitch;
   }
   
-  outData += chladni(p.x, p.y, acc * 0.1, acc * 0.1, 0.1 * p.x, 0.1 * p.y);
+  outData += chladni(p.x, p.y, acc * 0.1, acc * 0.1, 0.015 * p.x, 0.015 * p.y);
+
+  outData = opUnion(outData, pattern(p * 0.5));
 
   return outData;
 
@@ -423,7 +461,7 @@ void main (void) {
     vel.rgb += pow(calcNormal((pos.rgb * maxRange), maxRange), vec3(1.0)) * dt * 60.0;
   }
 
-  // collisionMouseSphere(2.0, pos, vel.rgb, 3.0);
+  collisionMouseSphere(12.0 * maxRange * 3.0, pos, vel.rgb, 5.0);
 
   vel.rgb += galaxy(pos.xyz * maxRange * 0.3141592 * 2.0) * dt * 50.5;
 
