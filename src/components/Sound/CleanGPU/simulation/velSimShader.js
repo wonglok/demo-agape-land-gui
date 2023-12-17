@@ -427,7 +427,7 @@ void main (void) {
 
   vel.rgb += galaxy(pos.xyz * 0.3) * dt * 100.5;
 
-  vel.rgb *= maxRange * 1.0 + 0.01;
+  vel.rgb *= maxRange * 1.333 + 0.01;
  
   gl_FragColor = vel;
 }
