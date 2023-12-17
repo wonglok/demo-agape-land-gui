@@ -4,6 +4,9 @@ export default function Page() {
       <div className='p-2'>
         <div className='mb-4 text-2xl'>AGAPE Demos</div>
         <ul className=''>
+          <a href={`/vfx`} target='_blank'>
+            <li className='mb-2 list-item list-inside list-decimal'>Age Of VFX Empire</li>
+          </a>
           <a href={`/sound`} target='_blank'>
             <li className='mb-2 list-item list-inside list-decimal'>Sound</li>
           </a>
