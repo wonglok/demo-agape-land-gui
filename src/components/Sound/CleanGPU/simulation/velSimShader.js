@@ -396,7 +396,6 @@ void collisionMouseSphere (float intensity, inout vec4 particlePos, inout vec3 p
   }
 }
 
-
 void main (void) {
   vec2 uv = gl_FragCoord.xy / resolution.xy;
   vec4 acc = texture2D( accSim, uv );
@@ -419,15 +418,14 @@ void main (void) {
   } 
 
   if (sdSceneSDF(pos.rgb, maxRange) < 0.0) {
-    vel.rgb += -pow(calcNormal((pos.rgb), maxRange), vec3(1.0)) * dt * 2.0;
+    vel.rgb += -pow(calcNormal((pos.rgb), maxRange), vec3(1.0)) * dt;
   } else {
-    vel.rgb += pow(calcNormal((pos.rgb), maxRange), vec3(1.0)) * dt * 2.0;
+    vel.rgb += pow(calcNormal((pos.rgb), maxRange), vec3(1.0)) * dt;
   }
 
-  vel.rgb += getDiff(pos.rgb, mouseNow) * dt * 1.0 * 1.0;
-  collisionMouseSphere(1.0, pos, vel.rgb, 5.0);
+  // collisionMouseSphere(2.0, pos, vel.rgb, 3.0);
 
-  vel.rgb += galaxy(pos.xyz * 0.01);
+  vel.rgb += galaxy(pos.xyz * 1.01) * dt;
 
   gl_FragColor = vel;
 }
