@@ -1,4 +1,4 @@
-import { BoxGeometry, Clock, HalfFloatType, Mesh, Object3D, Raycaster, Vector2, Vector3 } from 'three'
+import { BoxGeometry, Clock, FloatType, HalfFloatType, Mesh, Object3D, Raycaster, Vector2, Vector3 } from 'three'
 
 import { GPUComputationRenderer } from 'three/examples/jsm/misc/GPUComputationRenderer'
 import { posSimShader } from './simulation/posSimShader'
@@ -18,7 +18,7 @@ export class GPURun extends Object3D {
     this.gpu = new GPUComputationRenderer(this.size.x, this.size.y, this.gl)
 
     ///
-    this.gpu.setDataType(HalfFloatType)
+    this.gpu.setDataType(FloatType)
 
     this.iTex = {
       posSim: this.gpu.createTexture(),
@@ -61,10 +61,8 @@ export class GPURun extends Object3D {
       gpu: this.gpu,
 
       getTexSet: () => {
-        let MicTexture = useMic.getState().MicTexture
-
         return {
-          audioTexture: MicTexture,
+          audioTexture: useMic.getState().MicTexture,
           posSim: this.gpu.getCurrentRenderTarget(this.iVars.posSim).texture,
           velSim: this.gpu.getCurrentRenderTarget(this.iVars.velSim).texture,
           accSim: this.gpu.getCurrentRenderTarget(this.iVars.accSim).texture,
@@ -149,7 +147,7 @@ export class GPURun extends Object3D {
         for (let x = 0; x < this.size.x; x++) {
           this.iTex.posSim.image.data[idx * 4 + 0.0] = (Math.random() * 2.0 - 1.0) * 3.0
           this.iTex.posSim.image.data[idx * 4 + 1.0] = (Math.random() * 2.0 - 1.0) * 3.0
-          this.iTex.posSim.image.data[idx * 4 + 2.0] = (Math.random() * 2.0 - 1.0) * 3.0
+          this.iTex.posSim.image.data[idx * 4 + 2.0] = (Math.random() * 2.0 - 1.0) * 0
           this.iTex.posSim.image.data[idx * 4 + 3.0] = 1
           idx++
         }
@@ -164,8 +162,8 @@ export class GPURun extends Object3D {
         for (let x = 0; x < this.size.x; x++) {
           this.iTex.velSim.image.data[idx * 4 + 0.0] = (Math.random() * 2.0 - 1.0) * 3.0
           this.iTex.velSim.image.data[idx * 4 + 1.0] = (Math.random() * 2.0 - 1.0) * 3.0
-          this.iTex.velSim.image.data[idx * 4 + 2.0] = (Math.random() * 2.0 - 1.0) * 3.0
-          this.iTex.velSim.image.data[idx * 4 + 3.0] = 0.0
+          this.iTex.velSim.image.data[idx * 4 + 2.0] = (Math.random() * 2.0 - 1.0) * 0
+          this.iTex.velSim.image.data[idx * 4 + 3.0] = 1
           idx++
         }
       }
@@ -179,7 +177,7 @@ export class GPURun extends Object3D {
           this.iTex.accSim.image.data[idx * 4 + 0.0] = (Math.random() * 2.0 - 1.0) * 3.0
           this.iTex.accSim.image.data[idx * 4 + 1.0] = (Math.random() * 2.0 - 1.0) * 3.0
           this.iTex.accSim.image.data[idx * 4 + 2.0] = (Math.random() * 2.0 - 1.0) * 3.0
-          this.iTex.accSim.image.data[idx * 4 + 3.0] = (Math.random() * 2.0 - 1.0) * 3.0
+          this.iTex.accSim.image.data[idx * 4 + 3.0] = 1
           idx++
         }
       }

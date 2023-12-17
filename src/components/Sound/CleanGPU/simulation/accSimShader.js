@@ -84,9 +84,9 @@ void main (void) {
     needsReset = true;
   }
 
-  if (pos.y <= -2.0) {
-    needsReset = true;
-  }
+  // if (pos.y <= -2.0) {
+  //   needsReset = true;
+  // }
 
   if (needsReset) {
     acc.r = 0.0 + rand(uv + time);

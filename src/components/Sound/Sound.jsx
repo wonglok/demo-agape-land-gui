@@ -13,7 +13,7 @@ export function Sound() {
 
   useEffect(() => {
     if (process.env.NODE_ENV === 'development') {
-      authoriseMic({ gl })
+      // authoriseMic({ gl })
     }
   }, [gl])
   return (
@@ -22,9 +22,7 @@ export function Sound() {
         <color attach={'background'} args={['#000000']} />
         <Suspense fallback={<></>}>
           <InjectDeps></InjectDeps>
-          {/* <RotCamera> */}
           <group position={[0, 0, 0]}>{MicTexture && <CleanGPU></CleanGPU>}</group>
-          {/* </RotCamera> */}
         </Suspense>
 
         <PerspectiveCamera makeDefault near={1} far={10000}></PerspectiveCamera>

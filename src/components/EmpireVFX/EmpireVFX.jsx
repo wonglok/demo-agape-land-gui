@@ -11,7 +11,7 @@ export function EmpireVFX() {
 
       <Canvas>
         <color attach={'background'} args={[0x000000]}></color>
-        <PerspectiveCamera fov={32} makeDefault position={[0, 0, 32]}></PerspectiveCamera>
+        <PerspectiveCamera fov={67} makeDefault position={[0, 0, 10]}></PerspectiveCamera>
         <OrbitControls makeDefault enablePan={false} enableZoom={false} enableRotate={false}></OrbitControls>
         <DynamicGPU></DynamicGPU>
       </Canvas>

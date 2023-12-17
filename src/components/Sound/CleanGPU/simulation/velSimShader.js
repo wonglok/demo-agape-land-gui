@@ -1,23 +1,4 @@
 export const velSimShader = /* glsl */ `
-// precision highp float;
-
-// uniform float dt;
-// uniform float time;
-
-// #include <common>
-
-// void main (void) {
-//   vec2 uv = gl_FragCoord.xy / resolution.xy;
-
-//   vec4 acc = texture2D( accSim, uv );
-//   vec4 vel = texture2D( velSim, uv );
-
-//   vel.xyz += acc.rgb;
-
-//   gl_FragColor = vel;
-// }
-
-
 precision highp float;
 
 uniform sampler2D audioTexture;
@@ -287,6 +268,7 @@ float waveSuperPosition(float waveHeight, float waveLength, float waveSpeed, flo
   
   return waveHeightX + waveHeightY + waveHeightZ;
 }
+
 float sdOctahedron( vec3 p, float s)
 {
   p = abs(p);
@@ -311,37 +293,32 @@ vec3 opTwist( in vec3 p, in float k )
 
 
 float sdSceneSDF ( vec3 p, float s ) {
-  vec2 uv = gl_FragCoord.xy / resolution.xy;
+  // vec2 uv = gl_FragCoord.xy / resolution.xy;
 
-  float outData = 0.0;
+  // float outData = 0.0;
+  // float acc = 0.1;
+  // for (float i = 0.0; i < 32.0; i++) {
+  //   float pitch = texture2D(audioTexture, vec2(i / 32.0,  0.0)).r;
+  //   acc += pitch;
+  // }
+  
+  // outData += chladni(p.x, p.y, acc, acc, p.x, p.y);
+
+  // return outData;
+
+    vec2 uv = gl_FragCoord.xy / resolution.xy;
+
   // p = opRepetition(p, vec3(2.0, 2.0, 2.0));
 
-  // float acc = 0.0;
-  // float amp = 0.0;
-  // float pitch = 0.0;
+  float acc = 0.0;
+  float pitch = 0.0;
 
-  float pitch = texture2D(audioTexture, vec2(s, 0.0)).r;
-  pitch += pitch * 1.5 + 0.5;
+  pitch = texture2D(audioTexture, vec2(s, 0.0)).r;
+  acc += pitch + 0.5;
 
-  outData += chladniLokLokVersion(p.x, p.y, p.z, pitch, pitch, pitch, 0.5, 0.5, 0.5);
 
-  outData += waveSuperPosition(pitch, 4.0, dt, time, p);
+  float outData = chladni(p.x, p.y, 1.0, 1.0, 0.5 * p.x * acc, 0.5 * p.y * acc);
 
-  // // // outData = sdOctahedron(p, acc);
-  // // for (float i = 0.0; i < 32.0; i++) {
-  // //   pitch = texture2D(audioTexture, vec2(i / 32.0, 0.0)).r;
-
-    
-  // //   // outData += waveSuperPosition(pitch, 300.0, dt, time, p);
-  // // }
-
-  // // float sph = sdSphere( p, 0.5 );
-
-  // // outData = opUnion(sph, outData);
-  
-  // // float sph2 = sdSphere( p, 2.0 );
-
-  // // outData = opUnion(sph2, outData);
 
   return outData;
 }
@@ -435,19 +412,19 @@ void main (void) {
     minRange = min(minRange, pitch);
   }
 
-  if (sdSceneSDF(pos.rgb, maxRange) <= 0.3) {
-    vel.rgb += (-calcNormal((pos.rgb), maxRange));
+  if (acc.g == 0.0) {
+    vel.x = 0.0;
+    vel.y = 0.0;
+    vel.z = 0.0;
+  } 
+
+  if (sdSceneSDF(pos.rgb, maxRange) < 0.0) {
+    vel.rgb += -pow(calcNormal((pos.rgb), maxRange), vec3(5.0)) * dt;
   } else {
-    vel.rgb += (calcNormal((pos.rgb), maxRange));
+    vel.rgb += pow(calcNormal((pos.rgb), maxRange), vec3(5.0)) * dt;
   }
 
-  vel.xyz *= dt;
-
-  collisionMouseSphere(1.0, pos, vel.rgb, 2.0);
-
-  vel.y += -0.987;
-
-  vel.rgb += normalize(vec3(pos.x, 0.0, pos.z)) * rotateY(2.0 * dt);
+  // collisionMouseSphere(0.0, pos, vel.rgb, 1.0);
 
   gl_FragColor = vel;
 }

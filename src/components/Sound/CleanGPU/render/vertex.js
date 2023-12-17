@@ -22,7 +22,7 @@ void main (void) {
 
   vec4 myPos = texture2D( posSim, v_uv );
 
-  gl_PointSize = 2.2;// * (3.0 - length(myPos.rgb));
+  gl_PointSize = 1.0;// * (3.0 - length(myPos.rgb));
 
   gl_Position = projectionMatrix * modelViewMatrix * myPos;
 }

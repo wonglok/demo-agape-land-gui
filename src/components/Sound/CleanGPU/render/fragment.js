@@ -37,13 +37,12 @@ void main (void) {
     float t = size + 0.1;
     gl_FragColor.rgb = pal(t, color1, color2, color3, color4);
 
-    gl_FragColor.rgb = normalize(vel.rgb * 0.5 + 0.5) + 0.3;
+    gl_FragColor.rgb = normalize(vel.rgb * 0.5 + 0.5) + 0.1;
   
-
-    gl_FragColor.a = 1.0;
+    gl_FragColor.a = 0.5;
   }
 
   
 } 
 
-`;
+`

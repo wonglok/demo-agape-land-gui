@@ -4,7 +4,6 @@ import { useFrame, useThree } from '@react-three/fiber'
 // import { GPURun } from "./GPURun";
 import { useMic } from './mic/histroymic'
 import { GPURun } from './GPURun'
-import { PerspectiveCamera } from '@react-three/drei'
 
 export function CleanGPU() {
   let gpu = useCore((r) => r.gpu)

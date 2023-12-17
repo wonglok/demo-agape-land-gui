@@ -8,8 +8,8 @@ export class RenderGPU extends Object3D {
 
     this.size = size
     let geometry = new BufferGeometry()
-    geometry.setAttribute('position', new BufferAttribute(new Float32Array(128 * 128 * 3), 3))
-    geometry.setAttribute('uv', new BufferAttribute(new Float32Array(128 * 128 * 2), 2))
+    geometry.setAttribute('position', new BufferAttribute(new Float32Array(size.x * size.y * 3), 3))
+    geometry.setAttribute('uv', new BufferAttribute(new Float32Array(size.x * size.y * 2), 2))
 
     {
       let idx = 0
