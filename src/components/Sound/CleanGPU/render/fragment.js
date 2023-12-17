@@ -27,12 +27,6 @@ void main (void) {
     
     float size = length(vel.rgb);
 
-    // vel.rgb = normalize(vel.rgb);
-    // gl_FragColor.rgb = size * pal(size, color1, color2, color3, color4);
-
-    // float t = size + 0.1;
-    // gl_FragColor.rgb = pal(t, color1, color2, color3, color4);
-
     gl_FragColor.rgb = normalize(vel.rgb * 0.5 + 0.5) * 0.5 + 0.5;
   
     gl_FragColor.a = rand(v_uv + size) * 0.5 + 0.5;
