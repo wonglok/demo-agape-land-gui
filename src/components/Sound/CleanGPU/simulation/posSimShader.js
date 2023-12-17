@@ -46,8 +46,8 @@ void main (void) {
   vec4 vel = texture2D( velSim, uv );
 
   if (acc.g == 0.0) {
-    pos.x = (rand(uv + 0.1) * 2.0 - 1.0) * 5.5;
-    pos.y = (rand(uv + 0.2) * 2.0 - 1.0) * 5.5;
+    pos.x = (rand(uv + 0.1) * 2.0 - 1.0) * 6.5;
+    pos.y = (rand(uv + 0.2) * 2.0 - 1.0) * 6.5;
     pos.z = (rand(uv + 0.3) * 2.0 - 1.0) * 0.0;
   } else {
     pos.xyz += vel.rgb * dt;

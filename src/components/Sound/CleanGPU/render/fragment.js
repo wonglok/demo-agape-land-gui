@@ -24,7 +24,7 @@ void main (void) {
     discard;
   } else {
     vec4 vel = texture2D( velSim, v_uv );
-    
+
     float size = length(vel.rgb);
 
     gl_FragColor.rgb = normalize(vel.rgb * 0.5 + 0.5) * 0.5 + 0.5;
