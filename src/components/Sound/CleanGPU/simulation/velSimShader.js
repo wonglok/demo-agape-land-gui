@@ -425,9 +425,9 @@ void main (void) {
 
   // collisionMouseSphere(2.0, pos, vel.rgb, 3.0);
 
-  vel.rgb += galaxy(pos.xyz * 1.5) * dt * 10.5;
+  vel.rgb += galaxy(pos.xyz * 0.3) * dt * 100.5;
 
-  vel.rgb *= maxRange * 1.0;
+  vel.rgb *= maxRange * 1.0 + 0.01;
  
   gl_FragColor = vel;
 }
