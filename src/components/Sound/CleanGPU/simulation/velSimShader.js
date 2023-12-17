@@ -418,14 +418,14 @@ void main (void) {
   } 
 
   if (sdSceneSDF(pos.rgb, maxRange) < 0.0) {
-    vel.rgb += -pow(calcNormal((pos.rgb), maxRange), vec3(1.0)) * dt * 60.0;
+    vel.rgb += -pow(calcNormal((pos.rgb * maxRange), maxRange), vec3(1.0)) * dt * 60.0;
   } else {
-    vel.rgb += pow(calcNormal((pos.rgb), maxRange), vec3(1.0)) * dt * 60.0;
+    vel.rgb += pow(calcNormal((pos.rgb * maxRange), maxRange), vec3(1.0)) * dt * 60.0;
   }
 
   // collisionMouseSphere(2.0, pos, vel.rgb, 3.0);
 
-  vel.rgb += galaxy(pos.xyz * 0.3) * dt * 100.5;
+  vel.rgb += galaxy(pos.xyz * 0.3 * minRange) * dt * 100.5;
 
   vel.rgb *= maxRange * 1.333 + 0.01;
  
