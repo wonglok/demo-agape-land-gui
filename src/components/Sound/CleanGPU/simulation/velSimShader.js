@@ -383,16 +383,17 @@ uniform vec3 mouseNow;
 uniform vec3 mouseLast;
 
 // holdarea
-void collisionMouseSphere (float life, inout vec4 particlePos, inout vec3 particleVel, float sphereRadius) {
-  vec3 dif = (mouseNow) - particlePos.xyz;
-  if( length( dif ) - sphereRadius < 0.0 ){
-    particleVel -= normalize(dif) * dt * 50.0;
+void collisionMouseSphere (float intensity, inout vec4 particlePos, inout vec3 particleVel, float sphereRadius) {
+  vec3 diff = (mouseNow) - particlePos.xyz;
+
+  if( length( diff ) - sphereRadius < 0.0 ){
+    particleVel -= intensity * normalize(diff) * dt * 60.0;
     vec3 mouseForce = mouseNow - mouseLast;
-    particleVel += mouseForce * dt * 50.0;
-  } else if (length( dif ) - sphereRadius < sphereRadius * 0.5) {
-    particleVel += normalize(dif) * dt * 50.0;
+    particleVel += intensity * mouseForce * dt * 60.0;
+  } else if (length( diff ) - sphereRadius < sphereRadius * 0.5) {
+    particleVel += intensity * normalize(diff) * dt * 60.0;
     vec3 mouseForce = mouseNow - mouseLast;
-    particleVel += mouseForce * dt * 50.0;
+    particleVel += intensity * mouseForce * dt * 60.0;
   }
 }
 
@@ -419,12 +420,13 @@ void main (void) {
   } 
 
   if (sdSceneSDF(pos.rgb, maxRange) < 0.0) {
-    vel.rgb += -pow(calcNormal((pos.rgb), maxRange), vec3(5.0)) * dt * 60.0;
+    vel.rgb += -pow(calcNormal((pos.rgb), maxRange), vec3(1.0)) * dt * 60.0;
   } else {
-    vel.rgb += pow(calcNormal((pos.rgb), maxRange), vec3(5.0)) * dt * 60.0;
+    vel.rgb += pow(calcNormal((pos.rgb), maxRange), vec3(1.0)) * dt * 60.0;
   }
 
-  // collisionMouseSphere(0.0, pos, vel.rgb, 1.0);
+  vel.rgb += getDiff(pos.rgb, mouseNow) * dt * 60.0 * -1.0;
+  collisionMouseSphere(10.0, pos, vel.rgb, 5.0);
 
   gl_FragColor = vel;
 }
