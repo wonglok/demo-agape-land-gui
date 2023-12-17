@@ -41,6 +41,7 @@ export class RenderGPU extends Object3D {
       velSim: { value: null },
       accSim: { value: null },
       audioTexture: { value: null },
+      dpr: { value: window.devicePixelRatio / 2 || 1.0 },
 
       color1: { value: new Color('#e3307e') },
       color2: { value: new Color('#78f0f9') },

@@ -2,7 +2,7 @@ export const fragmentRender = `
 
 varying vec2 v_uv;
 
-uniform sampler2D velSim;
+uniform highp sampler2D velSim;
 
 vec3 pal( in float t, in vec3 a, in vec3 b, in vec3 c, in vec3 d )
 {
@@ -20,17 +20,18 @@ uniform float time;
 
 void main (void) {
 
-  if (length(gl_PointCoord.xy - 0.5) >= 0.5) {
-    discard;
-  } else {
-    vec4 vel = texture2D( velSim, v_uv );
-
-    float size = length(vel.rgb);
-
-    gl_FragColor.rgb = normalize(vel.rgb * 0.5 + 0.5) * 0.5 + 0.5;
+  // if (length(gl_PointCoord.xy - 0.5) >= 0.5) {
+  //   discard;
+  // } else {
   
-    gl_FragColor.a = 1.0;
-  }
+  //   gl_FragColor.a = 1.0;
+  // }
+
+  // gl_FragColor.rgb = vec3(1.0);
+
+  vec4 vel = texture2D( velSim, v_uv );
+  gl_FragColor.rgb = normalize(vel.rgb) * 0.5 + 0.5;
+  gl_FragColor.a = 1.0;
 
   
 } 

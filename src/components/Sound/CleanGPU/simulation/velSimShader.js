@@ -402,7 +402,7 @@ void main (void) {
   vec4 pos = texture2D( posSim, uv );
   vec4 vel = texture2D( velSim, uv );
 
-  float maxRange = 0.0;
+  float maxRange = 0.1;
   float minRange = 0.1;
 
   for (float i = 0.0; i < 32.0; i++) {

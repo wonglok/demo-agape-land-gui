@@ -3,7 +3,7 @@ export const vertexRender = `
 varying vec2 v_uv;
 
 uniform highp sampler2D posSim;
-
+uniform float dpr;
 
 
 vec3 opTwist( in vec3 p, in float k )
@@ -22,7 +22,7 @@ void main (void) {
 
   vec4 myPos = texture2D( posSim, v_uv );
 
-  gl_PointSize = 1.0;// * (3.0 - length(myPos.rgb));
+  gl_PointSize = dpr;// * (3.0 - length(myPos.rgb));
 
   gl_Position = projectionMatrix * modelViewMatrix * myPos;
 }
