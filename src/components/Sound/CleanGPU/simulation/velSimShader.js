@@ -336,7 +336,10 @@ float sdSceneSDF ( vec3 p, float s ) {
     float pitch = texture2D(audioTexture, vec2(i / 32.0,  0.0)).r;
     acc += pitch;
   }
-  
+
+  float pitch = texture2D(audioTexture, vec2(s,  0.0)).r;
+  acc += pitch;
+
   outData += chladni(p.x, p.y, acc * 0.1, acc * 0.1, 0.015 * p.x, 0.015 * p.y);
 
   outData = opUnion(outData, pattern(p * 0.5));
@@ -456,14 +459,14 @@ void main (void) {
   } 
 
   if (sdSceneSDF(pos.rgb, maxRange) < 0.0) {
-    vel.rgb += -pow(calcNormal((pos.rgb * maxRange), maxRange), vec3(1.0)) * dt * 60.0;
+    vel.rgb += -pow(calcNormal((pos.rgb), maxRange), vec3(1.0)) * dt * 60.0;
   } else {
-    vel.rgb += pow(calcNormal((pos.rgb * maxRange), maxRange), vec3(1.0)) * dt * 60.0;
+    vel.rgb += pow(calcNormal((pos.rgb), maxRange), vec3(1.0)) * dt * 60.0;
   }
 
   collisionMouseSphere(6.0, pos, vel.rgb, 5.0);
 
-  vel.rgb += galaxy(pos.xyz * maxRange * 0.3141592 * 2.0) * dt * 50.5 * (1.0 + maxRange * 2.0);
+  vel.rgb += funSwirl(pos.xyz * maxRange * 0.3141592 * 2.0) * dt * 50.5 * (1.0 + maxRange * 2.0);
 
   vel.rgb *= dt * 35.0;
 

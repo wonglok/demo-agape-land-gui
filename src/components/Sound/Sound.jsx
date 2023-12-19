@@ -35,7 +35,7 @@ export function Sound() {
         ></OrbitControls>
 
         <EffectComposer disableNormalPass multisampling={4}>
-          <Bloom intensity={2} mipmapBlur luminanceThreshold={0.25}></Bloom>
+          <Bloom intensity={5} mipmapBlur luminanceThreshold={0.1}></Bloom>
         </EffectComposer>
       </Canvas>
       <div className=' absolute' style={{ top: `100px`, left: `calc(50% - 100px)` }}>
