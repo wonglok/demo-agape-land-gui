@@ -16,6 +16,7 @@
     "@react-three/cannon140": "npm:@react-three/cannon@^1.4.0",
     "@react-three/drei": "^9.56.5",
     "@react-three/fiber": "^8.10.1",
+    "@react-three/postprocessing": "^2.15.11",
     "@react-three/xr": "^5.7.1",
     "@rollup/plugin-babel": "^6.0.3",
     "@rollup/plugin-image": "^3.0.2",

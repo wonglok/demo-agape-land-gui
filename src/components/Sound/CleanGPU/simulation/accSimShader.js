@@ -77,6 +77,9 @@ void main (void) {
   // float pitch = texture2D(audioTexture, vec2(maxRange, 0.0)).r;
 
   // acc.r += dt * pitch;
+  //
+  //
+
   acc.r += dt * rand(uv) * 0.3333;
 
   bool needsReset = false;

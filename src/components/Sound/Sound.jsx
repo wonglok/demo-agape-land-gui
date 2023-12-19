@@ -2,10 +2,10 @@ import { Canvas } from '@react-three/fiber'
 import { Suspense, useEffect } from 'react'
 import { CleanGPU } from './CleanGPU/CleanGPU'
 import { InjectDeps, authoriseMic, authoriseMP3, useMic } from './CleanGPU/mic/histroymic'
-import './CleanGPU/GPURun'
+// import './CleanGPU/GPURun'
 import { OrbitControls, PerspectiveCamera } from '@react-three/drei'
-// import { Bloom, EffectComposer } from "@react-three/postprocessing";
-import { HalfFloatType } from 'three'
+import { Bloom, EffectComposer } from '@react-three/postprocessing'
+// import { Bloom, EffectComposer } from '@react-three/postprocessing'
 
 export function Sound() {
   let MicTexture = useMic((r) => r.MicTexture)
@@ -34,13 +34,9 @@ export function Sound() {
           target={[0, 0, 0]}
         ></OrbitControls>
 
-        {/* <EffectComposer
-          frameBufferType={HalfFloatType}
-          disableNormalPass
-          multisampling={0}
-        >
+        <EffectComposer disableNormalPass multisampling={4}>
           <Bloom intensity={2} mipmapBlur luminanceThreshold={0.25}></Bloom>
-        </EffectComposer> */}
+        </EffectComposer>
       </Canvas>
       <div className=' absolute' style={{ top: `100px`, left: `calc(50% - 100px)` }}>
         {gl && (

@@ -461,11 +461,13 @@ void main (void) {
     vel.rgb += pow(calcNormal((pos.rgb * maxRange), maxRange), vec3(1.0)) * dt * 60.0;
   }
 
-  collisionMouseSphere(12.0 * maxRange * 3.0, pos, vel.rgb, 5.0);
+  collisionMouseSphere(6.0, pos, vel.rgb, 5.0);
 
-  vel.rgb += galaxy(pos.xyz * maxRange * 0.3141592 * 2.0) * dt * 50.5;
+  vel.rgb += galaxy(pos.xyz * maxRange * 0.3141592 * 2.0) * dt * 50.5 * (1.0 + maxRange * 2.0);
 
-  vel.rgb *= maxRange * 1.333 + 0.01;
+  vel.rgb *= dt * 35.0;
+
+  // vel.rgb *= maxRange * 1.333 + 0.01;
   
   gl_FragColor = vel;
 }
