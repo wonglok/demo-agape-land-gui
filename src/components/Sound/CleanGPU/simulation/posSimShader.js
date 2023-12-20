@@ -36,6 +36,7 @@ mat3 rotateZ(float theta) {
     );
 }
 
+uniform sampler2D audioTexture;
 
 
 void main (void) {
@@ -46,9 +47,21 @@ void main (void) {
   vec4 vel = texture2D( velSim, uv );
 
   if (acc.g == 0.0) {
-    pos.x = (rand(uv + 0.1) * 2.0 - 1.0) * 10.0;
-    pos.y = (rand(uv + 0.2) * 2.0 - 1.0) * 10.0;
-    pos.z = (rand(uv + 0.3) * 2.0 - 1.0) * 0.0;
+    float maxRange = 0.0;
+    float minRange = 0.0;
+
+    for (float i = 0.0; i < 32.0; i++) {
+      float pitch = texture2D(audioTexture, vec2(i / 32.0, 0.0)).r;
+      maxRange = max(maxRange, pitch);
+      minRange = min(minRange, pitch);
+    }
+    
+
+    pos.x = (rand(uv + 0.1) * 2.0 - 1.0) * (1.0 + maxRange * 10.0);
+    pos.y = (rand(uv + 0.2) * 2.0 - 1.0) * 1.0;
+    pos.z = (rand(uv + 0.3) * 2.0 - 1.0) * (1.0 + maxRange * 10.0);
+
+    pos.y += 15.0;
   } else {
     pos.xyz += vel.rgb * dt;
   }

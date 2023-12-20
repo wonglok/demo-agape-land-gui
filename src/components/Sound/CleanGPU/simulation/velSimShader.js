@@ -340,7 +340,7 @@ float sdSceneSDF ( vec3 p, float s ) {
   float pitch = texture2D(audioTexture, vec2(s,  0.0)).r;
   acc += pitch;
 
-  outData += chladni(p.x, p.y, acc * 0.1, acc * 0.1, 0.015 * p.x, 0.015 * p.y);
+  outData += chladniLokLokVersion(p.x, p.y,  p.z, acc * 0.1, acc * 0.1, acc * 0.1, 0.015 * p.x, 0.015 * p.y, 0.015 * p.z);
 
   outData = opUnion(outData, pattern(p * 0.5));
 
@@ -427,7 +427,7 @@ void collisionMouseSphere (float intensity, inout vec4 particlePos, inout vec3 p
   vec3 diff = (mouseNow) - particlePos.xyz;
 
   if( length( diff ) - sphereRadius < 0.0 ){
-    particleVel -= intensity * normalize(diff) * dt * 60.0;
+    particleVel += -intensity * normalize(diff) * dt * 60.0;
     vec3 mouseForce = mouseNow - mouseLast;
     particleVel += intensity * mouseForce * dt * 60.0;
   } else if (length( diff ) - sphereRadius < sphereRadius * 0.5) {
@@ -458,17 +458,23 @@ void main (void) {
     vel.z = 0.0;
   } 
 
-  if (sdSceneSDF(pos.rgb, maxRange) < 0.0) {
-    vel.rgb += -pow(calcNormal((pos.rgb), maxRange), vec3(1.0)) * dt * 60.0;
-  } else {
-    vel.rgb += pow(calcNormal((pos.rgb), maxRange), vec3(1.0)) * dt * 60.0;
-  }
+  collisionMouseSphere(dt * 30.0, pos, vel.rgb, 5.0);
 
-  collisionMouseSphere(6.0, pos, vel.rgb, 5.0);
+  // if (sdSceneSDF(pos.rgb, maxRange) < 0.0) {
+  //   vel.rgb += -pow(calcNormal((pos.rgb), maxRange), vec3(1.0)) * dt * 120.0;
+  // } else {
+  //   vel.rgb += pow(calcNormal((pos.rgb), maxRange), vec3(1.0)) * dt * 120.0;
+  // }
 
-  vel.rgb += funSwirl(pos.xyz * maxRange * 0.3141592 * 2.0) * dt * 50.5 * (1.0 + maxRange * 2.0);
+  // vel.rgb += funSwirl(pos.xyz * 0.1);
+  
+  vel.xyz *= 0.998;
+  
 
-  vel.rgb *= dt * 35.0;
+  vel.y += 10.1 * -dt * rand(uv + dt);
+
+
+  // vel.rgb *= dt * 35.0;
 
   // vel.rgb *= maxRange * 1.333 + 0.01;
   

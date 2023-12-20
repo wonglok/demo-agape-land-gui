@@ -101,6 +101,7 @@ export class GPURun extends Object3D {
 
     this.onLoop((st, dt) => {
       rc.setFromCamera(st.mouse, st.camera)
+      // meshRc.lookAt(meshRc.position.x, meshRc.position.y + 10.0, meshRc.position.z)
       meshRc.lookAt(st.camera.position)
       let res = rc.intersectObjects([meshRc], false)
 
