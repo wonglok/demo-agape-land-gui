@@ -64,6 +64,8 @@ void main (void) {
     pos.y += 15.0;
   } else {
     pos.xyz += vel.rgb * dt;
+
+    // pos.xyz *= 2.0;
   }
 
   gl_FragColor = pos;

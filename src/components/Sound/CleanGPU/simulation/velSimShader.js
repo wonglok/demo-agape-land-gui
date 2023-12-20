@@ -458,20 +458,22 @@ void main (void) {
     vel.z = 0.0;
   } 
 
-  collisionMouseSphere(dt * 30.0, pos, vel.rgb, 5.0);
+  collisionMouseSphere(dt * 50.0, pos, vel.rgb, 5.0);
 
   // if (sdSceneSDF(pos.rgb, maxRange) < 0.0) {
-  //   vel.rgb += -pow(calcNormal((pos.rgb), maxRange), vec3(1.0)) * dt * 120.0;
+  //   vel.rgb += -calcNormal((pos.rgb), maxRange) * dt * 5.0;
   // } else {
-  //   vel.rgb += pow(calcNormal((pos.rgb), maxRange), vec3(1.0)) * dt * 120.0;
+  //   vel.rgb += calcNormal((pos.rgb), maxRange) * dt * 5.0;
   // }
 
-  // vel.rgb += funSwirl(pos.xyz * 0.1);
+
+
+  // vel.rgb += funSwirl(pos.xyz) * 0.1;
   
   vel.xyz *= 0.998;
   
 
-  vel.y += 10.1 * -dt * rand(uv + dt);
+  vel.y += 6.1 * -dt * rand(uv + dt);
 
 
   // vel.rgb *= dt * 35.0;

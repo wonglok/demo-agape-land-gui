@@ -443,7 +443,7 @@ void main (void) {
 
   vel.xyz *= dt;
 
-  collisionMouseSphere(1.0, pos, vel.rgb, 2.0);
+  collisionMouseSphere(1.0, pos, vel.rgb, 1.0);
 
   vel.y += -0.987;
 

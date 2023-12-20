@@ -42,6 +42,8 @@ export class RenderGPU extends Object3D {
       accSim: { value: null },
       audioTexture: { value: null },
 
+      pt: { value: window.devicePixelRatio },
+
       color1: { value: new Color('#e3307e') },
       color2: { value: new Color('#78f0f9') },
       color3: { value: new Color('#f7abb7') },
@@ -55,7 +57,7 @@ export class RenderGPU extends Object3D {
     })
 
     this.points = new Points(geometry, shader)
-
+    this.points.frustumCulled = false
     this.add(this.points)
   }
 }

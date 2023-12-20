@@ -12,6 +12,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "three147": "npm:three@^0.147.0",
     "@ducanh2912/next-pwa": "^8.2.0",
     "@react-three/cannon140": "npm:@react-three/cannon@^1.4.0",
     "@react-three/drei": "^9.56.5",
@@ -23,9 +24,11 @@
     "@swc/core": "^1.3.56",
     "animejs": "^3.2.1",
     "glsl-random": "^0.0.5",
+    "mind-ar": "^1.2.3",
     "n8ao": "^1.3.2",
     "next": "^13.4.2",
     "nipplejs": "^0.10.1",
+    "nprogress": "^0.2.0",
     "postprocessing": "^6.31.0",
     "react": "^18.2.0",
     "react-color": "^2.19.3",
