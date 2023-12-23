@@ -30,7 +30,7 @@ class ARCamView {
     this.camera.updateProjectionMatrix()
 
     this.object = new THREE.Mesh(
-      new THREE.IcosahedronGeometry(1, 0),
+      new THREE.IcosahedronGeometry(1, 2),
       new THREE.MeshNormalMaterial({ flatShading: true }),
     )
     this.object.scale.set(scale, scale, scale)
