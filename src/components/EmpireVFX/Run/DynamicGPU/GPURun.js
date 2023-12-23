@@ -98,12 +98,15 @@ export class GPURun extends Object3D {
     let rc = new Raycaster()
 
     this.onLoop((st, dt) => {
-      // rc.setFromCamera(st.mouse, st.camera)
-      // meshRc.lookAt(st.camera.position)
-      let res = rc.intersectObjects([meshRc], false)
+      if (st.mouse && st.camera) {
+        rc.setFromCamera(st.mouse, st.camera)
+        meshRc.lookAt(st.camera.position)
 
-      if (res[0]) {
-        raycastMouse.lerp(res[0].point, 1.0)
+        let res = rc.intersectObjects([meshRc], false)
+
+        if (res[0]) {
+          raycastMouse.lerp(res[0].point, 1.0)
+        }
       }
 
       let MicTexture = useMic.getState().MicTexture

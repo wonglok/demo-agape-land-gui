@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import * as THREE from 'three'
 import { GPURun } from '../EmpireVFX/Run/DynamicGPU/GPURun'
+import { Vector2 } from 'three147'
 
 class AlvaARConnectorTHREE {
   static Initialize(THREE) {
@@ -46,13 +47,37 @@ class ARCamView {
     this.scene.add(new THREE.HemisphereLight(0x404040, 0xf0f0f0, 1))
     this.scene.add(this.camera)
 
+    this.mouse = new Vector2()
+
+    window.addEventListener('mousemove', (ev) => {
+      let touch = ev
+      if (touch) {
+        this.mouse.x = (ev.clientX / window.innerWidth) * 2.0 - 1.0
+        this.mouse.y = ((ev.clientY / window.innerHeight) * 2.0 - 1.0) * -1
+      }
+    })
+
+    window.addEventListener('touchmove', (ev) => {
+      let touch = ev.touches[0]
+      if (touch) {
+        this.mouse.x = (ev.clientX / window.innerWidth) * 2.0 - 1.0
+        this.mouse.y = ((ev.clientY / window.innerHeight) * 2.0 - 1.0) * -1
+      }
+    })
+
     container.appendChild(this.renderer.domElement)
 
     let clock = new THREE.Clock()
     const render = () => {
       requestAnimationFrame(render.bind(this))
       let dt = clock.getDelta()
-      this.gpu.run({}, dt)
+      this.gpu.run(
+        {
+          camera: this.camera,
+          mouse: this.mouse,
+        },
+        dt,
+      )
       this.renderer.render(this.scene, this.camera)
     }
 
