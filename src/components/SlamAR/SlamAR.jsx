@@ -94,8 +94,8 @@ class ARCamView {
   updateCameraPose(pose) {
     this.applyPose(pose, this.camera2.quaternion, this.camera2.position)
 
-    this.camera.position.lerp(this.camera.position, 0.3)
-    this.camera.quaternion.slerp(this.camera.quaternion, 0.3)
+    this.camera.position.lerp(this.camera2.position, 0.3)
+    this.camera.quaternion.slerp(this.camera2.quaternion, 0.3)
 
     // this.object.visible = true
     this.gpu.visible = true
