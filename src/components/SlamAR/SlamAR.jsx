@@ -16,6 +16,7 @@ class AlvaARConnectorTHREE {
 }
 
 class ARCamView {
+  //
   constructor(container, width, height, x = 0, y = 0, z = -10, scale = 1.0) {
     this.applyPose = AlvaARConnectorTHREE.Initialize(THREE)
 
