@@ -52,16 +52,18 @@ class ARCamView {
     window.addEventListener('mousemove', (ev) => {
       let touch = ev
       if (touch) {
-        this.mouse.x = (ev.clientX / window.innerWidth) * 2.0 - 1.0
-        this.mouse.y = ((ev.clientY / window.innerHeight) * 2.0 - 1.0) * -1
+        this.mouse.x = (touch.clientX / window.innerWidth) * 2.0 - 1.0
+        this.mouse.y = ((touch.clientY / window.innerHeight) * 2.0 - 1.0) * -1
       }
     })
 
     window.addEventListener('touchmove', (ev) => {
       let touch = ev.touches[0]
       if (touch) {
-        this.mouse.x = (ev.clientX / window.innerWidth) * 2.0 - 1.0
-        this.mouse.y = ((ev.clientY / window.innerHeight) * 2.0 - 1.0) * -1
+        this.mouse.x = (touch.clientX / window.innerWidth) * 2.0 - 1.0
+        this.mouse.y = ((touch.clientY / window.innerHeight) * 2.0 - 1.0) * -1
+
+        console.log(this.mouse.x, this.mouse.y)
       }
     })
 
