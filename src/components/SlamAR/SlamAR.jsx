@@ -63,10 +63,12 @@ class ARCamView {
     this.applyPose(pose, this.camera.quaternion, this.camera.position)
 
     this.object.visible = true
+    this.gpu.visible = fatruelse
   }
 
   lostCamera() {
     this.object.visible = false
+    this.gpu.visible = false
   }
 }
 
