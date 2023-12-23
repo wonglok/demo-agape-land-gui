@@ -447,7 +447,7 @@ void main (void) {
 
   vel.y += -0.987;
 
-  vel.rgb += normalize(vec3(pos.x, 0.0, pos.z)) * rotateY(2.0 * dt);
+  // vel.rgb += normalize(vec3(pos.x, 0.0, pos.z)) * rotateY(2.0 * dt);
 
   gl_FragColor = vel;
 }

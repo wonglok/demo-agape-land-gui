@@ -128,7 +128,10 @@ async function main() {
     document.body.appendChild(Stats.el)
     document.body.addEventListener('click', () => alva.reset(), false)
 
-    onFrame(() => {
+    /** @type {HTMLVideoElement} */
+    let vid = $video
+
+    let YoFrame = () => {
       Stats.next()
       Stats.start('total')
 
@@ -162,7 +165,15 @@ async function main() {
       Stats.render()
 
       return true
-    }, 30)
+    }
+
+    let hh = () => {
+      vid.requestVideoFrameCallback(hh)
+      YoFrame()
+    }
+    vid.requestVideoFrameCallback(hh)
+
+    //
   }
 
   setTimeout(() => {
