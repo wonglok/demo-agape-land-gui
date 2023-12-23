@@ -456,7 +456,7 @@ void main (void) {
     vel.x = 0.0;
     vel.y = 0.0;
     vel.z = 0.0;
-  } 
+  }
 
   collisionMouseSphere(dt * 50.0, pos, vel.rgb, 5.0);
 

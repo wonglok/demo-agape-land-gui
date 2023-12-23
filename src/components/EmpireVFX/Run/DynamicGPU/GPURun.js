@@ -92,6 +92,8 @@ export class GPURun extends Object3D {
     let lastMouse = new Vector3()
     let raycastMouse = new Vector3()
 
+    this.raycastMouse = raycastMouse
+
     // let meshRc = new Mesh(new BoxGeometry(100000, 100000, 0.1))
     // this.add(meshRc)
     // meshRc.visible = false

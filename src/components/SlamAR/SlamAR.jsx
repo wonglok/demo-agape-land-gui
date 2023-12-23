@@ -73,6 +73,7 @@ class ARCamView {
     const render = () => {
       requestAnimationFrame(render.bind(this))
       let dt = clock.getDelta()
+      this.gpu.raycastMouse.copy(this.object.position)
       this.gpu.run(
         {
           camera: this.camera,
