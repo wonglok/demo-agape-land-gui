@@ -32,7 +32,7 @@ class ARCamView {
 
     this.object = new THREE.Mesh(
       new THREE.IcosahedronGeometry(1, 2),
-      new THREE.MeshNormalMaterial({ flatShading: true }),
+      new THREE.MeshNormalMaterial({ flatShading: true, transparent: true, opacity: 0.5 }),
     )
     this.object.scale.set(scale, scale, scale)
     this.object.position.set(x, y, z)
