@@ -87,27 +87,27 @@ export class GPURun extends Object3D {
     this.iVars.posSim.material.uniforms.time = { value: 0 }
     this.iVars.velSim.material.uniforms.time = { value: 0 }
     this.iVars.accSim.material.uniforms.time = { value: 0 }
-    let c = new Clock()
+    let clock = new Clock()
 
     let lastMouse = new Vector3()
     let raycastMouse = new Vector3()
 
-    let meshRc = new Mesh(new BoxGeometry(100000, 100000, 0.1))
-    this.add(meshRc)
-    meshRc.visible = false
-    let rc = new Raycaster()
+    // let meshRc = new Mesh(new BoxGeometry(100000, 100000, 0.1))
+    // this.add(meshRc)
+    // meshRc.visible = false
+    // let rc = new Raycaster()
 
     this.onLoop((st, dt) => {
-      if (st.mouse && st.camera) {
-        rc.setFromCamera(st.mouse, st.camera)
-        meshRc.lookAt(st.camera.position)
+      // if (st.mouse && st.camera) {
+      //   rc.setFromCamera(st.mouse, st.camera)
+      //   meshRc.lookAt(st.camera.position)
 
-        let res = rc.intersectObjects([meshRc], false)
+      //   let res = rc.intersectObjects([meshRc], false)
 
-        if (res[0]) {
-          raycastMouse.lerp(res[0].point, 1.0)
-        }
-      }
+      //   if (res[0]) {
+      //     raycastMouse.lerp(res[0].point, 1.0)
+      //   }
+      // }
 
       let MicTexture = useMic.getState().MicTexture
 
@@ -115,7 +115,7 @@ export class GPURun extends Object3D {
       this.iVars.velSim.material.uniforms.dt.value = dt
       this.iVars.accSim.material.uniforms.dt.value = dt
 
-      let t = c.getElapsedTime()
+      let t = clock.getElapsedTime()
       this.iVars.posSim.material.uniforms.time.value = t
       this.iVars.velSim.material.uniforms.time.value = t
       this.iVars.accSim.material.uniforms.time.value = t
