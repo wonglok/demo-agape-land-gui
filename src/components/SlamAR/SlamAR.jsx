@@ -133,7 +133,7 @@ async function main() {
     /** @type {HTMLVideoElement} */
     let vid = $video
 
-    let YoFrame = () => {
+    let SLAMFFrame = () => {
       Stats.next()
       Stats.start('total')
 
@@ -171,7 +171,7 @@ async function main() {
 
     let hh = () => {
       vid.requestVideoFrameCallback(hh)
-      YoFrame()
+      SLAMFFrame()
     }
     vid.requestVideoFrameCallback(hh)
 
