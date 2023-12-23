@@ -30,6 +30,8 @@ class ARCamView {
     this.camera.rotation.reorder('YXZ')
     this.camera.updateProjectionMatrix()
 
+    this.camera2 = this.camera.clone()
+
     this.object = new THREE.Mesh(
       new THREE.IcosahedronGeometry(1, 2),
       new THREE.MeshNormalMaterial({ flatShading: true, transparent: true, opacity: 0.5 }),
@@ -90,14 +92,17 @@ class ARCamView {
   }
 
   updateCameraPose(pose) {
-    this.applyPose(pose, this.camera.quaternion, this.camera.position)
+    this.applyPose(pose, this.camera2.quaternion, this.camera2.position)
 
-    this.object.visible = true
+    this.camera.position.lerp(this.camera.position, 0.3)
+    this.camera.quaternion.slerp(this.camera.quaternion, 0.3)
+
+    // this.object.visible = true
     this.gpu.visible = true
   }
 
   lostCamera() {
-    this.object.visible = false
+    // this.object.visible = false
     this.gpu.visible = false
   }
 }
