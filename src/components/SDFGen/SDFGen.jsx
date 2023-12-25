@@ -1,9 +1,11 @@
 import { Suspense, useEffect, useMemo } from "react"
 import { SDFGenCore } from "./SDFGenCore"
-import { Canvas, useFrame, useThree } from "@react-three/fiber"
+import { Canvas, useFrame, useLoader, useThree } from "@react-three/fiber"
 import { Environment, Loader, OrbitControls, Stats, useGLTF } from "@react-three/drei"
 import { PPSwitch } from "agape-sdk/src/main"
 import { useBVHPhysics } from "./useBVHPhysics"
+import { RGBELoader } from "three-stdlib"
+import { EquirectangularReflectionMapping } from "three"
 
 export function SDFGen() {
 
@@ -24,6 +26,10 @@ export function SDFGen() {
 }
 
 function Core() {
+    let rgbe = useLoader(RGBELoader, `/agape-sdk/hdr/nycnight.hdr`)
+    let scene = useThree((s) => s.scene)
+    rgbe.mapping = EquirectangularReflectionMapping
+    scene.environment = rgbe
     let gl = useThree((s) => s.gl)
     let glb = useGLTF(`/nyc/v28-v1.glb`)
     let { o3d, display } = useMemo(() => {
@@ -41,7 +47,8 @@ function Core() {
     return <>
         {display}
         <primitive object={glb.scene}></primitive>
-        <Environment files={`/agape-sdk/hdr/nycnight.hdr`}></Environment>
+
+        {/* <Environment files={`/agape-sdk/hdr/nycnight.hdr`}></Environment> */}
         {/* <PPSwitch useStore={useBVHPhysics}></PPSwitch> */}
     </>
 }
