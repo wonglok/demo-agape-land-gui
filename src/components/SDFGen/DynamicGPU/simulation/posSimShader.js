@@ -49,7 +49,7 @@ void main (void) {
     pos.z = (rand(uv + 0.3) * 2.0 - 1.0) * 1.25;
 
     pos.y += 15.0;
-    pos.x += 10.0;
+    pos.x += 5.0;
     pos.z += -10.0;
   } else {
     pos.xyz += vel.rgb * dt;
