@@ -27,7 +27,9 @@ void main (void) {
 
     gl_FragColor.rgb = normalize(vel.rgb) * 0.5 + 0.5;
 
-    gl_FragColor.rgb = pow(gl_FragColor.rgb, vec3(1.5)) * 1.6;
+    gl_FragColor.rgb *= 1.5;
+
+    // gl_FragColor.rgb = pow(gl_FragColor.rgb, vec3(1.5)) * 1.6;
 
     if (gl_FragColor.r >= 1.0) {
       gl_FragColor.r= 1.0;

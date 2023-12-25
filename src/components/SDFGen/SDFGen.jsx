@@ -6,7 +6,7 @@ import { PPSwitch } from "agape-sdk/src/main"
 import { useBVHPhysics } from "./useBVHPhysics"
 import { RGBELoader } from "three-stdlib"
 import { EquirectangularReflectionMapping } from "three"
-import { Bloom, EffectComposer } from "@react-three/postprocessing"
+import { Bloom, EffectComposer, SelectiveBloom } from "@react-three/postprocessing"
 
 export function SDFGen() {
     return <>
@@ -33,11 +33,30 @@ function Core() {
 
     let gl = useThree((s) => s.gl)
     let glb = useGLTF(`/nyc/v28-v1.glb`)
-    let { o3d, display } = useMemo(() => {
+    let { o3d, display, bloom, lights } = useMemo(() => {
         let o3d = new SDFGenCore({ gl, glb })
+
+        let bloom = []
+        o3d.traverse(it => {
+            if (it.geometry) {
+                bloom.push(it)
+            }
+        })
+        let lights = []
+        glb.scene.traverse(it => {
+            if (it.intensity) {
+                lights.push(it)
+                it.visible = true
+            }
+            if (it.material) {
+                it.material.map = null
+            }
+        })
         return {
             display: <primitive object={o3d}></primitive>,
             o3d,
+            bloom: bloom,
+            lights: lights,
         }
     }, [])
 
@@ -49,10 +68,10 @@ function Core() {
         {display}
 
         <primitive object={glb.scene}></primitive>
-        {/* <PPSwitch useStore={useBVHPhysics}></PPSwitch> */}
-        <EffectComposer>
-            <Bloom mipmapBlur intensity={3} luminanceThreshold={0.4}></Bloom>
-        </EffectComposer>
+        <PPSwitch useStore={useBVHPhysics}></PPSwitch>
+        {/* <EffectComposer>
+            <SelectiveBloom selectionLayer={10} selection={bloom} lights={lights} mipmapBlur intensity={3} luminanceThreshold={0.0}></SelectiveBloom>
+        </EffectComposer > */}
 
         {/* <Environment files={`/agape-sdk/hdr/nycnight.hdr`}></Environment> */}
     </>

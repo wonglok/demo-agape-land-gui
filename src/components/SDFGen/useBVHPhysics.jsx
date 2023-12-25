@@ -11,12 +11,12 @@ export const useBVHPhysics = create((set, get) => {
     postprocessing: 'game',
     insepction: 'normal',
     postProcessingConfig: {
-      multisampling: 0,
+      multisampling: 4,
       emissiveIntensity: 1,
       envMapIntensity: 1,
       ssrPass: {
-        useThisOne: false,
-        intensity: 1,
+        useThisOne: true,
+        intensity: 2,
         exponent: 1,
         distance: 15,
         fade: 0,
@@ -44,9 +44,9 @@ export const useBVHPhysics = create((set, get) => {
       bloomPass: {
         useThisOne: true,
         mipmapBlur: true,
-        luminanceThreshold: 0.45,
-        intensity: 2.5,
-        resolutionScale: 1,
+        luminanceThreshold: 0.8,
+        intensity: 1.5,
+        resolutionScale: 0.3,
       },
       wavePass: {
         useThisOne: false,
@@ -72,7 +72,7 @@ export const useBVHPhysics = create((set, get) => {
         saturation: 0.0,
       },
       aoPass: {
-        useThisOne: true,
+        useThisOne: false,
         intensity: 3,
         aoRadius: 1,
         distanceFalloff: 1,

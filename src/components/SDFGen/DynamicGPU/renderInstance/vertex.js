@@ -1,4 +1,4 @@
-export const vertexRender = `
+export const vertexRender = /* glsl */`
 
 varying vec2 v_uv;
 
