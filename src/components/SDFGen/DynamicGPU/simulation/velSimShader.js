@@ -416,8 +416,8 @@ void main (void) {
   vec3 outPoint;
   float dist = bvhClosestPointToPoint( bvh, point.xyz, faceIndices, faceNormal, barycoord, side, outPoint );
 
-  if (dist <= 0.1) {
-    dist = 0.1;
+  if (dist <= 0.15) {
+    dist = 0.15;
   }
 
   if (dist <= 1.0) {
@@ -429,6 +429,7 @@ void main (void) {
   vel.z += 0.5;
   vel.y += -0.5;
 
+  //
   vel.xyz *= 0.96;
 
   // // hit results
