@@ -8,7 +8,7 @@ export class RenderGPUInstance extends Object3D {
     super()
 
     this.size = size
-    let box = new BoxGeometry(0.0333, 0.0333, 0.0333)
+    let box = new BoxGeometry(0.025, 0.025, 0.025)
     box.rotateX(Math.PI / 2 / 2)
     box.rotateY(Math.PI / 2 / 2)
     box.rotateZ(Math.PI / 2 / 2)

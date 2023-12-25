@@ -371,16 +371,6 @@ vec3 calcNormal( in vec3 p, float s ) {
 }
 
 
-vec2 get_velocity(vec2 p) {
-  vec2 v = vec2(0., 0.);
-
-  // change this to get a new vector field
-  v.x = p.y;
-  v.y = (cos(min(p.y*p.x*cos(p.y),cos(p.y)))-sin(length(p)));
-
-  return v;
-}
-
 uniform vec3 mouseNow;
 uniform vec3 mouseLast;
 
@@ -406,7 +396,8 @@ void main (void) {
   vec4 vel = texture2D( velSim, uv );
   
   if (acc.g == 0.0) {
-    vel.z += 25.0;
+    vel.z += 5.0;
+    vel.y += 5.0;
   }
 
   // compute the point in space to check
@@ -428,9 +419,9 @@ void main (void) {
     dist = 0.15;
   }
   
-  vel.rgb += faceNormal / dist * 2.0;
+  vel.rgb += faceNormal / dist;
 
-  vel.z += 0.1;
+  vel.z += 0.5;
 
   // get intersection
   // bool didHit = bvhIntersectFirstHit( bvh, rayOrigin, rayDirection, faceIndices, faceNormal, barycoord, side, dist );
@@ -441,9 +432,10 @@ void main (void) {
   // }
 
   // gravity
-  vel.y += -0.5;
+  vel.y += -1.0 + sin(time) * 0.5 + 0.5;
 
-  vel.xyz *= 0.97;
+  vel.xyz *= 0.95;
+
   gl_FragColor = vel;
 }
 `
