@@ -86,38 +86,6 @@ export async function sceneToCollider({ scene }) {
                 }
             }
             geometriesToBeMerged.push(geo)
-        } else if (c.userData?.isSphere) {
-            let cloned = c.geometry
-
-            cloned.computeBoundingSphere()
-            const sph = new Sphere()
-            sph.copy(cloned.boundingSphere)
-
-            let center = new Vector3()
-            c.updateMatrixWorld()
-            sph.applyMatrix4(c.matrixWorld)
-
-            center.copy(sph.center)
-
-            let geo = new SphereGeometry(sph.radius, 8, 8)
-            geo.translate(center.x, center.y, center.z)
-
-            // let mesh = new Mesh(
-            //   geo,
-            //   new MeshBasicMaterial({
-            //     color: 0x00ff00,
-            //     opacity: 1,
-            //     wireframe: true,
-            //   })
-            // );
-            // scene.add(mesh);
-
-            for (const key in geo.attributes) {
-                if (key !== 'position') {
-                    geo.deleteAttribute(key)
-                }
-            }
-            geometriesToBeMerged.push(geo)
         } else {
             const cloned = c.geometry.toNonIndexed()
             cloned.applyMatrix4(c.matrixWorld)

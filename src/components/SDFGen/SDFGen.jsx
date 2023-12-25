@@ -6,7 +6,7 @@ import { PPSwitch } from "agape-sdk/src/main"
 import { useBVHPhysics } from "./useBVHPhysics"
 import { RGBELoader } from "three-stdlib"
 import { EquirectangularReflectionMapping } from "three"
-import { Bloom, EffectComposer, SelectiveBloom } from "@react-three/postprocessing"
+// import { Bloom, EffectComposer, SelectiveBloom } from "@react-three/postprocessing"
 
 export function SDFGen() {
     return <>
@@ -32,7 +32,7 @@ function Core() {
     scene.environment = rgbe
 
     let gl = useThree((s) => s.gl)
-    let glb = useGLTF(`/nyc/v28-v1.glb`)
+    let glb = useGLTF(`/slide/spiral.glb`)
     let { o3d, display, bloom, lights } = useMemo(() => {
         let o3d = new SDFGenCore({ gl, glb })
 
