@@ -10,6 +10,9 @@ export default function Page() {
           <a href={`/slam-ar`} target='_blank'>
             <li className='mb-2 list-item list-inside list-decimal'>SLAM AR</li>
           </a>
+          <a href={`/sdf-gen`} target='_blank'>
+            <li className='mb-2 list-item list-inside list-decimal'>SDF Gen</li>
+          </a>
           <a href={`/mind-ar`} target='_blank'>
             <li className='mb-2 list-item list-inside list-decimal'>AR Demo</li>
           </a>

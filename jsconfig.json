@@ -2,8 +2,13 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/*": ["app/*", "src/*"],
-      "agape-sdk": ["agape-sdk"]
+      "@/*": [
+        "app/*",
+        "src/*"
+      ],
+      "agape-sdk": [
+        "agape-sdk"
+      ]
     }
   }
 }

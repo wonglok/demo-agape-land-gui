@@ -180,10 +180,10 @@ class Geometry extends EventDispatcher {
         normal === undefined
           ? []
           : [
-              new Vector3().fromBufferAttribute(normal, a),
-              new Vector3().fromBufferAttribute(normal, b),
-              new Vector3().fromBufferAttribute(normal, c),
-            ]
+            new Vector3().fromBufferAttribute(normal, a),
+            new Vector3().fromBufferAttribute(normal, b),
+            new Vector3().fromBufferAttribute(normal, c),
+          ]
 
       const face = new Face3(a, b, c, vertexNormals, vertexColors, materialIndex)
 
@@ -863,28 +863,28 @@ class Geometry extends EventDispatcher {
 
   clone() {
     /*
-		 // Handle primitives
+     // Handle primitives
 
-		 const parameters = this.parameters;
+     const parameters = this.parameters;
 
-		 if ( parameters !== undefined ) {
+     if ( parameters !== undefined ) {
 
-		 const values = [];
+     const values = [];
 
-		 for ( const key in parameters ) {
+     for ( const key in parameters ) {
 
-		 values.push( parameters[ key ] );
+     values.push( parameters[ key ] );
 
-		 }
+     }
 
-		 const geometry = Object.create( this.constructor.prototype );
-		 this.constructor.apply( geometry, values );
-		 return geometry;
+     const geometry = Object.create( this.constructor.prototype );
+     this.constructor.apply( geometry, values );
+     return geometry;
 
-		 }
+     }
 
-		 return new this.constructor().copy( this );
-		 */
+     return new this.constructor().copy( this );
+     */
 
     return new Geometry().copy(this)
   }
