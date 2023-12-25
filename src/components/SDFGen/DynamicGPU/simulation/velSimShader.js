@@ -405,7 +405,6 @@ void main (void) {
   vec4 pos = texture2D( posSim, uv );
   vec4 vel = texture2D( velSim, uv );
  
-
   // compute the point in space to check
   vec3 point = pos.rgb;
   // retrieve the distance and other values
@@ -414,43 +413,35 @@ void main (void) {
   vec3 barycoord;
   float side;
   vec3 outPoint;
-  float dist = bvhClosestPointToPoint( bvh, point.xyz, faceIndices, faceNormal, barycoord, side, outPoint );
 
-  if (dist <= 0.15) {
-    dist = 0.15;
+  vec3 rayOrigin = pos.rgb;
+  vec3 rayDirection = normalize(vel.rgb);
+  float dist;
+
+  // get intersection
+  bool didHit = bvhIntersectFirstHit( bvh, rayOrigin, rayDirection, faceIndices, faceNormal, barycoord, side, dist );
+
+
+  if (didHit) {
+    
+    dist = bvhClosestPointToPoint( bvh, point.xyz, faceIndices, faceNormal, barycoord, side, outPoint );
+
+    if (dist <= 0.15) {
+      dist = 0.15;
+    }
+
+    vel.rgb += faceNormal / dist;
+  } else {
+    vel.xyz *= 0.97;
   }
 
-  if (dist <= 1.0) {
-    vel.rgb += faceNormal / dist * 2.0;
-  }
-
+  // gravity
+  vel.y += -0.5;
 
   // wind
   vel.z += 0.5;
-  vel.y += -0.5;
 
-  //
-  vel.xyz *= 0.96;
-
-  // // hit results
-  // uvec4 faceIndices = uvec4( 0u );
-  // vec3 faceNormal = vec3( 0.0, 0.0, 1.0 );
-  // vec3 barycoord = vec3( 0.0 );
-  // float side = 1.0;
-  // float dist = 0.0;
-
-  // vec3 rayOrigin = pos.rgb;
-  // vec3 rayDirection = (vel.rgb);
-
-  // // get intersection
-  // bool didHit = bvhIntersectFirstHit( bvh, rayOrigin, rayDirection, faceIndices, faceNormal, barycoord, side, dist );
-
-  // if (didHit) {
-  //   vel.rgb += faceNormal / dist;
-  // }
- 
-
-  
+  vel.xyz *= 0.97;
   gl_FragColor = vel;
 }
 `
