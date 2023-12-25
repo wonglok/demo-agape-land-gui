@@ -407,28 +407,19 @@ void main (void) {
 
 
   // compute the point in space to check
-    vec3 point = pos.rgb;
+  vec3 point = pos.rgb;
 
-    // retrieve the distance and other values
-    uvec4 faceIndices;
-    vec3 faceNormal;
-    vec3 barycoord;
-    float side;
-    vec3 outPoint;
-    float dist = bvhClosestPointToPoint( bvh, point.xyz, faceIndices, faceNormal, barycoord, side, outPoint );
+  // retrieve the distance and other values
+  uvec4 faceIndices;
+  vec3 faceNormal;
+  vec3 barycoord;
+  float side;
+  vec3 outPoint;
+  float dist = bvhClosestPointToPoint( bvh, point.xyz, faceIndices, faceNormal, barycoord, side, outPoint );
 
-    if (dist <= 1.0) {
-      vel.rgb += faceNormal * dist;
-    }
-
-
-
-  // vel.rgb += calcNormal(pos.rgb, 0.0) * dt * 0.1;
-
-  // collisionMouseSphere(1.0, pos, vel.rgb, 0.3);
-
-  // float sdf = sdSceneSDF(pos.rgb, 0.0);
-  // vel.y += -sdf * dt * 0.1;
+  if (dist <= 0.5) {
+    vel.rgb += 7.5 * dist * faceNormal;
+  }
 
   vel.xyz *= 0.987;
   vel.y += -0.1;

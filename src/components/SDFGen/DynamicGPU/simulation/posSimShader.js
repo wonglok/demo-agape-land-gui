@@ -48,8 +48,9 @@ void main (void) {
     pos.y = (rand(uv + 0.2) * 2.0 - 1.0) * 1.25;
     pos.z = (rand(uv + 0.3) * 2.0 - 1.0) * 1.25;
 
-    pos.y += 10.0;
+    pos.y += 15.0;
     pos.x += 5.0;
+    pos.z += -20.0;
   } else {
     pos.xyz += vel.rgb * dt;
   }
