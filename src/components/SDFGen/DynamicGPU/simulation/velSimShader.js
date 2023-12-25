@@ -396,7 +396,7 @@ void main (void) {
   vec4 vel = texture2D( velSim, uv );
   
   // gravity
-  vel.y += -10.0 * dt * 0.333;
+  vel.y += -20.0 * dt * 0.333;
 
   // compute the point in space to check
   vec3 point = pos.rgb;
@@ -432,7 +432,8 @@ void main (void) {
 
   if (didHit) {
     if (dist <= 0.5) {
-      vel.rgb += faceNormal * dist / 0.5 * dt * 60.0 * 3.0;
+      vec3 newVel = faceNormal * dist / 0.5 * dt * 60.0 * 5.0;
+      vel.rgb = mix(vel.rgb, vel.rgb + newVel, -dot(faceNormal, normalize(vel.rgb)));
     }
   }
 
