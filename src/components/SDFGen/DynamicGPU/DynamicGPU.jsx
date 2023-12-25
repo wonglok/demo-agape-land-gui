@@ -37,7 +37,9 @@ export function DynamicGPU() {
     }
   }, [gl])
 
-  return <>{<>{show}</>}</>
+  return <>{<>
+
+    {show}</>}</>
 }
 
 //

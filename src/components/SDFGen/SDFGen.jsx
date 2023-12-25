@@ -1,7 +1,7 @@
 import { Suspense, useEffect, useMemo } from "react"
 import { SDFGenCore } from "./SDFGenCore"
 import { Canvas, useFrame, useThree } from "@react-three/fiber"
-import { Loader, OrbitControls, useGLTF } from "@react-three/drei"
+import { Loader, OrbitControls, Stats, useGLTF } from "@react-three/drei"
 
 export function SDFGen() {
 
@@ -15,6 +15,7 @@ export function SDFGen() {
             </Canvas>
         </Suspense>
         <Loader></Loader>
+        <Stats></Stats>
         {/*  */}
     </>
 }
