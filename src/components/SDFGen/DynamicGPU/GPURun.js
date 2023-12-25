@@ -7,6 +7,7 @@ import { RenderGPU } from './render/RenderGPU'
 import { accSimShader } from './simulation/accSimShader'
 import { useMic } from './mic/histroymic'
 import { MeshBVHUniformStruct } from 'three-mesh-bvh'
+import { RenderGPUInstance } from './renderInstance/RenderGPUInstance'
 
 export class GPURun extends Object3D {
   constructor({ gl }) {
@@ -56,7 +57,7 @@ export class GPURun extends Object3D {
       this.works.push(v)
     }
 
-    this.render = new RenderGPU({
+    this.render = new RenderGPUInstance({
       size: this.size,
       gpu: this.gpu,
     })
