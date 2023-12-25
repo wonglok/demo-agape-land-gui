@@ -430,7 +430,7 @@ void main (void) {
   }
 
   vel.y += -0.5;
-  vel.z += 0.3 + (sin(time) * 0.5 + 0.5) * 0.1;
+  vel.z += 0.1 + (sin(time) * 0.5 + 0.5) * 0.1;
 
   vel.xyz *= 0.97;
   gl_FragColor = vel;
