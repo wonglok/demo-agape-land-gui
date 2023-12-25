@@ -418,7 +418,7 @@ void main (void) {
   float dist = bvhClosestPointToPoint( bvh, point.xyz, faceIndices, faceNormal, barycoord, side, outPoint );
 
   if (dist <= 0.5) {
-    vel.rgb += 7.5 * dist * faceNormal;
+    vel.rgb += 4.0 * dist * faceNormal;
   }
 
   vel.xyz *= 0.987;
