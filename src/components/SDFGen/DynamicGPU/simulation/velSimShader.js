@@ -432,6 +432,7 @@ void main (void) {
 
   vel.xyz *= 0.987;
   vel.y += -0.1;
+  vel.z += 0.01;
 
   // vel.rgb += normalize(vec3(pos.x, 0.0, pos.z)) * rotateY(2.0 * dt);
 
