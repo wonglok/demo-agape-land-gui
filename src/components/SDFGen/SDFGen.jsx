@@ -8,12 +8,13 @@ export function SDFGen() {
 
     return <>
         {/*  */}
-        <Suspense fallback={null}>
-            <Canvas>
+        <Canvas>
+            <Suspense fallback={null}>
                 <Core></Core>
-                <OrbitControls target={[5, 0, 0]} object-position={[-5, 20, 20]}></OrbitControls>
-            </Canvas>
-        </Suspense>
+            </Suspense>
+            <OrbitControls target={[5, 0, 0]} object-position={[-5, 20, 20]}></OrbitControls>
+        </Canvas>
+
         <Loader></Loader>
         <Stats></Stats>
         {/*  */}

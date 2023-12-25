@@ -405,8 +405,6 @@ void main (void) {
   vec4 pos = texture2D( posSim, uv );
   vec4 vel = texture2D( velSim, uv );
  
-  vel.z += 0.1 + (sin(time) * 0.5 + 0.5) * 0.1;
-  vel.y += -0.5;
 
   // compute the point in space to check
   vec3 point = pos.rgb;
@@ -421,11 +419,17 @@ void main (void) {
   if (dist <= 0.1) {
     dist = 0.1;
   }
-  if (dist <= 5.0) {
+
+  if (dist <= 1.0) {
     vel.rgb += faceNormal / dist * 2.0;
   }
 
-  vel.xyz *= 0.97;
+
+  // wind
+  vel.z += 0.5;
+  vel.y += -0.5;
+
+  vel.xyz *= 0.96;
 
   // // hit results
   // uvec4 faceIndices = uvec4( 0u );
