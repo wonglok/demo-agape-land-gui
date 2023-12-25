@@ -1,7 +1,9 @@
 import { Suspense, useEffect, useMemo } from "react"
 import { SDFGenCore } from "./SDFGenCore"
 import { Canvas, useFrame, useThree } from "@react-three/fiber"
-import { Loader, OrbitControls, Stats, useGLTF } from "@react-three/drei"
+import { Environment, Loader, OrbitControls, Stats, useGLTF } from "@react-three/drei"
+import { PPSwitch } from "agape-sdk/src/main"
+import { useBVHPhysics } from "./useBVHPhysics"
 
 export function SDFGen() {
 
@@ -38,5 +40,8 @@ function Core() {
 
     return <>
         {display}
+        <primitive object={glb.scene}></primitive>
+        <Environment files={`/agape-sdk/hdr/nycnight.hdr`}></Environment>
+        <PPSwitch useStore={useBVHPhysics}></PPSwitch>
     </>
 }

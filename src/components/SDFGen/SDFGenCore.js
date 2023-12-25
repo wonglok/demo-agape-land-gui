@@ -23,7 +23,7 @@ export class SDFGenCore extends Object3D {
         this.setup = async () => {
             let { geometry, bvh, collider } = await sceneToCollider({ scene: glb.scene })
 
-            this.add(collider)
+            // this.add(collider)
 
             glb.scene.traverse(it => {
                 if (it.isLight) {
@@ -45,9 +45,7 @@ export class SDFGenCore extends Object3D {
 
                 et += dt;
 
-
                 this.gpuRun.bvhSource = bvh
-
                 this.gpuRun.run({}, dt)
             }
         }
