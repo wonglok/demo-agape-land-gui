@@ -418,12 +418,12 @@ void main (void) {
   float dist = bvhClosestPointToPoint( bvh, point.xyz, faceIndices, faceNormal, barycoord, side, outPoint );
 
   if (dist <= 0.5) {
-    vel.rgb += 4.0 * dist * faceNormal;
+    vel.rgb += 7.0 * dist * faceNormal;
   }
 
-  vel.xyz *= 0.987;
-  vel.y += (-0.1 * pos.y) * 0.1;
-  vel.z += (0.1 * pos.y) * 0.1;
+  vel.xyz *= 0.97;
+  vel.y += (-0.1 * pos.y) * 0.2;
+  vel.z += (0.1 * pos.y) * 0.2;
 
   // vel.rgb += normalize(vec3(pos.x, 0.0, pos.z)) * rotateY(2.0 * dt);
 
