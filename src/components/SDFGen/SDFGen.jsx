@@ -26,8 +26,10 @@ export function SDFGen() {
 function Core() {
     let rgbe = useLoader(RGBELoader, `/agape-sdk/hdr/nycnight.hdr`)
     let scene = useThree((s) => s.scene)
+
     rgbe.mapping = EquirectangularReflectionMapping
     scene.environment = rgbe
+
     let gl = useThree((s) => s.gl)
     let glb = useGLTF(`/nyc/v28-v1.glb`)
     let { o3d, display } = useMemo(() => {
