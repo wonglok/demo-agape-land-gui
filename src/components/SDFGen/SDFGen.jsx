@@ -17,7 +17,7 @@ export function SDFGen() {
             <OrbitControls target={[5, 0, 0]} object-position={[-5, 20, 20]}></OrbitControls>
         </Canvas>
 
-        <Loader></Loader>
+        {/* <Loader></Loader> */}
         <Stats></Stats>
         {/*  */}
     </>
