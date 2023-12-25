@@ -26,16 +26,16 @@ void main (void) {
     float size = length(vel.rgb);
 
     // vel.rgb = normalize(vel.rgb);
-    gl_FragColor.rgb = size * vec3(
-      pal(time * 0.001 * 0.001 + vel.r, color1, color2, color3, color4).r,
-      pal(time * 0.001 * 0.001 + vel.g, color1, color2, color3, color4).g,
-      pal(time * 0.001 * 0.001 + vel.b, color1, color2, color3, color4).b
-    );
+    // gl_FragColor.rgb = size * vec3(
+    //   pal(time * 0.001 * 0.001 + vel.r, color1, color2, color3, color4).r,
+    //   pal(time * 0.001 * 0.001 + vel.g, color1, color2, color3, color4).g,
+    //   pal(time * 0.001 * 0.001 + vel.b, color1, color2, color3, color4).b
+    // );
 
-    float t = size + 0.1;
-    gl_FragColor.rgb = pal(t, color1, color2, color3, color4);
+    // float t = vel.y;
+    // gl_FragColor.rgb = pal(t, color1, color2, color3, color4);
 
-    gl_FragColor.rgb = normalize(vel.rgb * 0.5 + 0.5) + 0.3;
+    gl_FragColor.rgb = normalize(vel.rgb) * 0.5 + 0.5 + 0.2;
   
 
     gl_FragColor.a = 1.0;
