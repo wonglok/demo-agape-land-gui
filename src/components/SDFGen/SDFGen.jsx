@@ -47,8 +47,8 @@ function Core() {
     return <>
         {display}
         <primitive object={glb.scene}></primitive>
+        <PPSwitch useStore={useBVHPhysics}></PPSwitch>
 
         {/* <Environment files={`/agape-sdk/hdr/nycnight.hdr`}></Environment> */}
-        {/* <PPSwitch useStore={useBVHPhysics}></PPSwitch> */}
     </>
 }
