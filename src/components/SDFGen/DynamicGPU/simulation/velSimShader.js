@@ -432,11 +432,11 @@ void main (void) {
 
   if (didHit) {
     if (dist <= 0.5) {
-      vel.rgb += faceNormal * dist / 0.5 * dt * 60.0 * 3.0; 
+      vel.rgb += faceNormal * dist / 0.5 * dt * 60.0 * 3.0;
     }
   }
 
-  vel.xyz *= 0.9876;
+  vel.xyz *= 0.99;
 
   gl_FragColor = vel;
 }
