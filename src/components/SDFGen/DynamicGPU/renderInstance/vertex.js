@@ -3,6 +3,7 @@ export const vertexRender = `
 varying vec2 v_uv;
 
 uniform highp sampler2D posSim;
+uniform highp sampler2D velSim;
 
 uniform float pt;
 
@@ -21,6 +22,8 @@ vec3 opTwist( in vec3 p, in float k )
 void main (void) {
 
   v_uv = uvlookup;
+
+  vec4 mySpeed = texture2D( velSim, uvlookup );
 
   vec4 myPos = texture2D( posSim, uvlookup ) + vec4(position, 0.0);
 

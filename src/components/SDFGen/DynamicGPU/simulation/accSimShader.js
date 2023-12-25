@@ -66,6 +66,7 @@ void main (void) {
     acc.g = 1.0;
   }
 
+  //
   // float maxRange = 0.0;
   // float minRange = 0.1;
   // for (float i = 0.0; i < 32.0; i++) {

@@ -1,4 +1,4 @@
-import { BufferAttribute, BufferGeometry, Color, InstancedBufferAttribute, InstancedBufferGeometry, Mesh, Object3D, Points, ShaderMaterial } from 'three'
+import { BufferAttribute, BufferGeometry, Color, IcosahedronGeometry, InstancedBufferAttribute, InstancedBufferGeometry, Mesh, Object3D, Points, ShaderMaterial } from 'three'
 import { fragmentRender } from './fragment'
 import { vertexRender } from './vertex'
 import { BoxGeometry } from 'three'
@@ -8,7 +8,7 @@ export class RenderGPUInstance extends Object3D {
     super()
 
     this.size = size
-    let box = new BoxGeometry(0.08, 0.08, 0.08)
+    let box = new IcosahedronGeometry(0.15, 0)
     box.rotateX(Math.PI / 2 / 2)
     box.rotateY(Math.PI / 2 / 2)
     box.rotateZ(Math.PI / 2 / 2)
