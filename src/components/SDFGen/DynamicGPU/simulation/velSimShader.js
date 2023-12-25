@@ -396,7 +396,7 @@ void main (void) {
   vec4 vel = texture2D( velSim, uv );
   
   // gravity
-  vel.y += -20.0 * dt * 0.333;
+  vel.y += -0.05;
 
   // compute the point in space to check
   vec3 point = pos.rgb;
@@ -408,11 +408,10 @@ void main (void) {
   vec3 outPoint;
 
   vec3 rayOrigin = pos.rgb;
-  vec3 rayDirection = normalize(vel.rgb);
+  vec3 rayDirection = vec3(vel.rgb);
   float dist;
 
   // dist = bvhClosestPointToPoint( bvh, point.xyz, faceIndices, faceNormal, barycoord, side, outPoint );
-
   // if (dist <= 1.25) {
   //   if (dist < 1.0) {
   //     vel.rgb += faceNormal * dist * 0.5;
@@ -431,13 +430,13 @@ void main (void) {
   );
 
   if (didHit) {
-    if (dist <= 0.5) {
-      vec3 newVel = faceNormal * dist / 0.5 * dt * 60.0 * 5.0;
-      vel.rgb = mix(vel.rgb, vel.rgb + newVel, -dot(faceNormal, normalize(vel.rgb)));
+    if (dist <= 1.0) {
+      // vel.xyz *= 0.9;
+      vel.rgb += faceNormal * dist;
     }
   }
 
-  vel.xyz *= 0.99;
+  vel.rgb *= 0.99;
 
   gl_FragColor = vel;
 }

@@ -15,7 +15,7 @@ export const useBVHPhysics = create((set, get) => {
       emissiveIntensity: 1,
       envMapIntensity: 1,
       ssrPass: {
-        useThisOne: true,
+        useThisOne: false,
         intensity: 2,
         exponent: 1,
         distance: 15,

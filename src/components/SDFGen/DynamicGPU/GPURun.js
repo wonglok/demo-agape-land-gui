@@ -28,7 +28,7 @@ export class GPURun extends Object3D {
       accSim: this.gpu.createTexture(),
     }
 
-    this.preProcess()
+    this.seedTexture()
     this.iVars = {
       posSim: this.gpu.addVariable('posSim', posSimShader, this.iTex.posSim),
       velSim: this.gpu.addVariable('velSim', velSimShader, this.iTex.velSim),
@@ -71,17 +71,28 @@ export class GPURun extends Object3D {
     this.add(this.render)
 
 
-    this.iVars.posSim.material.uniforms.mouseNow = { value: new Vector3() }
-    this.iVars.velSim.material.uniforms.mouseNow = { value: new Vector3() }
-    this.iVars.accSim.material.uniforms.mouseNow = { value: new Vector3() }
-
-    this.iVars.posSim.material.uniforms.mouseLast = { value: new Vector3() }
-    this.iVars.velSim.material.uniforms.mouseLast = { value: new Vector3() }
-    this.iVars.accSim.material.uniforms.mouseLast = { value: new Vector3() }
 
     this.iVars.posSim.material.uniforms.audioTexture = { value: null }
     this.iVars.velSim.material.uniforms.audioTexture = { value: null }
     this.iVars.accSim.material.uniforms.audioTexture = { value: null }
+    this.onLoop(() => {
+      let MicTexture = useMic.getState().MicTexture
+      if (MicTexture) {
+        this.iVars.posSim.material.uniforms.audioTexture.value = MicTexture
+        this.iVars.velSim.material.uniforms.audioTexture.value = MicTexture
+        this.iVars.accSim.material.uniforms.audioTexture.value = MicTexture
+      }
+    })
+
+
+    this.iVars.posSim.material.uniforms.lastPos = { value: null }
+    this.iVars.velSim.material.uniforms.lastPos = { value: null }
+    this.iVars.accSim.material.uniforms.lastPos = { value: null }
+    this.onLoop(() => {
+      this.iVars.posSim.material.uniforms.lastPos.value = this.gpu.getCurrentRenderTarget(this.iVars.posSim).texture
+      this.iVars.velSim.material.uniforms.lastPos.value = this.gpu.getCurrentRenderTarget(this.iVars.posSim).texture
+      this.iVars.accSim.material.uniforms.lastPos.value = this.gpu.getCurrentRenderTarget(this.iVars.posSim).texture
+    })
 
     let bvhStruct = new MeshBVHUniformStruct()
     this.iVars.posSim.material.uniforms.bvh = { value: bvhStruct }
@@ -104,31 +115,19 @@ export class GPURun extends Object3D {
     this.iVars.posSim.material.uniforms.time = { value: 0 }
     this.iVars.velSim.material.uniforms.time = { value: 0 }
     this.iVars.accSim.material.uniforms.time = { value: 0 }
-    let clock = new Clock()
 
     let lastMouse = new Vector3()
     let raycastMouse = new Vector3()
 
     this.raycastMouse = raycastMouse
+    this.iVars.posSim.material.uniforms.mouseNow = { value: new Vector3() }
+    this.iVars.velSim.material.uniforms.mouseNow = { value: new Vector3() }
+    this.iVars.accSim.material.uniforms.mouseNow = { value: new Vector3() }
 
-    this.onLoop((st, dt) => {
-      let MicTexture = useMic.getState().MicTexture
-
-      this.iVars.posSim.material.uniforms.dt.value = dt
-      this.iVars.velSim.material.uniforms.dt.value = dt
-      this.iVars.accSim.material.uniforms.dt.value = dt
-
-      let t = clock.getElapsedTime()
-      this.iVars.posSim.material.uniforms.time.value = t
-      this.iVars.velSim.material.uniforms.time.value = t
-      this.iVars.accSim.material.uniforms.time.value = t
-
-      if (MicTexture) {
-        this.iVars.posSim.material.uniforms.audioTexture.value = MicTexture
-        this.iVars.velSim.material.uniforms.audioTexture.value = MicTexture
-        this.iVars.accSim.material.uniforms.audioTexture.value = MicTexture
-      }
-
+    this.iVars.posSim.material.uniforms.mouseLast = { value: new Vector3() }
+    this.iVars.velSim.material.uniforms.mouseLast = { value: new Vector3() }
+    this.iVars.accSim.material.uniforms.mouseLast = { value: new Vector3() }
+    this.onLoop(() => {
       if (raycastMouse) {
         this.iVars.posSim.material.uniforms.mouseLast.value.copy(lastMouse) // = { value: new Vector3() }
         this.iVars.velSim.material.uniforms.mouseLast.value.copy(lastMouse) // = { value: new Vector3() }
@@ -140,8 +139,19 @@ export class GPURun extends Object3D {
 
         lastMouse.copy(raycastMouse)
       }
+    })
 
 
+    let clock = new Clock()
+    this.onLoop((st, dt) => {
+      this.iVars.posSim.material.uniforms.dt.value = dt
+      this.iVars.velSim.material.uniforms.dt.value = dt
+      this.iVars.accSim.material.uniforms.dt.value = dt
+
+      let t = clock.getElapsedTime()
+      this.iVars.posSim.material.uniforms.time.value = t
+      this.iVars.velSim.material.uniforms.time.value = t
+      this.iVars.accSim.material.uniforms.time.value = t
     })
 
     this.clean = () => {
@@ -152,7 +162,7 @@ export class GPURun extends Object3D {
     }
   }
 
-  preProcess() {
+  seedTexture() {
     //
     {
       let idx = 0
@@ -173,10 +183,10 @@ export class GPURun extends Object3D {
       let idx = 0
       for (let y = 0; y < this.size.y; y++) {
         for (let x = 0; x < this.size.x; x++) {
-          this.iTex.velSim.image.data[idx * 4 + 0.0] = (Math.random() * 2.0 - 1.0) * 0.0
-          this.iTex.velSim.image.data[idx * 4 + 1.0] = (Math.random() * 2.0 - 1.0) * 0.0
-          this.iTex.velSim.image.data[idx * 4 + 2.0] = (Math.random() * 2.0 - 1.0) * 0.0
-          this.iTex.velSim.image.data[idx * 4 + 3.0] = 0.0
+          this.iTex.velSim.image.data[idx * 4 + 0.0] = 0.0
+          this.iTex.velSim.image.data[idx * 4 + 1.0] = 0.0
+          this.iTex.velSim.image.data[idx * 4 + 2.0] = 0.0
+          this.iTex.velSim.image.data[idx * 4 + 3.0] = 1.0
           idx++
         }
       }

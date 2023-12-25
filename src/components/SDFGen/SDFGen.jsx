@@ -5,7 +5,7 @@ import { OrbitControls, Stats, useGLTF } from "@react-three/drei"
 import { PPSwitch } from "agape-sdk/src/main"
 import { useBVHPhysics } from "./useBVHPhysics"
 import { RGBELoader } from "three-stdlib"
-import { EquirectangularReflectionMapping } from "three"
+import { Color, EquirectangularReflectionMapping } from "three"
 // import { Bloom, EffectComposer, SelectiveBloom } from "@react-three/postprocessing"
 
 export function SDFGen() {
@@ -30,6 +30,7 @@ function Core() {
 
     rgbe.mapping = EquirectangularReflectionMapping
     scene.environment = rgbe
+    scene.background = new Color('#000000')
 
     let gl = useThree((s) => s.gl)
     let glb = useGLTF(`/slide/spiral.glb`)

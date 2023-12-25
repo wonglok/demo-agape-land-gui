@@ -78,9 +78,9 @@ void main (void) {
   vec4 vel = texture2D( velSim, uv );
 
   if (acc.g == 0.0) {
-    pos.x = (rand(uv + 0.1) * 2.0 - 1.0) * 1.0;
-    pos.y = (rand(uv + 0.2) * 2.0 - 1.0) * 1.0;
-    pos.z = (rand(uv + 0.3) * 2.0 - 1.0) * 1.0;
+    pos.x = (rand(uv + 0.1) * 2.0 - 1.0) * 0.333;
+    pos.y = (rand(uv + 0.2) * 2.0 - 1.0) * 0.333;
+    pos.z = (rand(uv + 0.3) * 2.0 - 1.0) * 0.333;
 
     pos.x += 0.0;
     pos.y += 15.0;
