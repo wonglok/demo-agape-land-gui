@@ -419,20 +419,20 @@ void main (void) {
   float dist;
 
   // get intersection
-  bool didHit = bvhIntersectFirstHit( bvh, rayOrigin, rayDirection, faceIndices, faceNormal, barycoord, side, dist );
+  // bool didHit = bvhIntersectFirstHit( bvh, rayOrigin, rayDirection, faceIndices, faceNormal, barycoord, side, dist );
 
-  if (didHit) {
-    
-    dist = bvhClosestPointToPoint( bvh, point.xyz, faceIndices, faceNormal, barycoord, side, outPoint );
+  dist = bvhClosestPointToPoint( bvh, point.xyz, faceIndices, faceNormal, barycoord, side, outPoint );
 
-    if (dist <= 0.15) {
-      dist = 0.15;
-    }
-
-    vel.rgb += faceNormal / dist;
-  } else {
-    vel.xyz *= 0.97;
+  if (dist <= 0.15) {
+    dist = 0.15;
   }
+
+  vel.rgb += faceNormal / dist;
+  
+  // if (didHit) {
+  // } else {
+  //   vel.xyz *= 0.97;
+  // }
 
   // gravity
   vel.y += -0.5;
