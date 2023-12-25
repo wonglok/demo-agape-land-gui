@@ -69,10 +69,5 @@ function Core() {
 
         <primitive object={glb.scene}></primitive>
         <PPSwitch useStore={useBVHPhysics}></PPSwitch>
-        {/* <EffectComposer>
-            <SelectiveBloom selectionLayer={10} selection={bloom} lights={lights} mipmapBlur intensity={3} luminanceThreshold={0.0}></SelectiveBloom>
-        </EffectComposer > */}
-
-        {/* <Environment files={`/agape-sdk/hdr/nycnight.hdr`}></Environment> */}
     </>
 }

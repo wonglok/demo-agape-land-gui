@@ -427,8 +427,10 @@ void main (void) {
   if (dist <= 0.15) {
     dist = 0.15;
   }
+  
+  vel.rgb += faceNormal / dist * 2.0;
 
-  vel.rgb += faceNormal / dist;
+  vel.z += 0.1;
 
   // get intersection
   // bool didHit = bvhIntersectFirstHit( bvh, rayOrigin, rayDirection, faceIndices, faceNormal, barycoord, side, dist );
