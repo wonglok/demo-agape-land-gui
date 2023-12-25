@@ -79,7 +79,7 @@ void main (void) {
 
   // acc.r += dt * pitch;
 
-  acc.r += dt * rand(uv) * 0.5;
+  acc.r += dt * rand(uv) * 0.15;
 
   bool needsReset = false;
   if (acc.r >= 1.0) {
