@@ -11,11 +11,11 @@ export const useBVHPhysics = create((set, get) => {
     postprocessing: 'game',
     insepction: 'normal',
     postProcessingConfig: {
-      multisampling: 4,
+      multisampling: 0,
       emissiveIntensity: 1,
       envMapIntensity: 1,
       ssrPass: {
-        useThisOne: true,
+        useThisOne: false,
         intensity: 1,
         exponent: 1,
         distance: 15,
@@ -57,14 +57,14 @@ export const useBVHPhysics = create((set, get) => {
         intensity: 0.5,
       },
       chromePass: {
-        useThisOne: true,
+        useThisOne: false,
         offsetX: 0.002,
         offsetY: 0.002,
         radialModulation: true,
         modulationOffset: 0.5,
       },
       colorPass: {
-        useThisOne: true,
+        useThisOne: false,
         hue: 0,
         satuation: 0,
         brightness: 0,

@@ -8,8 +8,6 @@ import { RGBELoader } from "three-stdlib"
 import { EquirectangularReflectionMapping } from "three"
 
 export function SDFGen() {
-
-
     return <>
         {/*  */}
         <Canvas>
