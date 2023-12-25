@@ -405,7 +405,6 @@ void main (void) {
   vec4 pos = texture2D( posSim, uv );
   vec4 vel = texture2D( velSim, uv );
 
-
   // compute the point in space to check
   vec3 point = pos.rgb;
 
@@ -417,22 +416,23 @@ void main (void) {
   vec3 outPoint;
   float dist = bvhClosestPointToPoint( bvh, point.xyz, faceIndices, faceNormal, barycoord, side, outPoint );
 
-  if (dist <= 1.0) {
-    vel.rgb += faceNormal * dist * 5.0;
+  if (dist <= 5.0 && dist >= 0.01) {
+    vel.rgb += faceNormal / dist * 5.0;
   }
+
   
-  vel.xyz *= 0.97;
+  if (acc.g == 0.0) {
+    vel.x = (rand(uv + 0.1) * 2.0 - 1.0) * 2.0;
+    vel.y = 15.0;
+    vel.z = 0.5;
+
+    vel.rgb = vel.rgb * rotateY(0.5 * 3.141592);
+  }
+
   vel.y += -0.5;
   vel.z += 0.3 + (sin(time) * 0.5 + 0.5) * 0.1;
 
-  if (acc.g == 0.0) {
-    vel.y = 15.0;
-    vel.x = (rand(uv + 0.1) * 2.0 - 1.0) * 2.0;
-    vel.z = 0.5;
-  }
-
-  // vel.rgb += normalize(vec3(pos.x, 0.0, pos.z)) * rotateY(2.0 * dt);
-
+  vel.xyz *= 0.97;
   gl_FragColor = vel;
 }
 `
