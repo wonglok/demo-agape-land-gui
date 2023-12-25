@@ -404,7 +404,11 @@ void main (void) {
   vec4 acc = texture2D( accSim, uv );
   vec4 pos = texture2D( posSim, uv );
   vec4 vel = texture2D( velSim, uv );
- 
+  
+  if (acc.g == 0.0) {
+    vel.z += 25.0;
+  }
+
   // compute the point in space to check
   vec3 point = pos.rgb;
   // retrieve the distance and other values
@@ -418,9 +422,6 @@ void main (void) {
   vec3 rayDirection = normalize(vel.rgb);
   float dist;
 
-  // get intersection
-  // bool didHit = bvhIntersectFirstHit( bvh, rayOrigin, rayDirection, faceIndices, faceNormal, barycoord, side, dist );
-
   dist = bvhClosestPointToPoint( bvh, point.xyz, faceIndices, faceNormal, barycoord, side, outPoint );
 
   if (dist <= 0.15) {
@@ -428,7 +429,10 @@ void main (void) {
   }
 
   vel.rgb += faceNormal / dist;
-  
+
+  // get intersection
+  // bool didHit = bvhIntersectFirstHit( bvh, rayOrigin, rayDirection, faceIndices, faceNormal, barycoord, side, dist );
+
   // if (didHit) {
   // } else {
   //   vel.xyz *= 0.97;
@@ -436,9 +440,6 @@ void main (void) {
 
   // gravity
   vel.y += -0.5;
-
-  // wind
-  vel.z += 0.5;
 
   vel.xyz *= 0.97;
   gl_FragColor = vel;

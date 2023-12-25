@@ -1,7 +1,7 @@
 import { Suspense, useEffect, useMemo } from "react"
 import { SDFGenCore } from "./SDFGenCore"
 import { Canvas, useFrame, useLoader, useThree } from "@react-three/fiber"
-import { Environment, Loader, OrbitControls, Stats, useGLTF } from "@react-three/drei"
+import { OrbitControls, Stats, useGLTF } from "@react-three/drei"
 import { PPSwitch } from "agape-sdk/src/main"
 import { useBVHPhysics } from "./useBVHPhysics"
 import { RGBELoader } from "three-stdlib"
