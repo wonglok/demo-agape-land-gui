@@ -6,6 +6,7 @@ import { PPSwitch } from "agape-sdk/src/main"
 import { useBVHPhysics } from "./useBVHPhysics"
 import { RGBELoader } from "three-stdlib"
 import { EquirectangularReflectionMapping } from "three"
+import { Bloom, EffectComposer } from "@react-three/postprocessing"
 
 export function SDFGen() {
     return <>
@@ -46,8 +47,12 @@ function Core() {
 
     return <>
         {display}
+
         <primitive object={glb.scene}></primitive>
-        <PPSwitch useStore={useBVHPhysics}></PPSwitch>
+        {/* <PPSwitch useStore={useBVHPhysics}></PPSwitch> */}
+        <EffectComposer>
+            <Bloom mipmapBlur intensity={3} luminanceThreshold={0.4}></Bloom>
+        </EffectComposer>
 
         {/* <Environment files={`/agape-sdk/hdr/nycnight.hdr`}></Environment> */}
     </>

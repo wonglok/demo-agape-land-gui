@@ -1,4 +1,4 @@
-export const fragmentRender = `
+export const fragmentRender = /* glsl */`
 
 varying vec2 v_uv;
 
@@ -22,12 +22,23 @@ void main (void) {
     discard;
   } else {
     vec4 vel = texture2D( velSim, v_uv );
-    
+
     float size = length(vel.rgb);
 
     gl_FragColor.rgb = normalize(vel.rgb) * 0.5 + 0.5;
 
-    gl_FragColor.a = 0.5;
+    gl_FragColor.rgb = pow(gl_FragColor.rgb, vec3(1.5)) * 1.6;
+
+    if (gl_FragColor.r >= 1.0) {
+      gl_FragColor.r= 1.0;
+    }
+    if (gl_FragColor.g >= 1.0) {
+      gl_FragColor.g= 1.0;
+    }
+    if (gl_FragColor.b >= 1.0) {
+      gl_FragColor.b= 1.0;
+    }
+    gl_FragColor.a = 1.0;
   }
 
   

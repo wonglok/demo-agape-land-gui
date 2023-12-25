@@ -44,8 +44,8 @@ export const useBVHPhysics = create((set, get) => {
       bloomPass: {
         useThisOne: true,
         mipmapBlur: true,
-        luminanceThreshold: 0.25,
-        intensity: 3,
+        luminanceThreshold: 0.45,
+        intensity: 2.5,
         resolutionScale: 1,
       },
       wavePass: {
