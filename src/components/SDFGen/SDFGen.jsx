@@ -11,7 +11,7 @@ export function SDFGen() {
         <Suspense fallback={null}>
             <Canvas>
                 <Core></Core>
-                <OrbitControls></OrbitControls>
+                <OrbitControls target={[5, 0, 0]} object-position={[-5, 20, 20]}></OrbitControls>
             </Canvas>
         </Suspense>
         <Loader></Loader>
