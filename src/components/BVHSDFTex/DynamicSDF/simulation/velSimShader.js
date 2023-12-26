@@ -463,10 +463,9 @@ void main (void) {
     && point.y >= sdfMin.y && point.y <= sdfMax.y 
     && point.z >= sdfMin.z && point.z <= sdfMax.z 
   ) {
-      vel.rgb += normalYo;
+    vel.rgb += normalYo;
   }
-  
-  vel.rgb *= 0.99;
+  vel.rgb *= 0.98;
 
   // didHit = bvhIntersectFirstHit( 
   //   // input variables
