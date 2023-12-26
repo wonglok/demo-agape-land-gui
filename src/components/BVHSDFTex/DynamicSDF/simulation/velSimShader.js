@@ -446,7 +446,7 @@ void main (void) {
   // mat4 sdfTransformInverse = inverse( sdfTransformInverse );
 
 
-  vec3 size = sdfMax - sdfMin;
+  vec3 size = abs(sdfMax - sdfMin);
   float sizeL = length(size);
 
   vec3 uv3 = (pos.rgb / size) * 0.5 + 0.5;
@@ -463,9 +463,9 @@ void main (void) {
     && point.y >= sdfMin.y && point.y <= sdfMax.y 
     && point.z >= sdfMin.z && point.z <= sdfMax.z 
   ) {
+      vel.rgb += normalYo;
   }
-
-  vel.rgb += normalYo / sdfVal;
+  
   vel.rgb *= 0.98;
 
   // didHit = bvhIntersectFirstHit( 
