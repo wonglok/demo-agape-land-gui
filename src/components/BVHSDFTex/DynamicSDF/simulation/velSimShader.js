@@ -456,15 +456,16 @@ void main (void) {
   float dz = texture( sdfTex, uv3 + vec3( 0.0, 0.0, 1.0 / 128.0 ) ).r - texture( sdfTex, uv3 - vec3( 0.0, 0.0, 1.0 / 128.0 ) ).r;
   vec3 normalYo = normalize( vec3( dx, dy, dz ) );
 
-  vel.rgb *= 0.99;
 
   if (
        point.x >= sdfMin.x && point.x <= sdfMax.x 
     && point.y >= sdfMin.y && point.y <= sdfMax.y 
     && point.z >= sdfMin.z && point.z <= sdfMax.z 
   ) {
-      vel.rgb += normalYo / sdfVal * 0.5;
+      vel.rgb += normalYo;
   }
+  
+  vel.rgb *= 0.99;
 
   // didHit = bvhIntersectFirstHit( 
   //   // input variables
