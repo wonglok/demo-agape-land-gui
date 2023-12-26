@@ -180,6 +180,7 @@ export class CoreCode extends Object3D {
         this.sdfTex.texture.type = HalfFloatType;
         this.sdfTex.texture.minFilter = LinearFilter;
         this.sdfTex.texture.magFilter = LinearFilter;
+        this.sdfTex.texture.image.data = new Uint16Array(dim * dim * dim * 4).fill(0);
 
         // prep the sdf generation material pass
         this.generateSdfPass.material.uniforms.bvh.value.updateFrom(this.bvh);

@@ -462,7 +462,9 @@ void main (void) {
     && point.y >= sdfMin.y && point.y <= sdfMax.y 
     && point.z >= sdfMin.z && point.z <= sdfMax.z 
   ) {
-      vel.rgb += normalYo;
+    if (sdfVal <= 2.0) {
+      vel.rgb += normalYo * sdfVal * dt * 60.0;
+    }
   }
   
   vel.rgb *= 0.99;

@@ -5,6 +5,7 @@ import { OrbitControls, PerspectiveCamera, StatsGl, useGLTF } from "@react-three
 import { RGBELoader } from "three-stdlib"
 import { Color, EquirectangularReflectionMapping } from "three"
 import { PPSwitch } from "agape-sdk/src/main"
+import { useBVHPSDF } from "./useBVHPSDF"
 // import { Bloom, EffectComposer, SelectiveBloom } from "@react-three/postprocessing"
 
 export function BVHSDFTex() {
@@ -35,6 +36,7 @@ function Core() {
 
     let gl = useThree((s) => s.gl)
     let glb = useGLTF(`/slide/spiral.glb`)
+    // let glb = useGLTF(`/nyc/v28-v1.glb`)
     let camera = useThree(r => r.camera)
     let { o3d, display, bloom, lights } = useMemo(() => {
         let o3d = new CoreCode({ gl, glb, camera, scene })
@@ -49,7 +51,7 @@ function Core() {
         glb.scene.traverse(it => {
             if (it.intensity) {
                 lights.push(it)
-                it.visible = true
+                it.visible = false
             }
             if (it.material) {
                 it.material.map = null
@@ -66,12 +68,13 @@ function Core() {
 
     useFrame(() => {
         o3d.update()
-    }, 1000)
+    })
 
     return <>
         {display}
 
         <primitive object={glb.scene}></primitive>
 
+        {/* <PPSwitch useStore={useBVHPSDF}></PPSwitch> */}
     </>
 }
