@@ -68,11 +68,11 @@ export class CoreCode extends Object3D {
                 if (this.geometry.boundingBox) {
                     this.gpu.boundingBox = this.geometry.boundingBox
                 }
-                if (this.camera && this.mesh) {
-                    this.gpu.sdfTransformInverse = m4inv
-                    // .copy(this.mesh.matrixWorld)
-                    //.invert().premultiply(this.inverseBoundsMatrix)
-                }
+                // if (this.camera && this.mesh) {
+                //     this.gpu.sdfTransformInverse = m4inv
+                //     // .copy(this.mesh.matrixWorld)
+                //     //.invert().premultiply(this.inverseBoundsMatrix)
+                // }
                 if (this.sdfTex?.texture) {
                     const { width, depth, height } = this.sdfTex?.texture.image;
                     this.gpu.normalStep = v3step.set(1 / width, 1 / height, 1 / depth)

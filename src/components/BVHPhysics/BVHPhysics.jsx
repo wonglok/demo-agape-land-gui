@@ -33,7 +33,7 @@ function Core() {
     scene.background = new Color('#000000')
 
     let gl = useThree((s) => s.gl)
-    let glb = useGLTF(`/slide/spiral.glb`)
+    let glb = useGLTF(`/nyc/v28-v1.glb`)
     let { o3d, display, bloom, lights } = useMemo(() => {
         let o3d = new CoreCode({ gl, glb })
 

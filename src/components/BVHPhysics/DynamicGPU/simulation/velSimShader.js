@@ -404,7 +404,8 @@ void main (void) {
   }
 
   // gravity 
-  vel.y += -1.1 * dt;
+  vel.y += -2.1 * dt;
+  vel.z += 2.1 * dt;
 
   // compute the point in space to check
   vec3 point = pos.rgb;

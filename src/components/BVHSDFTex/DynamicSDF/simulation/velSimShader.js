@@ -450,21 +450,21 @@ void main (void) {
 
   vec3 uv3 = (pos.rgb + size * 0.5) / size;
   float sdfVal = texture( sdfTex, uv3 ).r;
+  float sideVal = texture( sdfTex, uv3 ).g;
 
   float dx = texture( sdfTex, uv3 + vec3( 1.0 / 128.0, 0.0, 0.0 ) ).r - texture( sdfTex, uv3 - vec3( 1.0 / 128.0, 0.0, 0.0 ) ).r;
   float dy = texture( sdfTex, uv3 + vec3( 0.0, 1.0 / 128.0, 0.0 ) ).r - texture( sdfTex, uv3 - vec3( 0.0, 1.0 / 128.0, 0.0 ) ).r;
   float dz = texture( sdfTex, uv3 + vec3( 0.0, 0.0, 1.0 / 128.0 ) ).r - texture( sdfTex, uv3 - vec3( 0.0, 0.0, 1.0 / 128.0 ) ).r;
   vec3 normalYo = normalize( vec3( dx, dy, dz ) );
 
-
   if (
        point.x >= sdfMin.x && point.x <= sdfMax.x 
     && point.y >= sdfMin.y && point.y <= sdfMax.y 
     && point.z >= sdfMin.z && point.z <= sdfMax.z 
   ) {
-    if (sdfVal <= 2.0) {
-      vel.rgb += normalYo * sdfVal * dt * 60.0;
-    }
+    // if (sdfVal <= 5.0) {
+      vel.rgb += normalYo;
+    // }
   }
   
   vel.rgb *= 0.99;
