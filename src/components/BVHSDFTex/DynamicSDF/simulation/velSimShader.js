@@ -419,7 +419,7 @@ void main (void) {
   }
 
   // gravity 
-  vel.y += -9.87 * dt * 1.1;
+  vel.y += -9.87 * dt * 0.5;
 
   // compute the point in space to check
   vec3 point = pos.rgb;
@@ -463,7 +463,7 @@ void main (void) {
     && point.y >= sdfMin.y && point.y <= sdfMax.y 
     && point.z >= sdfMin.z && point.z <= sdfMax.z 
   ) {
-      vel.rgb += normalYo;
+      vel.rgb += normalYo * dt * 60.0;
   }
   
   vel.rgb *= 0.98;
