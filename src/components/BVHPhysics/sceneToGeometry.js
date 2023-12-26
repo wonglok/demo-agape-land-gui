@@ -116,7 +116,7 @@ export async function sceneToCollider({ scene }) {
         // // The maximum depth to allow the tree to build to.
         // // Setting this to a smaller trades raycast speed for better construction
         // // time and less memory allocation.
-        maxDepth: 500,
+        maxDepth: 60,
         // // The number of triangles to aim for in a leaf node. Setting this to a lower
         // // number can improve raycast performance but increase construction time and
         // // memory footprint.

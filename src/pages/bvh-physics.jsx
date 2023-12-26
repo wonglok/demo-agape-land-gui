@@ -1,3 +1,3 @@
-import { SDFGen } from "@/components/SDFGen/SDFGen";
+import { BVHPhysics } from "@/components/BVHPhysics/BVHPhysics";
 
-export default SDFGen;
+export default BVHPhysics;

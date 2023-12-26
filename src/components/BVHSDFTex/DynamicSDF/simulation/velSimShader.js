@@ -28,8 +28,13 @@ ${shaderIntersectFunction}
 ${shaderDistanceFunction}
 uniform BVH bvh;
 
+uniform sampler3D sdfTex;
+uniform vec3 sdfMax;
+uniform vec3 sdfMin;
+uniform vec3 sdfNormalStep;
+uniform mat4 sdfTransformInverse;
+
 uniform sampler2D audioTexture;
-uniform sampler2D lastPos;
 uniform float dt;
 uniform float time;
 
@@ -323,6 +328,17 @@ float sdSceneSDF ( vec3 pos, float s ) {
 
   float sdf = 0.0;
 
+  //sdfTransformInverse
+
+
+  vec3 size = sdfMax - sdfMin;
+
+  vec3 sdfUV = (pos.rgb * 0.5 + size * 0.5) / size;
+
+  vec4 sdf4 = texture(sdfTex, sdfUV);
+
+  sdf = sdf4.r;
+
   return sdf;
 }
 
@@ -396,17 +412,14 @@ void main (void) {
   vec4 pos = texture2D( posSim, uv );
   vec4 vel = texture2D( velSim, uv );
 
-  vec4 lastData = texture2D( lastPos, uv );
 
   if(acc.g == 0.0) {
     gl_FragColor.rgb = vec3(0.0, 0.0, 0.0);
     return;
   }
 
-  if (abs(vel.y) <= 1.5) {
-    // gravity 
-    vel.y += dt * -1.5;
-  }
+  // gravity 
+  vel.y += -1.1 * dt;
 
   // compute the point in space to check
   vec3 point = pos.rgb;
@@ -418,26 +431,65 @@ void main (void) {
   vec3 outPoint;
 
   vec3 rayOrigin = pos.rgb;
-  vec3 rayDirection = normalize(lastData.rgb - pos.rgb);
+  vec3 rayDirection = (vel.rgb);
   float dist;
 
   bool didHit;
-  didHit = bvhIntersectFirstHit( 
-    // input variables
-    bvh, rayOrigin, rayDirection,
 
-    // output variables
-    faceIndices, faceNormal, barycoord,
-    side, dist
-  );
+  // vec3 spaceNormal = calcNormal(point, 0.0);
 
-  if (didHit) {
-    if (dist <= 1.0) {
-      vel.rgb += faceNormal * 2.0;
-    }
-  } else {
-    vel.rgb *= 0.99;
+  // float sdfVal = sdSceneSDF(point, 0.0);
+  // if (sdfVal > 0.0) {
+  //   vel.rgb += spaceNormal;
+  // }
+
+  // mat4 sdfTransformInverse = inverse( sdfTransformInverse );
+
+
+  vec3 size = sdfMax - sdfMin;
+
+  vec3 uv3 = (pos.rgb + size * 0.5) / size;
+  float sdfVal = texture( sdfTex, uv3 ).r;
+
+  float dx = texture( sdfTex, uv3 + vec3( 1.0 / 128.0, 0.0, 0.0 ) ).r - texture( sdfTex, uv3 - vec3( 1.0 / 128.0, 0.0, 0.0 ) ).r;
+  float dy = texture( sdfTex, uv3 + vec3( 0.0, 1.0 / 128.0, 0.0 ) ).r - texture( sdfTex, uv3 - vec3( 0.0, 1.0 / 128.0, 0.0 ) ).r;
+  float dz = texture( sdfTex, uv3 + vec3( 0.0, 0.0, 1.0 / 128.0 ) ).r - texture( sdfTex, uv3 - vec3( 0.0, 0.0, 1.0 / 128.0 ) ).r;
+  vec3 normalYo = normalize( vec3( dx, dy, dz ) );
+
+  if (
+       point.x >= sdfMin.x && point.x <= sdfMax.x 
+    && point.y >= sdfMin.y && point.y <= sdfMax.y 
+    && point.z >= sdfMin.z && point.z <= sdfMax.z 
+  ) {
+    vel.rgb += normalYo * 0.2;
   }
+
+  // didHit = bvhIntersectFirstHit( 
+  //   // input variables
+  //   bvh, rayOrigin, rayDirection,
+  //   // output variables
+  //   faceIndices, faceNormal, barycoord,
+  //   side, dist
+  // );
+
+  // if (didHit) {
+  //   if (dist <= 1.0) {
+  //     vel.rgb += faceNormal * dt * 60.0;
+  //   } else {
+  //   }
+  // } else {
+  //   vel.rgb *= 0.0;
+  //   vel.y += -dt;
+  // }
+
+  // retrieve the distance and other values
+  // dist = bvhClosestPointToPoint( bvh, point.xyz, faceIndices, faceNormal, barycoord, side, outPoint );
+
+  // if (dist <= 2.0) {
+  //   vel.rgb += faceNormal * (1.0 - dot(faceNormal, vec3(vel.rgb)));
+  // }
+
+  // vel.rgb *= 0.98;
 
   gl_FragColor = vel;
 }

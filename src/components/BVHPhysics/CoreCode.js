@@ -3,7 +3,7 @@ import { FullScreenQuad } from 'three/examples/jsm/postprocessing/Pass.js';
 import { sceneToCollider } from "./sceneToGeometry";
 import { GPURun } from "./DynamicGPU/GPURun";
 
-export class SDFGenCore extends Object3D {
+export class CoreCode extends Object3D {
     constructor({ gl: renderer, glb }) {
         super()
         this.clock = new Clock()

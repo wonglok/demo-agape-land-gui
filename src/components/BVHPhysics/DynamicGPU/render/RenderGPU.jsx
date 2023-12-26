@@ -49,6 +49,7 @@ export class RenderGPU extends Object3D {
       color3: { value: new Color('#f7abb7') },
       color4: { value: new Color('#ffd38b') },
     }
+
     let shader = new ShaderMaterial({
       uniforms: this.uniforms,
       fragmentShader: fragmentRender,

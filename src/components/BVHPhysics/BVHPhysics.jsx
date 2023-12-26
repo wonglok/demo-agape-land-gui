@@ -1,5 +1,5 @@
 import { Suspense, useEffect, useMemo } from "react"
-import { SDFGenCore } from "./SDFGenCore"
+import { CoreCode } from "./CoreCode"
 import { Canvas, useFrame, useLoader, useThree } from "@react-three/fiber"
 import { OrbitControls, Stats, useGLTF } from "@react-three/drei"
 import { PPSwitch } from "agape-sdk/src/main"
@@ -8,7 +8,7 @@ import { RGBELoader } from "three-stdlib"
 import { Color, EquirectangularReflectionMapping } from "three"
 // import { Bloom, EffectComposer, SelectiveBloom } from "@react-three/postprocessing"
 
-export function SDFGen() {
+export function BVHPhysics() {
     return <>
         {/*  */}
         <Canvas>
@@ -35,7 +35,7 @@ function Core() {
     let gl = useThree((s) => s.gl)
     let glb = useGLTF(`/slide/spiral.glb`)
     let { o3d, display, bloom, lights } = useMemo(() => {
-        let o3d = new SDFGenCore({ gl, glb })
+        let o3d = new CoreCode({ gl, glb })
 
         let bloom = []
         o3d.traverse(it => {
