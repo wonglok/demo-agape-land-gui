@@ -419,7 +419,7 @@ void main (void) {
   }
 
   // gravity 
-  vel.y += -1.1 * dt;
+  vel.y += -9.87 * dt;
 
   // compute the point in space to check
   vec3 point = pos.rgb;
@@ -461,7 +461,7 @@ void main (void) {
     && point.y >= sdfMin.y && point.y <= sdfMax.y 
     && point.z >= sdfMin.z && point.z <= sdfMax.z 
   ) {
-    vel.rgb += normalYo * 0.2;
+      vel.rgb += normalYo / sdfVal * 0.5;
   }
 
   // didHit = bvhIntersectFirstHit( 
@@ -489,7 +489,7 @@ void main (void) {
   //   vel.rgb += faceNormal * (1.0 - dot(faceNormal, vec3(vel.rgb)));
   // }
 
-  // vel.rgb *= 0.98;
+  vel.rgb *= 0.99;
 
   gl_FragColor = vel;
 }
