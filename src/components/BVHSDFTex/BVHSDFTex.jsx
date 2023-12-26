@@ -4,6 +4,7 @@ import { Canvas, useFrame, useLoader, useThree } from "@react-three/fiber"
 import { OrbitControls, PerspectiveCamera, StatsGl, useGLTF } from "@react-three/drei"
 import { RGBELoader } from "three-stdlib"
 import { Color, EquirectangularReflectionMapping } from "three"
+import { PPSwitch } from "agape-sdk/src/main"
 // import { Bloom, EffectComposer, SelectiveBloom } from "@react-three/postprocessing"
 
 export function BVHSDFTex() {
@@ -71,5 +72,6 @@ function Core() {
         {display}
 
         <primitive object={glb.scene}></primitive>
+
     </>
 }

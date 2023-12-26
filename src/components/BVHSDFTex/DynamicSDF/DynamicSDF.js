@@ -15,7 +15,7 @@ export class DynamicSDF extends Object3D {
 
     this.works = []
 
-    this.size = new Vector2(256, 256)
+    this.size = new Vector2(512, 512)
 
     this.gl = gl
     this.gpu = new GPUComputationRenderer(this.size.x, this.size.y, this.gl)

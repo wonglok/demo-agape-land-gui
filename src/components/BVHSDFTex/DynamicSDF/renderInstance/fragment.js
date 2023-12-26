@@ -40,7 +40,7 @@ void main (void) {
     if (gl_FragColor.b >= 1.0) {
       gl_FragColor.b= 1.0;
     }
-    gl_FragColor.a = 1.0;
+    gl_FragColor.a = 0.5;
   }
 
   
