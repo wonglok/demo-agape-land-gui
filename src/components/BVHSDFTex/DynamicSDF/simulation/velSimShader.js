@@ -449,7 +449,7 @@ void main (void) {
   vec3 size = sdfMax - sdfMin;
   float sizeL = length(size);
 
-  vec3 uv3 = (pos.rgb + size * 0.5) / size;
+  vec3 uv3 = (pos.rgb / size) * 0.5 + 0.5;
   float sdfVal = texture( sdfTex, uv3 ).r;
   float sideVal = texture( sdfTex, uv3 ).g;
 
@@ -463,8 +463,9 @@ void main (void) {
     && point.y >= sdfMin.y && point.y <= sdfMax.y 
     && point.z >= sdfMin.z && point.z <= sdfMax.z 
   ) {
-    vel.rgb += normalYo;
   }
+
+  vel.rgb += normalYo / sdfVal;
   vel.rgb *= 0.98;
 
   // didHit = bvhIntersectFirstHit( 
