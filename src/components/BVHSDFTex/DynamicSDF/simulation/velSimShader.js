@@ -419,7 +419,7 @@ void main (void) {
   }
 
   // gravity 
-  vel.y += -9.87 * dt;
+  vel.y += -9.87 * dt * 1.1;
 
   // compute the point in space to check
   vec3 point = pos.rgb;
@@ -447,6 +447,7 @@ void main (void) {
 
 
   vec3 size = sdfMax - sdfMin;
+  float sizeL = length(size);
 
   vec3 uv3 = (pos.rgb + size * 0.5) / size;
   float sdfVal = texture( sdfTex, uv3 ).r;
@@ -462,9 +463,7 @@ void main (void) {
     && point.y >= sdfMin.y && point.y <= sdfMax.y 
     && point.z >= sdfMin.z && point.z <= sdfMax.z 
   ) {
-    // if (sdfVal <= 5.0) {
       vel.rgb += normalYo;
-    // }
   }
   
   vel.rgb *= 0.99;
