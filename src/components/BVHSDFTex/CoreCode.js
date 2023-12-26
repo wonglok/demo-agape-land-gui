@@ -177,7 +177,7 @@ export class CoreCode extends Object3D {
         // create a new 3d render target texture
         this.sdfTex = new WebGL3DRenderTarget(dim, dim, dim);
         this.sdfTex.texture.format = RGBAFormat;
-        this.sdfTex.texture.type = FloatType;
+        this.sdfTex.texture.type = HalfFloatType;
         this.sdfTex.texture.minFilter = LinearFilter;
         this.sdfTex.texture.magFilter = LinearFilter;
 
