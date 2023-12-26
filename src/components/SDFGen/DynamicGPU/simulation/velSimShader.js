@@ -394,9 +394,14 @@ void main (void) {
   vec4 acc = texture2D( accSim, uv );
   vec4 pos = texture2D( posSim, uv );
   vec4 vel = texture2D( velSim, uv );
-  
-  // gravity
-  vel.y += -0.05;
+
+  if(acc.g == 0.0) {
+    gl_FragColor.rgb = vec3(0.0, 1.0, 0.0);
+    return;
+  }
+
+  // // gravity
+  vel.y += -1.0 * dt * 10.0;
 
   // compute the point in space to check
   vec3 point = pos.rgb;
@@ -411,14 +416,6 @@ void main (void) {
   vec3 rayDirection = vec3(vel.rgb);
   float dist;
 
-  // dist = bvhClosestPointToPoint( bvh, point.xyz, faceIndices, faceNormal, barycoord, side, outPoint );
-  // if (dist <= 1.25) {
-  //   if (dist < 1.0) {
-  //     vel.rgb += faceNormal * dist * 0.5;
-  //   } else {
-  //     vel.rgb += faceNormal / dist * 0.5;
-  //   }
-  // }
 
   bool didHit;
   didHit = bvhIntersectFirstHit( 
@@ -431,12 +428,14 @@ void main (void) {
 
   if (didHit) {
     if (dist <= 1.0) {
-      // vel.xyz *= 0.9;
-      vel.rgb += faceNormal * dist;
+      vel.rgb = vel.rgb + faceNormal * 3.0;
     }
   }
 
-  vel.rgb *= 0.99;
+  // dist = bvhClosestPointToPoint( bvh, point.xyz, faceIndices, faceNormal, barycoord, side, outPoint );
+  // if (dist <= 1.0) {
+  //   vel.rgb = vel.rgb + faceNormal * 2.0 + vec3(0.0, 1.0, 0.0) * -dot(faceNormal, normalize(vel.rgb));
+  // }
 
   gl_FragColor = vel;
 }
