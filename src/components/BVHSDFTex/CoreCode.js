@@ -1,4 +1,4 @@
-import { Clock, FloatType, LinearFilter, MeshBasicMaterial, Object3D, RedFormat, WebGL3DRenderTarget } from "three";
+import { Clock, FloatType, HalfFloatType, LinearFilter, MeshBasicMaterial, Object3D, RedFormat, WebGL3DRenderTarget } from "three";
 import { MeshBVH, StaticGeometryGenerator } from "three-mesh-bvh";
 import { FullScreenQuad } from "three/examples/jsm/postprocessing/Pass";
 import { Matrix4, Mesh, Quaternion, Vector3 } from "three";
@@ -177,8 +177,7 @@ export class CoreCode extends Object3D {
         // create a new 3d render target texture
         this.sdfTex = new WebGL3DRenderTarget(dim, dim, dim);
         this.sdfTex.texture.format = RGBAFormat;
-        this.sdfTex.texture.type = FloatType;
-        this.sdfTex.texture.generateMipmaps = true;
+        this.sdfTex.texture.type = HalfFloatType;
         this.sdfTex.texture.minFilter = LinearFilter;
         this.sdfTex.texture.magFilter = LinearFilter;
 
