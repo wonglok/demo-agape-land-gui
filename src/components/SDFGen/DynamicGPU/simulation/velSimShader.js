@@ -29,6 +29,7 @@ ${shaderDistanceFunction}
 uniform BVH bvh;
 
 uniform sampler2D audioTexture;
+uniform sampler2D lastPos;
 uniform float dt;
 uniform float time;
 
@@ -395,13 +396,17 @@ void main (void) {
   vec4 pos = texture2D( posSim, uv );
   vec4 vel = texture2D( velSim, uv );
 
+  vec4 lastData = texture2D( lastPos, uv );
+
   if(acc.g == 0.0) {
-    gl_FragColor.rgb = vec3(0.0, 1.0, 0.0);
+    gl_FragColor.rgb = vec3(0.0, 0.0, 0.0);
     return;
   }
 
-  // // gravity
-  vel.y += -1.0 * dt * 10.0;
+  if (abs(vel.y) <= 1.5) {
+    // gravity 
+    vel.y += dt * -1.5;
+  }
 
   // compute the point in space to check
   vec3 point = pos.rgb;
@@ -413,29 +418,26 @@ void main (void) {
   vec3 outPoint;
 
   vec3 rayOrigin = pos.rgb;
-  vec3 rayDirection = vec3(vel.rgb);
+  vec3 rayDirection = normalize(lastData.rgb - pos.rgb);
   float dist;
-
 
   bool didHit;
   didHit = bvhIntersectFirstHit( 
+    // input variables
     bvh, rayOrigin, rayDirection,
 
     // output variables
     faceIndices, faceNormal, barycoord,
-    side, dist 
+    side, dist
   );
 
   if (didHit) {
     if (dist <= 1.0) {
-      vel.rgb = vel.rgb + faceNormal * 3.0;
+      vel.rgb += faceNormal * 2.0;
     }
+  } else {
+    vel.rgb *= 0.99;
   }
-
-  // dist = bvhClosestPointToPoint( bvh, point.xyz, faceIndices, faceNormal, barycoord, side, outPoint );
-  // if (dist <= 1.0) {
-  //   vel.rgb = vel.rgb + faceNormal * 2.0 + vec3(0.0, 1.0, 0.0) * -dot(faceNormal, normalize(vel.rgb));
-  // }
 
   gl_FragColor = vel;
 }

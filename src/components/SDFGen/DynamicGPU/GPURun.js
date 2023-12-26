@@ -89,9 +89,9 @@ export class GPURun extends Object3D {
     this.iVars.velSim.material.uniforms.lastPos = { value: null }
     this.iVars.accSim.material.uniforms.lastPos = { value: null }
     this.onLoop(() => {
-      this.iVars.posSim.material.uniforms.lastPos.value = this.gpu.getCurrentRenderTarget(this.iVars.posSim).texture
-      this.iVars.velSim.material.uniforms.lastPos.value = this.gpu.getCurrentRenderTarget(this.iVars.posSim).texture
-      this.iVars.accSim.material.uniforms.lastPos.value = this.gpu.getCurrentRenderTarget(this.iVars.posSim).texture
+      this.iVars.posSim.material.uniforms.lastPos.value = this.gpu.getAlternateRenderTarget(this.iVars.posSim).texture
+      this.iVars.velSim.material.uniforms.lastPos.value = this.gpu.getAlternateRenderTarget(this.iVars.posSim).texture
+      this.iVars.accSim.material.uniforms.lastPos.value = this.gpu.getAlternateRenderTarget(this.iVars.posSim).texture
     })
 
     let bvhStruct = new MeshBVHUniformStruct()
@@ -197,10 +197,10 @@ export class GPURun extends Object3D {
       let idx = 0
       for (let y = 0; y < this.size.y; y++) {
         for (let x = 0; x < this.size.x; x++) {
-          this.iTex.accSim.image.data[idx * 4 + 0.0] = Math.random()
-          this.iTex.accSim.image.data[idx * 4 + 1.0] = Math.random()
-          this.iTex.accSim.image.data[idx * 4 + 2.0] = Math.random()
-          this.iTex.accSim.image.data[idx * 4 + 3.0] = Math.random()
+          this.iTex.accSim.image.data[idx * 4 + 0.0] = 1.0
+          this.iTex.accSim.image.data[idx * 4 + 1.0] = 1.0
+          this.iTex.accSim.image.data[idx * 4 + 2.0] = 1.0
+          this.iTex.accSim.image.data[idx * 4 + 3.0] = 1.0
           idx++
         }
       }
