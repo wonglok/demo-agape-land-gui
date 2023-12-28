@@ -1,8 +1,6 @@
 import { useEffect } from 'react'
 import * as THREE from 'three'
-import { GPURun } from '../EmpireVFX/Run/DynamicGPU/GPURun'
 import { Vector2 } from 'three147'
-import { al } from 'mind-ar/dist/controller-495b585f'
 
 class AlvaARConnectorTHREE {
   static Initialize(THREE) {
