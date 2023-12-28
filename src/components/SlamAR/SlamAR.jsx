@@ -211,7 +211,7 @@ async function main() {
 😘
 👍
 `
-    const emojis = mojis.trim().split('\n').map(r => r.trim().replace('\n', '')).filter(r => r)
+    const emojis = mojis.trim().split('\n').map(r => r.trim()).filter(r => r)
 
     let SLAMFFrame = () => {
       Stats.next()
