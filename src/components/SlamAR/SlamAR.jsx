@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import * as THREE from 'three'
 import { GPURun } from '../EmpireVFX/Run/DynamicGPU/GPURun'
 import { Vector2 } from 'three147'
+import { al } from 'mind-ar/dist/controller-495b585f'
 
 class AlvaARConnectorTHREE {
   static Initialize(THREE) {
@@ -38,7 +39,7 @@ class ARCamView {
     this.objectRoot.position.set(x, y, z)
     this.objectRoot.visible = false
 
-    this.objectRoot.add(new THREE.GridHelper(10, 10, 0xff0000, 0xbababa))
+    this.objectRoot.add(new THREE.GridHelper(100, 100, 0xff0000, 0xbababa))
 
     this.scene = new THREE.Scene()
     this.scene.add(this.objectRoot)
@@ -169,7 +170,10 @@ async function main() {
     $container.appendChild($view)
 
     document.body.appendChild(Stats.el)
-    document.body.addEventListener('click', () => alva.reset(), false)
+    // document.body.addEventListener('click', () => alva.reset(), false)
+    window.addEventListener('reset-slam', () => {
+      alva.reset()
+    })
 
     /** @type {HTMLVideoElement} */
     let vid = $video
@@ -380,15 +384,31 @@ export function SlamAR() {
                 content: none;
             }
         }
+
+        #reset-slam{
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            background: white;
+            width: 100px;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            pointer-events: none;
+        }
     `,
         }}
       ></style>
 
       <div id='container'></div>
       <div id='overlay'>
-        <button id='start_button'>Start</button>
         <div id='splash'></div>
+        <button id='start_button'>Start</button>
       </div>
+
+      <div id="reset-slam" onClick={(() => {
+        window.dispatchEvent(new CustomEvent('reset-slam', {}))
+      })}>Reset</div>
 
       {/*  */}
       {/* <a href='/slam-ar/camera.html' target='_blank' rel='noopener noreferrer'>
