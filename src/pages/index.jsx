@@ -7,6 +7,8 @@ export default function Page() {
           {/* <a href={`/vfx`} target='_blank'>
             <li className='mb-2 list-item list-inside list-decimal'>Age Of VFX Empire</li>
           </a> */}
+
+          {/*  */}
           <a href={`/bvh-sdf`} target='_blank'>
             <li className='mb-2 list-item list-inside list-decimal'>Bvh GPU SDF</li>
           </a>
@@ -14,11 +16,10 @@ export default function Page() {
             <li className='mb-2 list-item list-inside list-decimal'>Bvh GPU Physics</li>
           </a>
           <a href={`/slam-ar`} target='_blank'>
-            <li className='mb-2 list-item list-inside list-decimal'>SLAM AR</li>
+            <li className='mb-2 list-item list-inside list-decimal'>AR - SLAM</li>
           </a>
-
           <a href={`/mind-ar`} target='_blank'>
-            <li className='mb-2 list-item list-inside list-decimal'>AR Demo</li>
+            <li className='mb-2 list-item list-inside list-decimal'>AR - PNG Marker</li>
           </a>
           <a href={`/sound`} target='_blank'>
             <li className='mb-2 list-item list-inside list-decimal'>Sound</li>

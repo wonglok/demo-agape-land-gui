@@ -18,7 +18,7 @@ class AlvaARConnectorTHREE {
 
 class ARCamView {
   //
-  constructor(container, width, height, x = 0, y = 0, z = -10, scale = 1.0) {
+  constructor(container, width, height) {
     this.applyPose = AlvaARConnectorTHREE.Initialize(THREE)
 
     this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true })
@@ -32,19 +32,21 @@ class ARCamView {
 
     this.camera2 = this.camera.clone()
 
-    this.object = new THREE.Mesh(
-      new THREE.IcosahedronGeometry(1, 2),
-      new THREE.MeshNormalMaterial({ flatShading: true, transparent: true, opacity: 0.5 }),
-    )
-    this.object.scale.set(scale, scale, scale)
-    this.object.position.set(x, y, z)
-    this.object.visible = false
+    this.objectRoot = new THREE.Object3D()
+    let { x = 0, y = 0, z = -10, scale = 1.0 } = {}
+    this.objectRoot.scale.set(scale, scale, scale)
+    this.objectRoot.position.set(x, y, z)
+    this.objectRoot.visible = false
+
 
     this.scene = new THREE.Scene()
-    this.scene.add(this.object)
+    this.scene.add(this.objectRoot)
 
-    this.gpu = new GPURun({ gl: this.renderer })
-    this.scene.add(this.gpu)
+
+
+    // this.gpu = new GPURun({ gl: this.renderer })
+    // this.scene.add(this.gpu)
+
     this.scene.add(new THREE.AmbientLight(0x808080))
     this.scene.add(new THREE.HemisphereLight(0x404040, 0xf0f0f0, 1))
     this.scene.add(this.camera)
@@ -76,15 +78,16 @@ class ARCamView {
       requestAnimationFrame(render.bind(this))
       let dt = clock.getDelta()
 
-      this.object.getWorldPosition(this.gpu.raycastMouse)
+      // this.objectRoot.getWorldPosition(this.gpu.raycastMouse)
 
-      this.gpu.run(
-        {
-          camera: this.camera,
-          mouse: this.mouse,
-        },
-        dt,
-      )
+      // this.gpu.run(
+      //   {
+      //     camera: this.camera,
+      //     mouse: this.mouse,
+      //   },
+      //   dt,
+      // )
+
       this.renderer.render(this.scene, this.camera)
     }
 
@@ -97,13 +100,13 @@ class ARCamView {
     this.camera.position.lerp(this.camera2.position, 0.3)
     this.camera.quaternion.slerp(this.camera2.quaternion, 0.3)
 
-    // this.object.visible = true
-    this.gpu.visible = true
+    this.objectRoot.visible = true
+    // this.gpu.visible = true
   }
 
   lostCamera() {
-    // this.object.visible = false
-    this.gpu.visible = false
+    this.objectRoot.visible = false
+    // this.gpu.visible = false
   }
 }
 
@@ -116,8 +119,10 @@ async function main() {
   const config = {
     video: {
       facingMode: 'environment',
-      aspectRatio: 16 / 9,
-      width: { ideal: 1280 },
+      // aspectRatio: 16 / 9,
+      aspectRatio: window.innerHeight / window.innerWidth,
+      width: { ideal: 720 },
+      frameRate: { ideal: 60, max: 60 }
     },
     audio: false,
   }
@@ -151,7 +156,7 @@ async function main() {
     $video.style.width = size.width + 'px'
     $video.style.height = size.height + 'px'
 
-    const ctx = $canvas.getContext('2d', { alpha: false, desynchronized: true })
+    const ctx = $canvas.getContext('2d', { alpha: false, desynchronized: true, willReadFrequently: true })
     const alva = await AlvaAR.Initialize($canvas.width, $canvas.height)
     const view = new ARCamView($view, $canvas.width, $canvas.height)
 
