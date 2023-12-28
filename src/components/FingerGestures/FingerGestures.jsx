@@ -3,6 +3,7 @@ import { useFingers } from './useFingers'
 import { useEffect, useMemo, useRef } from 'react'
 import { Box, Environment, OrbitControls, Text, useTexture } from '@react-three/drei'
 import { IcosahedronGeometry, Object3D, SRGBColorSpace, SphereGeometry, sRGBEncoding } from 'three'
+import { YoEnv } from '../Common/YoEnv'
 
 export function FingerGestures() {
   let gui2d = useFingers((r) => r.gui2d)
@@ -43,7 +44,8 @@ export function Core() {
   return (
     <>
       <>
-        <Environment files={`/Handlandmark/room.hdr`}></Environment>
+        <YoEnv files={`/Handlandmark/room.hdr`}></YoEnv>
+
         <MyLandmarks></MyLandmarks>
         <PinchCompos></PinchCompos>
         <OrbitControls object-position={[0, 0, 10]} makeDefault></OrbitControls>

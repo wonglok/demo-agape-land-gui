@@ -19,6 +19,7 @@ import anime from 'animejs'
 import { DragControls } from 'three/examples/jsm/controls/DragControls.js'
 import { Ray, Matrix4, Sphere as Sphere3JS } from 'three'
 import { useMouseCache } from './useMouseCache.jsx'
+import { YoEnv } from '../Common/YoEnv.jsx'
 
 export function MouseGesture() {
   return (
@@ -73,7 +74,9 @@ export function MouseGesture() {
         <Vars></Vars>
 
         <Suspense fallback={null}>
-          <Environment background files={`/mouse/envMap/poly_haven_studio_1k.hdr`}></Environment>
+          <YoEnv background files={`/mouse/envMap/poly_haven_studio_1k.hdr`}></YoEnv>
+
+
           <group rotation={[0, 0.5, 0]} position={[15, -10, -30]} scale={10}>
             <BG url={`/mouse/room/room-fancy.003.glb`}></BG>
           </group>

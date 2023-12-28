@@ -1,4 +1,4 @@
-import { Canvas, useFrame, useThree } from '@react-three/fiber'
+import { Canvas, useFrame, useLoader, useThree } from '@react-three/fiber'
 import { useFingers } from './useFingers'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { Box, Environment, Instance, Instances, OrbitControls, Text, useTexture } from '@react-three/drei'
@@ -6,6 +6,7 @@ import {
   BoxGeometry,
   Clock,
   DoubleSide,
+  EquirectangularReflectionMapping,
   IcosahedronGeometry,
   InstancedMesh,
   MathUtils,
@@ -15,6 +16,8 @@ import {
   Vector3,
   sRGBEncoding,
 } from 'three'
+import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader'
+import { YoEnv } from '../Common/YoEnv'
 
 export function FanGestures() {
   let gui2d = useFingers((r) => r.gui2d)
@@ -55,7 +58,7 @@ export function Core() {
   return (
     <>
       <>
-        <Environment files={`/Handlandmark/room.hdr`}></Environment>
+        <YoEnv files={`/Handlandmark/room.hdr`}></YoEnv>
         <MyLandmarks></MyLandmarks>
         <PinchCompos></PinchCompos>
         <OrbitControls object-position={[0, 0, 20]} target={[0, 0, 0]} makeDefault></OrbitControls>
@@ -135,6 +138,7 @@ function PinchCompos() {
   let accu = useMemo(() => {
     return new Vector3()
   }, [])
+
   useEffect(() => {
     let hh = ({ detail }) => {
       init.copy(detail.position)
@@ -177,8 +181,8 @@ function PinchCompos() {
     }
   }, [accu, delta, init])
 
-  let totalY = 32
-  let totalX = 32
+  let totalY = 16
+  let totalX = 16
   useEffect(() => {
     let arr = []
 
@@ -246,7 +250,7 @@ function PinchCompos() {
   }, [])
 
   useEffect(() => {
-    let hh = () => {}
+    let hh = () => { }
     window.addEventListener('stopZooming', hh)
     return () => {
       window.removeEventListener('stopZooming', hh)

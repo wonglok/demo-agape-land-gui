@@ -7,6 +7,7 @@ import { Object3D } from 'three'
 import { Box, Environment, OrbitControls, Sphere, TransformControls } from '@react-three/drei'
 // import { Bloom, EffectComposer } from '@react-three/postprocessing'
 import { Vector3 } from 'three'
+import { YoEnv } from '../Common/YoEnv'
 
 export function GSplat() {
   return (
@@ -21,8 +22,8 @@ export function GSplat() {
         {/* <Sphere position={[-2, 0, 0]} args={[1, 32, 32]}>
           <meshPhysicalMaterial metalness={0} transmission={1} thickness={1.1} roughness={0}></meshPhysicalMaterial>
         </Sphere> */}
+        <YoEnv files={`/hdr/grass.hdr`}></YoEnv>
 
-        <Environment path={'https://lab.agape.land'} files={`/hdr/grass.hdr`}></Environment>
         {/* <directionalLight intensity={3} position={[1, 1, 1]}></directionalLight> */}
         {/* 
         <EffectComposer multisampling={0} disableNormalPass>

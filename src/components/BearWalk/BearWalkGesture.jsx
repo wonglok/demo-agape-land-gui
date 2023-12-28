@@ -15,7 +15,7 @@ import {
   Gltf,
 } from '@react-three/drei'
 import { useMouse } from './useMouse.js'
-import { createPortal, useFrame, useThree } from '@react-three/fiber'
+import { createPortal, useFrame, useLoader, useThree } from '@react-three/fiber'
 import { Suspense, useEffect, useMemo, useRef, useState } from 'react'
 import { DoubleSide, FrontSide, Vector3 } from 'three'
 import { sceneToCollider } from './Noodle/sceneToCollider.js'
@@ -27,6 +27,8 @@ import { Ray, Matrix4, Sphere as Sphere3JS } from 'three'
 import { useMouseCache } from './useMouseCache.jsx'
 import { GameModeAdapter } from '../Runner/GameModeAdapter.jsx'
 import { useAgape } from './useAgape.jsx'
+import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js'
+import { YoEnv } from '../Common/YoEnv.jsx'
 
 export function BearWalkGesture() {
   let camera = useThree((r) => r.camera)
@@ -71,7 +73,7 @@ export function BearWalkGesture() {
         <Gltf src={`/bear-walk/grass.glb`}></Gltf>
 
         <Suspense fallback={null}>
-          <Environment background files={`/mouse/envMap/poly_haven_studio_1k.hdr`}></Environment>
+          <YoEnv background files={`/mouse/envMap/poly_haven_studio_1k.hdr`}></YoEnv>
 
           <group position={[0, 0, 0]}>
             <group rotation={[0, 0, 0]} scale={1}>
@@ -88,6 +90,7 @@ export function BearWalkGesture() {
   )
 }
 
+
 function Player() {
   //
 
@@ -97,7 +100,7 @@ function Player() {
   let beacon = useMouse((r) => r.beacon)
 
   useEffect(() => {
-    let hh = ({ detail }) => {}
+    let hh = ({ detail }) => { }
     window.addEventListener('grab-start', hh)
     return () => {
       window.removeEventListener('grab-start', hh)

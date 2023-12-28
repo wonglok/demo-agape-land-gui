@@ -13,6 +13,7 @@ import {
   SphereGeometry,
   sRGBEncoding,
 } from 'three'
+import { YoEnv } from '../Common/YoEnv'
 
 export function FanGestures() {
   let gui2d = useFingers((r) => r.gui2d)
@@ -53,7 +54,7 @@ export function Core() {
   return (
     <>
       <>
-        <Environment files={`/Handlandmark/room.hdr`}></Environment>
+        <YoEnv files={`/Handlandmark/room.hdr`}></YoEnv>
         <MyLandmarks></MyLandmarks>
         <PinchCompos></PinchCompos>
         <OrbitControls object-position={[0, 0, 20]} target={[0, 0, 0]} makeDefault></OrbitControls>
@@ -179,7 +180,7 @@ function PinchCompos() {
   }, [])
 
   useEffect(() => {
-    let hh = () => {}
+    let hh = () => { }
     window.addEventListener('stopZooming', hh)
     return () => {
       window.removeEventListener('stopZooming', hh)

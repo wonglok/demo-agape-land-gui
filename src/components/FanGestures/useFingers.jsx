@@ -18,7 +18,7 @@ export const useFingers = create((set, get) => {
     viewport: { width: 1, height: 1 },
 
     video: false,
-    cancelVideoSetup: () => {},
+    cancelVideoSetup: () => { },
     tasks: [],
     onLoop: onLoop,
 
@@ -283,7 +283,7 @@ export const useFingers = create((set, get) => {
           delegate: 'GPU',
         },
         runningMode: 'VIDEO',
-        numHands: 2,
+        numHands: 3,
       })
       video.onplaying = async () => {
         await handLandmarker.setOptions({ runningMode: 'VIDEO', baseOptions: { delegate: 'GPU' } })

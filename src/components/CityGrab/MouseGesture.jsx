@@ -12,7 +12,7 @@ import {
   Box,
 } from '@react-three/drei'
 import { useMouse } from './useMouse.js'
-import { createPortal, useFrame, useThree } from '@react-three/fiber'
+import { createPortal, useFrame, useLoader, useThree } from '@react-three/fiber'
 import { Suspense, useEffect, useMemo, useRef, useState } from 'react'
 import { DoubleSide, FrontSide, Vector3 } from 'three'
 import { sceneToCollider } from './Noodle/sceneToCollider.js'
@@ -22,6 +22,8 @@ import anime from 'animejs'
 import { DragControls } from 'three/examples/jsm/controls/DragControls.js'
 import { Ray, Matrix4, Sphere as Sphere3JS } from 'three'
 import { useMouseCache } from './useMouseCache.jsx'
+import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js'
+import { YoEnv } from '../Common/YoEnv.jsx'
 
 export function MouseGesture() {
   let camera = useThree((r) => r.camera)
@@ -98,7 +100,7 @@ export function MouseGesture() {
         </group>
 
         <Suspense fallback={null}>
-          <Environment background files={`/mouse/envMap/poly_haven_studio_1k.hdr`}></Environment>
+          <YoEnv background files={`/mouse/envMap/poly_haven_studio_1k.hdr`}></YoEnv>
 
           <group position={[0, -1, -30]}>
             <group rotation={[0, 0, 0]} scale={1}>
@@ -113,7 +115,6 @@ export function MouseGesture() {
     </>
   )
 }
-
 function Vars() {
   let camera = useThree((r) => r.camera)
   useEffect(() => {

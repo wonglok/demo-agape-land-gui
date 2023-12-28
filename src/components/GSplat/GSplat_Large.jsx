@@ -6,6 +6,7 @@ import anime from 'animejs'
 import { Object3D } from 'three'
 import { Box, Environment, OrbitControls, Sphere, TransformControls } from '@react-three/drei'
 import { PLYLoader } from 'three-stdlib'
+import { YoEnv } from '../Common/YoEnv'
 
 // import { Bloom, EffectComposer } from '@react-three/postprocessing'
 // import { MeshBasicMaterial } from 'three147'
@@ -20,7 +21,7 @@ export function GSplat() {
         <OrbitControls makeDefault object-position={[-4, 0.5, -1.5]} target={[0, 0, 0.0]}></OrbitControls>
         <Content></Content>
 
-        <Environment path={'https://lab.agape.land'} files={`/hdr/grass.hdr`}></Environment>
+        <YoEnv files={`/Handlandmark/room.hdr`}></YoEnv>
         <directionalLight intensity={3} position={[1, 1, 1]}></directionalLight>
 
         {/* <EffectComposer multisampling={0} disableNormalPass>

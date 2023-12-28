@@ -4,6 +4,7 @@ import { useThree, useFrame, Canvas } from '@react-three/fiber'
 import { Box, OrbitControls, Plane, Sphere, Sky, Environment } from '@react-three/drei'
 import { usePlane, useBox, Physics, useSphere } from '@react-three/cannon140'
 import { joints } from './joints'
+import { YoEnv } from '../Common/YoEnv'
 
 export function XRHandBlock() {
   return (
@@ -25,7 +26,7 @@ export function XRHandBlock() {
               restitution: 0,
             }}
 
-            //
+          //
           >
             <Scene />
           </Physics>
@@ -129,7 +130,7 @@ function Scene() {
         </HandsReady>
       </Gate>
 
-      <Environment files={`/xr-blocks/grass.hdr`} />
+      <YoEnv background files={`/xr-blocks/grass.hdr`}></YoEnv>
 
       {[...Array(7)].map((_, i) => (
         <Cube key={i} position={[0, 1.1 + 0.1 * i, -0.5]} />

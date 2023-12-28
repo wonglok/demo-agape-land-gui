@@ -13,15 +13,13 @@ import { GameModeAdapter } from '../Runner/GameModeAdapter'
 export function Garage() {
   return (
     <>
-      <Canvas onCreated={(st) => {}}>
+      <Canvas onCreated={(st) => { }}>
         {/* <Box>
           <meshStandardMaterial></meshStandardMaterial>
         </Box> */}
 
         {/*  */}
         <PPSwitch useStore={useAgape}></PPSwitch>
-
-        {/* <Environment files={`${baseURL}/agape-sdk/hdr/concret.hdr`}></Environment> */}
 
         <CamConfig></CamConfig>
         <group visible={true}>

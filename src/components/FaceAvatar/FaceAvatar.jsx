@@ -5,8 +5,9 @@ import { Clock, DoubleSide, MathUtils, Matrix4, Object3D, Quaternion } from 'thr
 import { AnimationMixer } from 'three'
 import { create } from 'zustand'
 import { AvatarPicker } from './AvatarPicker'
+import { YoEnv } from '../Common/YoEnv'
 
-let running = async ({ onLoop, setList = () => {}, setData = () => {} }) => {
+let running = async ({ onLoop, setList = () => { }, setData = () => { } }) => {
   const { FaceLandmarker, FilesetResolver } = await import('@mediapipe/tasks-vision').then((r) => {
     return {
       FaceLandmarker: r.FaceLandmarker,
@@ -141,7 +142,7 @@ let running = async ({ onLoop, setList = () => {}, setData = () => {} }) => {
   })
 }
 
-export function FaceAvatarCore({ onList = () => {}, onData = () => {} }) {
+export function FaceAvatarCore({ onList = () => { }, onData = () => { } }) {
   useEffect(() => {
     let works = []
     let onLoop = (v) => {
@@ -339,10 +340,11 @@ function Content() {
           )
         })}
       </group>
-      {<Environment path={'https://lab.agape.land'} files={`/lok/shanghai.hdr`}></Environment>}
+      {<YoEnv path={'https://lab.agape.land'} files={`/lok/shanghai.hdr`}></YoEnv>}
     </group>
   )
 }
+
 
 function AvatarCore({ url = `/FaceAvatar/avatar/stand.glb`, morphTargets, o3d, ...props }) {
   // let glb = useGLTF(`/FaceAvatar/avatar/face.glb`)
