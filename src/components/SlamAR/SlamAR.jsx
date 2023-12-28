@@ -39,7 +39,10 @@ class ARCamView {
     this.objectRoot.position.set(x, y, z)
     this.objectRoot.visible = false
 
-    this.objectRoot.add(new THREE.GridHelper(100, 100, 0xff0000, 0xbababa))
+    {
+      let planeXZ = new THREE.GridHelper(100, 500, 0xff0000, 0xbababa)
+      this.objectRoot.add(planeXZ)
+    }
 
     this.scene = new THREE.Scene()
     this.scene.add(this.objectRoot)
@@ -134,6 +137,7 @@ async function main() {
   const $canvas = document.createElement('canvas')
   const $overlay = document.getElementById('overlay')
   const $start = document.getElementById('start_button')
+  const $reset = document.getElementById('reset-slam')
   const $splash = await new Promise((resolve) => {
     let ttt = setInterval(() => {
       let splash = document.getElementById('splash')
@@ -196,8 +200,16 @@ async function main() {
 
         if (pose) {
           view.updateCameraPose(pose)
+
+          if ($reset.style.opacity !== 1.0) {
+            $reset.style.opacity = 1.0
+          }
         } else {
           view.lostCamera()
+
+          if ($reset.style.opacity !== 0.0) {
+            $reset.style.opacity = 0.0
+          }
 
           const dots = alva.getFramePoints()
 
@@ -336,7 +348,7 @@ export function SlamAR() {
             position: absolute;
             width: 100%;
             white-space: pre-wrap;
-            content: "Please allow access \A to your camera.";
+            content: "Please allow access to your camera.";
             top:calc(50% + 50px);
             text-align: center;
             color: #949494;
@@ -389,12 +401,21 @@ export function SlamAR() {
             position: absolute;
             top: 30px;
             right: 30px;
-            background: white;
             width: 100px;
-            height: 40px;
-            line-height: 40px;
             text-align: center;
-            pointer-events: none;
+
+            background: transparent;
+            border: 1px solid rgb(255, 255, 255);
+            border-radius: 4px;
+            color: #ffffff;
+            padding: 12px 18px;
+            text-transform: uppercase;
+            cursor: pointer;
+
+            opacity: 0.0;
+            backdrop-filter: blur(2px);
+
+            transition: all 0.5s ease;
         }
     `,
         }}
