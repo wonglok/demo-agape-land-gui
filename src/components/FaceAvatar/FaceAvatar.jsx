@@ -340,7 +340,7 @@ function Content() {
           )
         })}
       </group>
-      {<YoEnv path={'https://lab.agape.land'} files={`/lok/shanghai.hdr`}></YoEnv>}
+      {<YoEnv files={`/xr-blocks/grass.hdr`}></YoEnv>}
     </group>
   )
 }

@@ -22,7 +22,7 @@ export function GSplat() {
         {/* <Sphere position={[-2, 0, 0]} args={[1, 32, 32]}>
           <meshPhysicalMaterial metalness={0} transmission={1} thickness={1.1} roughness={0}></meshPhysicalMaterial>
         </Sphere> */}
-        <YoEnv files={`/hdr/grass.hdr`}></YoEnv>
+        <YoEnv files={`/xr-blocks/grass.hdr`}></YoEnv>
 
         {/* <directionalLight intensity={3} position={[1, 1, 1]}></directionalLight> */}
         {/* 
