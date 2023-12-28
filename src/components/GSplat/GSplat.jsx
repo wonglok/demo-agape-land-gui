@@ -255,7 +255,7 @@ class SPlatMobileClass extends Group {
           }
         }
 
-        const centerAndScaleTexture = new THREE.DataTexture(centerAndScaleData, 1024, 1024, THREE.RGBA, THREE.FloatType)
+        const centerAndScaleTexture = new THREE.DataTexture(centerAndScaleData, 1024, 1024, THREE.RGBAFormat, THREE.FloatType)
         centerAndScaleTexture.needsUpdate = true
         const covAndColorTexture = new THREE.DataTexture(
           covAndColorData,
