@@ -181,6 +181,40 @@ async function main() {
     /** @type {HTMLVideoElement} */
     let vid = $video
 
+    let mojis = `
+😭
+😂
+🥺
+🤣
+❤️
+✨
+🙏
+😍
+🥰
+😊
+😂
+❤️
+🤣
+👍
+😭
+🙏
+😘
+🥰
+😍
+😊
+😂
+❤️
+😍
+🤣
+😊
+🙏
+💕
+😭
+😘
+👍
+`
+    const emojis = mojis.trim().split('\n').map(r => r.trim().replace('\n', '')).filter(r => r)
+
     let SLAMFFrame = () => {
       Stats.next()
       Stats.start('total')
@@ -197,6 +231,19 @@ async function main() {
         const pose = alva.findCameraPose(frame)
         Stats.stop('slam')
 
+        // render
+        {
+          const dots = alva.getFramePoints()
+          let i = 0
+          for (const p of dots) {
+            ctx.fillStyle = 'white'
+            // ctx.fillRect(p.x, p.y, 2, 2)
+            ctx.font = '12px serif'
+            ctx.fillText(emojis[i % emojis.length], p.x, p.y);
+            i++
+          }
+        }
+
         if (pose) {
           view.updateCameraPose(pose)
 
@@ -210,12 +257,7 @@ async function main() {
             $reset.style.opacity = 0.0
           }
 
-          const dots = alva.getFramePoints()
 
-          for (const p of dots) {
-            ctx.fillStyle = 'white'
-            ctx.fillRect(p.x, p.y, 2, 2)
-          }
         }
       }
 
@@ -244,7 +286,6 @@ async function main() {
       () => {
         $overlay.style.opacity = 0
         $overlay.style.pointerEvents = 'none'
-        // $overlay.remove()
 
         Camera.Initialize(config)
           .then((media) => demo(media))
