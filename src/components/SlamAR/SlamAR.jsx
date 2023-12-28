@@ -115,7 +115,7 @@ async function main() {
   let { Stats } = await window.remoteImport('/slam-ar/assets/stats.js')
   let { AlvaAR } = await window.remoteImport('/slam-ar/assets/alva_ar.js')
   // let { ARCamView } = await window.remoteImport('/slam-ar/assets/view.js')
-  let { Camera, onFrame, resize2cover } = await window.remoteImport('/slam-ar/assets/utils.js')
+  let { Camera, resize2cover } = await window.remoteImport('/slam-ar/assets/utils.js')
 
   const config = {
     video: {
