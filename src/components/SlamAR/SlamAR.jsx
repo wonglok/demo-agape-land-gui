@@ -33,11 +33,12 @@ class ARCamView {
     this.camera2 = this.camera.clone()
 
     this.objectRoot = new THREE.Object3D()
-    let { x = 0, y = 0, z = -10, scale = 1.0 } = {}
+    let { x = 0, y = 0, z = 0, scale = 1.0 } = {}
     this.objectRoot.scale.set(scale, scale, scale)
     this.objectRoot.position.set(x, y, z)
     this.objectRoot.visible = false
 
+    this.objectRoot.add(new THREE.GridHelper(10, 10, 0xff0000, 0xbababa))
 
     this.scene = new THREE.Scene()
     this.scene.add(this.objectRoot)
@@ -97,8 +98,8 @@ class ARCamView {
   updateCameraPose(pose) {
     this.applyPose(pose, this.camera2.quaternion, this.camera2.position)
 
-    this.camera.position.lerp(this.camera2.position, 0.3)
-    this.camera.quaternion.slerp(this.camera2.quaternion, 0.3)
+    this.camera.position.lerp(this.camera2.position, 0.7)
+    this.camera.quaternion.slerp(this.camera2.quaternion, 0.7)
 
     this.objectRoot.visible = true
     // this.gpu.visible = true
