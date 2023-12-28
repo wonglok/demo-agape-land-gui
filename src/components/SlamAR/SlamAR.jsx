@@ -48,7 +48,6 @@ class ARCamView {
     this.scene.add(this.objectRoot)
 
 
-
     // this.gpu = new GPURun({ gl: this.renderer })
     // this.scene.add(this.gpu)
 
