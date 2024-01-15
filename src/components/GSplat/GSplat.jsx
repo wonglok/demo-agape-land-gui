@@ -18,12 +18,11 @@ export function GSplat() {
         <color args={[0x000000]} attach={'background'}></color>
         <OrbitControls makeDefault object-position={[-4, 0.5, -1.5]} target={[0, 0, 0.0]}></OrbitControls>
         <Content></Content>
+        <YoEnv files={`/xr-blocks/grass.hdr`}></YoEnv>
 
         {/* <Sphere position={[-2, 0, 0]} args={[1, 32, 32]}>
           <meshPhysicalMaterial metalness={0} transmission={1} thickness={1.1} roughness={0}></meshPhysicalMaterial>
         </Sphere> */}
-        <YoEnv files={`/xr-blocks/grass.hdr`}></YoEnv>
-
         {/* <directionalLight intensity={3} position={[1, 1, 1]}></directionalLight> */}
         {/* 
         <EffectComposer multisampling={0} disableNormalPass>
@@ -32,8 +31,6 @@ export function GSplat() {
 
         <Focus></Focus>
       </Canvas>
-
-      {/*  */}
     </>
   )
 }
@@ -42,14 +39,19 @@ function Focus() {
   // let controls = useThree((r) => r.controls)
   let ball = useRef()
   let camera = useThree((r) => r.camera)
+
   return (
     <>
       <Box
         frustumCulled={false}
         position={[0, -1.5, 0]}
         onClick={(ev) => {
+          //
+          //
+          //
+          //
           // controls.target.set(ev.point.x, ev.point.y, ev.point.z)
-
+          //
           // anime({
           //   targets: [controls.target, ball.current.position],
           //   x: ev.point.x,
@@ -58,6 +60,10 @@ function Focus() {
           //   duration: 1000,
           //   easing: 'easeOutQuad',
           // })
+          //
+          //
+          //
+          //
 
           window.dispatchEvent(
             new CustomEvent('click-floor', {
