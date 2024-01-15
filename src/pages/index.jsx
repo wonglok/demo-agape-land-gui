@@ -9,6 +9,9 @@ export default function Page() {
           </a> */}
 
           {/*  */}
+          <a href={`/embed`} target='_blank'>
+            <li className='mb-2 list-item list-inside list-decimal'>Embed Virtual Tour</li>
+          </a>
           <a href={`/bvh-sdf`} target='_blank'>
             <li className='mb-2 list-item list-inside list-decimal'>Bvh GPU SDF</li>
           </a>
