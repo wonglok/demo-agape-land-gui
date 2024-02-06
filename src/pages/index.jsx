@@ -16,7 +16,7 @@ export default function Page() {
             <li className='mb-2 list-item list-inside list-decimal'>XR - Block</li>
           </a>
           <a href={`/xr-wings`} target='_blank'>
-            <li className='mb-2 list-item list-inside list-decimal'>XR - Wings</li>
+            <li className='mb-2 list-item list-inside list-decimal'>GPGPU - Wings</li>
           </a>
           {/*  */}
           <a href={`/embed`} target='_blank'>
