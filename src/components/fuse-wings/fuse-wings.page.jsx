@@ -5,6 +5,7 @@ import { Box, Environment, OrbitControls, Stats, useFBX, useGLTF } from '@react-
 import { Bloom, EffectComposer } from '@react-three/postprocessing'
 import { Color } from 'three'
 import { FBXLoader } from 'three-stdlib'
+import { YoEnv } from '../Common/YoEnv'
 
 export function FuseWings() {
   return (
@@ -36,7 +37,8 @@ export function FuseWings() {
       </EffectComposer>
       <Stats></Stats>
       <directionalLight></directionalLight>
-      <Environment files={`/hdr/shanghai.hdr`}></Environment>
+      <YoEnv files={`/hdr/shanghai.hdr`}></YoEnv>
+      {/* <Environment files={`/hdr/shanghai.hdr`}></Environment> */}
     </Canvas>
   )
 }
