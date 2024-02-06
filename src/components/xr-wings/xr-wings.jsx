@@ -16,7 +16,7 @@ export function XRWings() {
         <XR>
 
           {/* <BG></BG> */}
-          <group>
+          <group position={[0, 1.5, -0.5]}>
             <Suspense fallback={null}>
               <SkinnedParticles
                 motionURLs={[
