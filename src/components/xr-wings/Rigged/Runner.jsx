@@ -176,7 +176,7 @@ export class Runner extends Object3D {
       this.u_mixerProgress = (this.mixer.time / glb.animations[0].duration) % 1.0
     })
 
-    let play = (cursor = 0, cb = () => {}) => {
+    let play = (cursor = 0, cb = () => { }) => {
       this.motionPromises.forEach((it, idx) => {
         if (idx === cursor) {
           it.then((r) => {
@@ -284,7 +284,7 @@ class Display extends Object3D {
       shader.vertexShader = shader.vertexShader.replace(
         `}`,
         `
-          gl_PointSize = 1.0;
+          gl_PointSize = 2.0;
         }`,
       )
 
@@ -325,9 +325,9 @@ class Display extends Object3D {
           float t = (time + o_pos.a * 0.76 + o_move.a * 0.76);
           
           vec3 myColor = cosPalette(t,vec3(0.21,0.55,0.63),vec3(0.2,0.5,0.33),vec3(0.2,0.18,0.75),vec3(0.06,0.16,0.65));
-          if (rand(vMyUV.xy) <= 0.0005) {
-            myColor += 35.0 * (myColor);
-          }
+          // if (rand(vMyUV.xy) <= 0.0005) {
+          //   myColor += 35.0 * (myColor);
+          // }
           gl_FragColor.rgb = myColor * 1.3;
           gl_FragColor.a = 1.0;
         `,

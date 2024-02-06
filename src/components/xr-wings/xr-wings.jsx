@@ -16,7 +16,7 @@ export function XRWings() {
         <XR>
 
           {/* <BG></BG> */}
-          <group position={[0, 1.5, -0.5]}>
+          <group position={[0, 1.6, -0.2]}>
             <Suspense fallback={null}>
               <SkinnedParticles
                 motionURLs={[
@@ -45,6 +45,8 @@ export function XRWings() {
           <YoEnv files={`/hdr/shanghai.hdr`}></YoEnv>
 
         </XR>
+
+        <AngelWing></AngelWing>
 
         {/* <Environment files={`/hdr/shanghai.hdr`}></Environment> */}
       </Canvas>
@@ -79,6 +81,13 @@ export function XRWings() {
     </div>
 
   )
+}
+
+function AngelWing() {
+  let glb = useGLTF(`/angel/angel.glb`)
+  return <>
+    <primitive object={glb.scene}></primitive>
+  </>
 }
 
 function SkinnedParticles({ motionURLs = [`/fuse/mixa-motion/mma-kick4-side.fbx`], url = `/wings/wing1.glb` }) {
