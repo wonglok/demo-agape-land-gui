@@ -16,26 +16,31 @@ export function XRWings() {
         <XR>
 
           {/* <BG></BG> */}
-          <group position={[0, 1.6, -0.2]}>
-            <Suspense fallback={null}>
-              <SkinnedParticles
-                motionURLs={[
-                  // // `/fuse/mixa-motion/mma-warmup.fbx`,
-                  // `/fuse/mixa-motion/mma-taunt2.fbx`,
-                  // `/fuse/mixa-motion/mma-kick4-side.fbx`,
+          <group position={[0, 0, -1.0]}>
+            <group position={[0, 1.6, -0.2]}>
+              <Suspense fallback={null}>
+                <SkinnedParticles
+                  motionURLs={[
+                    // // `/fuse/mixa-motion/mma-warmup.fbx`,
+                    // `/fuse/mixa-motion/mma-taunt2.fbx`,
+                    // `/fuse/mixa-motion/mma-kick4-side.fbx`,
 
-                  // `/fuse/mixa-motion/mma-warmup.fbx`,
-                  // `/fuse/mixa-motion/mma-kick1.fbx`,
-                  // `/fuse/mixa-motion/mma-kick2.fbx`,
-                  // `/fuse/mixa-motion/mma-kick3.fbx`,
-                  // `/fuse/mixa-motion/mma-quad-punch.fbx`,
-                  // `/fuse/mixa-motion/mma-taunt.fbx`,
-                  // `/fuse/mixa-motion/mma-idle.fbx`,
-                ]}
-                url={`/wings/wing1.glb`}
-              ></SkinnedParticles>
-            </Suspense>
+                    // `/fuse/mixa-motion/mma-warmup.fbx`,
+                    // `/fuse/mixa-motion/mma-kick1.fbx`,
+                    // `/fuse/mixa-motion/mma-kick2.fbx`,
+                    // `/fuse/mixa-motion/mma-kick3.fbx`,
+                    // `/fuse/mixa-motion/mma-quad-punch.fbx`,
+                    // `/fuse/mixa-motion/mma-taunt.fbx`,
+                    // `/fuse/mixa-motion/mma-idle.fbx`,
+                  ]}
+                  url={`/wings/wing1.glb`}
+                ></SkinnedParticles>
+              </Suspense>
+            </group>
+            <AngelWing></AngelWing>
           </group>
+
+
           <OrbitControls makeDefault object-position={[0, 0, 2]} target={[0, 0, 0]} />
           {/* <EffectComposer disableNormalPass multisampling={0}>
         <Bloom mipmapBlur intensity={2.5} luminanceThreshold={0.7} />
@@ -46,7 +51,6 @@ export function XRWings() {
 
         </XR>
 
-        <AngelWing></AngelWing>
 
         {/* <Environment files={`/hdr/shanghai.hdr`}></Environment> */}
       </Canvas>
