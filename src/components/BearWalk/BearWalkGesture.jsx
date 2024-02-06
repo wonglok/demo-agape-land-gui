@@ -25,9 +25,9 @@ import anime from 'animejs'
 import { DragControls } from 'three/examples/jsm/controls/DragControls.js'
 import { Ray, Matrix4, Sphere as Sphere3JS } from 'three'
 import { useMouseCache } from './useMouseCache.jsx'
-import { GameModeAdapter } from '../Runner/GameModeAdapter.jsx'
-import { useAgape } from './useAgape.jsx'
-import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js'
+// import { GameModeAdapter } from '../Runner/GameModeAdapter.jsx'
+// import { useAgape } from './useAgape.jsx'
+// import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js'
 import { YoEnv } from '../Common/YoEnv.jsx'
 
 export function BearWalkGesture() {
@@ -48,6 +48,8 @@ export function BearWalkGesture() {
         <Insert></Insert>
 
         <Vars></Vars>
+
+
 
         {createPortal(
           <group position={[0, 0, -5]}>

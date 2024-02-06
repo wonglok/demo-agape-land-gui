@@ -8,6 +8,12 @@ export default function Page() {
             <li className='mb-2 list-item list-inside list-decimal'>Age Of VFX Empire</li>
           </a> */}
 
+          <a href={`/xr-flow`} target='_blank'>
+            <li className='mb-2 list-item list-inside list-decimal'>XR - Hair Simulation</li>
+          </a>
+          <a href={`/xr-blocks`} target='_blank'>
+            <li className='mb-2 list-item list-inside list-decimal'>XR - Block</li>
+          </a>
           {/*  */}
           <a href={`/embed`} target='_blank'>
             <li className='mb-2 list-item list-inside list-decimal'>Embed Virtual Tour</li>
@@ -43,9 +49,7 @@ export default function Page() {
           <a href={`/vending-machine`} target='_blank'>
             <li className='mb-2 list-item list-inside list-decimal'>Vending Machine</li>
           </a>
-          <a href={`/xr-blocks`} target='_blank'>
-            <li className='mb-2 list-item list-inside list-decimal'>XR Lego</li>
-          </a>
+
 
           <a href={`/face-move`} target='_blank'>
             <li className='mb-2 list-item list-inside list-decimal'>Webcam - FaceMovement</li>
