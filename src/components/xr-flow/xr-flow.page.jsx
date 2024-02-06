@@ -17,6 +17,7 @@ import { Hands, XR, XRButton, useXR } from '@react-three/xr'
 import { XRAdapter } from './XRAdapter'
 import { useEffect, useRef, useState } from 'react'
 import { HandJoints } from './Hand'
+import { YoEnv } from '../Common/YoEnv'
 
 export function XRFlow() {
   return (
@@ -69,10 +70,12 @@ export function XRFlow() {
   )
 }
 
+
 function Content() {
   return (
     <>
-      <Environment background files={`/hdr/shanghai.hdr`}></Environment>
+      {/* <Environment background files={`/hdr/shanghai.hdr`}></Environment> */}
+      <YoEnv background files={`/hdr/shanghai.hdr`}></YoEnv>
       <group scale={[1, 1, 1]} position={[0, 0, 0]}>
         <Rain></Rain>
       </group>
