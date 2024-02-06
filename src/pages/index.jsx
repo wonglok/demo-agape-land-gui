@@ -7,7 +7,8 @@ export default function Page() {
           {/* <a href={`/vfx`} target='_blank'>
             <li className='mb-2 list-item list-inside list-decimal'>Age Of VFX Empire</li>
           </a> */}
-
+          {/*  */}
+          {/*  */}
 
           <a href={`/xr-flow`} target='_blank'>
             <li className='mb-2 list-item list-inside list-decimal'>XR - Hair Simulation</li>
@@ -16,8 +17,13 @@ export default function Page() {
             <li className='mb-2 list-item list-inside list-decimal'>XR - Block</li>
           </a>
           <a href={`/xr-wings`} target='_blank'>
-            <li className='mb-2 list-item list-inside list-decimal'>GPGPU - Wings</li>
+            <li className='mb-2 list-item list-inside list-decimal'>XR - Wings</li>
           </a>
+          <a href={`/gpgpu-wings`} target='_blank'>
+            <li className='mb-2 list-item list-inside list-decimal'>GPGPU + Vertex Texture - Wings</li>
+          </a>
+          {/*  */}
+
           {/*  */}
           <a href={`/embed`} target='_blank'>
             <li className='mb-2 list-item list-inside list-decimal'>Embed Virtual Tour</li>

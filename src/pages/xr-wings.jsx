@@ -1,3 +1,3 @@
-import { FuseWings } from "@/components/fuse-wings/fuse-wings.page";
+import { XRWings } from "@/components/xr-wings/xr-wings";
 
-export default FuseWings
+export default XRWings
