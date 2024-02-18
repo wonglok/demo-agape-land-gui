@@ -4,6 +4,7 @@ import {
   Environment,
   MeshDiscardMaterial,
   OrbitControls,
+  PerspectiveCamera,
   Plane,
   Sphere,
   useTexture,
@@ -19,7 +20,7 @@ export function WaterSurface({ }) {
     <>
       <Canvas>
         <WaterSurfaceContent></WaterSurfaceContent>
-        <YoEnv background={true} files={`/hdr/grass.hdr`}></YoEnv>
+        <YoEnv background={true} files={`/hdr/thatch_chapel_2k.hdr`}></YoEnv>
         {/* <Environment path={'https://lab.agape.land'} background files={`/lok/street.hdr`}></Environment> */}
       </Canvas>
       {/*  */}
@@ -91,7 +92,7 @@ export function WaterSurfaceContent() {
           material={api.displayMaterial}></Box>
       )}
 
-      {/* <OrbitControls object-position={[0, 0, 15]}></OrbitControls> */}
+      <OrbitControls object-position={[0, 0, 15]}></OrbitControls>
     </>
   )
 }
