@@ -4,6 +4,7 @@ export const useCUHK = create((set, get) => {
   return {
     //
     //
+    showAll: true,
     envURL: '/hdr/venice_sunset_1k.hdr',
     // envURL: '/querlo/ma-galaxy.jpeg',
     myAvatarURL: '/assets/2023-04-07-walk/lok-groom.glb',

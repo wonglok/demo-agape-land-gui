@@ -16,6 +16,9 @@ export function RoomView({ useStore }) {
             glb.scene.traverse((it) => {
               if (it.isLight) {
                 it.visible = false
+                if (useStore.getStore().showAll) {
+                  it.frustumCulled = false
+                }
               }
             })
           }}
