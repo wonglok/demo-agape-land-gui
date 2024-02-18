@@ -4,7 +4,8 @@ export const useCUHK = create((set, get) => {
   return {
     //
     //
-    envURL: '/querlo/ma-galaxy.jpeg',
+    envURL: '/hdr/venice_sunset_1k.hdr',
+    // envURL: '/querlo/ma-galaxy.jpeg',
     myAvatarURL: '/assets/2023-04-07-walk/lok-groom.glb',
     colliderGLBURL: '/world/2023-02-18-CUHK/hospital008-webp.glb',
     gameMode: 'room',

@@ -243,7 +243,7 @@ export class YoMeta extends Object3D {
         this.deltaRot.setFromCylindricalCoords(
           dist,
           this.controls.getAzimuthalAngle() +
-            0.2 * delta * this.keyState.joyStickSide * 15.0
+          0.2 * delta * this.keyState.joyStickSide * 15.0
         );
         let y = this.camera.position.y;
         this.camera.position.sub(this.controls.target);
@@ -254,9 +254,9 @@ export class YoMeta extends Object3D {
         this.player.position.addScaledVector(
           this.tempVector,
           this.params.playerSpeed *
-            delta *
-            this.keyState.joyStickPressure *
-            0.75
+          delta *
+          this.keyState.joyStickPressure *
+          0.75
         );
       }
 
