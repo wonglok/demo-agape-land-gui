@@ -7,15 +7,13 @@ export default function Page() {
           {/* <a href={`/vfx`} target='_blank'>
             <li className='mb-2 list-item list-inside list-decimal'>Age Of VFX Empire</li>
           </a> */}
-          {/*  */}
-          {/*  */}
 
           { //web-watersurface // 
           }
           <a href={`https://cuhk.agape.land/`} target='_blank'>
-            <li className='mb-2 list-item list-inside list-decimal'>CUHK - VR</li>
+            <li className='mb-2 list-item list-inside list-decimal'>CUHK - VR Quest 3</li>
           </a>
-          <a href={`/cuhk`} target='_blank'>
+          <a href={`/cuhk-hd`} target='_blank'>
             <li className='mb-2 list-item list-inside list-decimal'>CUHK - HD Desktop</li>
           </a>
           <a href={`/web-watersurface`} target='_blank'>
